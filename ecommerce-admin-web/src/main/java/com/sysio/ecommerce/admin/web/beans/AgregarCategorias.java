@@ -5,8 +5,14 @@
  */
 package com.sysio.ecommerce.admin.web.beans;
 
+import com.sysio.ecommerce.data.entity.Categorias;
+import com.sysio.ecommerce.data.session.CategoriasSessionRemote;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -16,10 +22,21 @@ import javax.enterprise.context.RequestScoped;
 @RequestScoped
 public class AgregarCategorias {
 
-    /**
-     * Creates a new instance of AgregarCategorias
-     */
+    @EJB
+    private CategoriasSessionRemote categoriasSession;
+    
+    @Setter @Getter Categorias categoria;
+
     public AgregarCategorias() {
+        categoria=new Categorias();
+    }
+    
+    public List<Categorias> lstCategorias(){
+        return categoriasSession.findAll();
+    }
+    
+    public void handlerCrear(){
+        categoriasSession.create(categoria);
     }
     
 }
