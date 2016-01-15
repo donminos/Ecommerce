@@ -1,0 +1,267 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.sysio.ecommerce.data.entity;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author Carlos Cesar Rosas<face_less@hotmail.com>
+ */
+@Entity
+@Table(name = "DatosUsuario")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "DatosUsuario.findAll", query = "SELECT d FROM DatosUsuario d"),
+    @NamedQuery(name = "DatosUsuario.findByIdDatosUsuario", query = "SELECT d FROM DatosUsuario d WHERE d.idDatosUsuario = :idDatosUsuario"),
+    @NamedQuery(name = "DatosUsuario.findByNombre", query = "SELECT d FROM DatosUsuario d WHERE d.nombre = :nombre"),
+    @NamedQuery(name = "DatosUsuario.findByApellidoPaterno", query = "SELECT d FROM DatosUsuario d WHERE d.apellidoPaterno = :apellidoPaterno"),
+    @NamedQuery(name = "DatosUsuario.findByApellidoMaterno", query = "SELECT d FROM DatosUsuario d WHERE d.apellidoMaterno = :apellidoMaterno"),
+    @NamedQuery(name = "DatosUsuario.findByCp", query = "SELECT d FROM DatosUsuario d WHERE d.cp = :cp"),
+    @NamedQuery(name = "DatosUsuario.findByEstado", query = "SELECT d FROM DatosUsuario d WHERE d.estado = :estado"),
+    @NamedQuery(name = "DatosUsuario.findByCiudad", query = "SELECT d FROM DatosUsuario d WHERE d.ciudad = :ciudad"),
+    @NamedQuery(name = "DatosUsuario.findByDelegacion", query = "SELECT d FROM DatosUsuario d WHERE d.delegacion = :delegacion"),
+    @NamedQuery(name = "DatosUsuario.findByColonia", query = "SELECT d FROM DatosUsuario d WHERE d.colonia = :colonia"),
+    @NamedQuery(name = "DatosUsuario.findByTelefonoCelular", query = "SELECT d FROM DatosUsuario d WHERE d.telefonoCelular = :telefonoCelular"),
+    @NamedQuery(name = "DatosUsuario.findByTelefonoOtro", query = "SELECT d FROM DatosUsuario d WHERE d.telefonoOtro = :telefonoOtro"),
+    @NamedQuery(name = "DatosUsuario.findByNumeroInt", query = "SELECT d FROM DatosUsuario d WHERE d.numeroInt = :numeroInt"),
+    @NamedQuery(name = "DatosUsuario.findByNumeroExt", query = "SELECT d FROM DatosUsuario d WHERE d.numeroExt = :numeroExt")})
+public class DatosUsuario implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDatosUsuario")
+    private Integer idDatosUsuario;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "Nombre")
+    private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "ApellidoPaterno")
+    private String apellidoPaterno;
+    @Size(max = 45)
+    @Column(name = "ApellidoMaterno")
+    private String apellidoMaterno;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "CP")
+    private String cp;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "Estado")
+    private String estado;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "Ciudad")
+    private String ciudad;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "Delegacion")
+    private String delegacion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "Colonia")
+    private String colonia;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "TelefonoCelular")
+    private String telefonoCelular;
+    @Size(max = 45)
+    @Column(name = "TelefonoOtro")
+    private String telefonoOtro;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "NumeroInt")
+    private String numeroInt;
+    @Size(max = 45)
+    @Column(name = "NumeroExt")
+    private String numeroExt;
+    @JoinColumn(name = "idDatosUsuario", referencedColumnName = "idUsuario", insertable = false, updatable = false)
+    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    private Usuarios usuarios;
+
+    public DatosUsuario() {
+    }
+
+    public DatosUsuario(Integer idDatosUsuario) {
+        this.idDatosUsuario = idDatosUsuario;
+    }
+
+    public DatosUsuario(Integer idDatosUsuario, String nombre, String apellidoPaterno, String cp, String estado, String ciudad, String delegacion, String colonia, String telefonoCelular, String numeroInt) {
+        this.idDatosUsuario = idDatosUsuario;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.cp = cp;
+        this.estado = estado;
+        this.ciudad = ciudad;
+        this.delegacion = delegacion;
+        this.colonia = colonia;
+        this.telefonoCelular = telefonoCelular;
+        this.numeroInt = numeroInt;
+    }
+
+    public Integer getIdDatosUsuario() {
+        return idDatosUsuario;
+    }
+
+    public void setIdDatosUsuario(Integer idDatosUsuario) {
+        this.idDatosUsuario = idDatosUsuario;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public String getCp() {
+        return cp;
+    }
+
+    public void setCp(String cp) {
+        this.cp = cp;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getDelegacion() {
+        return delegacion;
+    }
+
+    public void setDelegacion(String delegacion) {
+        this.delegacion = delegacion;
+    }
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
+    }
+
+    public String getTelefonoCelular() {
+        return telefonoCelular;
+    }
+
+    public void setTelefonoCelular(String telefonoCelular) {
+        this.telefonoCelular = telefonoCelular;
+    }
+
+    public String getTelefonoOtro() {
+        return telefonoOtro;
+    }
+
+    public void setTelefonoOtro(String telefonoOtro) {
+        this.telefonoOtro = telefonoOtro;
+    }
+
+    public String getNumeroInt() {
+        return numeroInt;
+    }
+
+    public void setNumeroInt(String numeroInt) {
+        this.numeroInt = numeroInt;
+    }
+
+    public String getNumeroExt() {
+        return numeroExt;
+    }
+
+    public void setNumeroExt(String numeroExt) {
+        this.numeroExt = numeroExt;
+    }
+
+    public Usuarios getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Usuarios usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idDatosUsuario != null ? idDatosUsuario.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof DatosUsuario)) {
+            return false;
+        }
+        DatosUsuario other = (DatosUsuario) object;
+        if ((this.idDatosUsuario == null && other.idDatosUsuario != null) || (this.idDatosUsuario != null && !this.idDatosUsuario.equals(other.idDatosUsuario))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.sysio.ecommerce.data.entity.DatosUsuario[ idDatosUsuario=" + idDatosUsuario + " ]";
+    }
+    
+}
