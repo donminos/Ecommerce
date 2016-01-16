@@ -10,7 +10,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -73,10 +72,10 @@ public class Cupones implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date termina;
     @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Productos idProducto;
     @JoinColumn(name = "idCategoria", referencedColumnName = "idCategoria")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Categorias idCategoria;
 
     public Cupones() {

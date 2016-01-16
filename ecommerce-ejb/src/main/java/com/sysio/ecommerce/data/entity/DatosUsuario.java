@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -104,7 +103,7 @@ public class DatosUsuario implements Serializable {
     @Column(name = "NumeroExt")
     private String numeroExt;
     @JoinColumn(name = "idDatosUsuario", referencedColumnName = "idUsuario", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.EAGER)
+    @OneToOne(optional = false)
     private Usuarios usuarios;
 
     public DatosUsuario() {

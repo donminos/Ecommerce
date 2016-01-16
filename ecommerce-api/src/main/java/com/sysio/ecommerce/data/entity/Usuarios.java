@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,11 +48,11 @@ public class Usuarios implements Serializable {
     @Size(max = 63)
     @Column(name = "Contrasena")
     private String contrasena;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private UsuarioRol usuarioRol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private List<Pedidos> pedidosList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private DatosUsuario datosUsuario;
 
     public Usuarios() {

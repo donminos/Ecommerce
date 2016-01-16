@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,13 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Imagenes.findAll", query = "SELECT i FROM Imagenes i"),
     @NamedQuery(name = "Imagenes.findByIdImagen", query = "SELECT i FROM Imagenes i WHERE i.idImagen = :idImagen"),
-    @NamedQuery(name = "Imagenes.findByPath", query = "SELECT i FROM Imagenes i WHERE i.path = :path")})
+    @NamedQuery(name = "Imagenes.findByPath", query = "SELECT i FROM Imagenes i WHERE i.path = :path"),
+    @NamedQuery(name = "Imagenes.findByNombre", query = "SELECT i FROM Imagenes i WHERE i.nombre = :nombre")})
 public class Imagenes implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "Nombre")
-    private String nombre;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,8 +45,13 @@ public class Imagenes implements Serializable {
     @Size(min = 1, max = 75)
     @Column(name = "path")
     private String path;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "Nombre")
+    private String nombre;
     @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Productos idProducto;
 
     public Imagenes() {
@@ -61,9 +61,10 @@ public class Imagenes implements Serializable {
         this.idImagen = idImagen;
     }
 
-    public Imagenes(Integer idImagen, String path) {
+    public Imagenes(Integer idImagen, String path, String nombre) {
         this.idImagen = idImagen;
         this.path = path;
+        this.nombre = nombre;
     }
 
     public Integer getIdImagen() {
@@ -80,6 +81,14 @@ public class Imagenes implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Productos getIdProducto() {
@@ -113,14 +122,6 @@ public class Imagenes implements Serializable {
     @Override
     public String toString() {
         return "com.sysio.ecommerce.data.entity.Imagenes[ idImagen=" + idImagen + " ]";
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
     
 }
