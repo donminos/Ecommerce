@@ -15,9 +15,12 @@
             <h:form>
                 <p:panelGrid columns="1" layout="grid">
                     <p:outputLabel value="Subproductos:" for="subproducto" />
-                    <p:selectCheckboxMenu id="subproducto" value="#{agregarProductosBean.subproducto}" label="Productos" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
-                        <f:selectItems value="#{agregarProductosBean.listProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
+                    <p:selectCheckboxMenu id="subproducto" value="#{editarSubproductos.subproducto}" label="Productos" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
+                        <f:selectItems value="#{editarSubproductos.listProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
                     </p:selectCheckboxMenu>
+                    <f:facet name="footer">
+                        <p:commandButton value="Agregar"/>
+                    </f:facet>
                 </p:panelGrid>
             </h:form>
             <h:form>

@@ -24,12 +24,23 @@ public class EditarSubproductos {
     
     @Getter @Setter private Productos producto;
     
+    @Getter @Setter private List<String> subproducto;
+    
     public EditarSubproductos() {
     }
     
     public List<Productos> getLstSubProductos(){
         List<Productos> prod=productosSession.findAllSubFetch(new Productos(idproducto));
         return prod;
+    }
+    public List<Productos> getListProductos(){
+        Productos p=productosSession.find(idproducto);
+        List<Productos> prod=productosSession.findAllFetch();
+        prod.remove(p);
+        return prod;
+    }
+    public void addProducto(){
+        
     }
     
 }
