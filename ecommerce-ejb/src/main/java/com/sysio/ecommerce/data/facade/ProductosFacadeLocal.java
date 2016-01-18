@@ -33,4 +33,8 @@ public interface ProductosFacadeLocal {
     void AgregarProducto(Productos producto);
     
     List<Productos> findAllFetch();
+    
+    List<Productos> findAllSubFetch(Productos producto);
+    
+    void AgregarSubProducto(Productos productoprim, Productos productosec);
 }

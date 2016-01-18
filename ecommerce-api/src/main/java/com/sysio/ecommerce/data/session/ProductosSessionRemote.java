@@ -32,4 +32,8 @@ public interface ProductosSessionRemote {
     public void AgregarProducto(Productos producto);
     
     public List<Productos> findAllFetch();
+    
+    public List<Productos> findAllSubFetch(Productos producto);
+    
+    public void AgregarSubProducto(Productos productoprim, Productos productosec);
 }

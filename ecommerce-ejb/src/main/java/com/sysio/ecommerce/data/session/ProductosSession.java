@@ -64,5 +64,15 @@ public class ProductosSession implements ProductosSessionRemote {
     public List<Productos> findAllFetch() {
         return productosFacade.findAllFetch();
     }
-    
+
+    @Override
+    public List<Productos> findAllSubFetch(Productos producto) {
+        List<Productos> lst=productosFacade.findAllSubFetch(producto);
+        return lst;
+    }
+
+    @Override
+    public void AgregarSubProducto(Productos productoprim, Productos productosec) {
+        productosFacade.AgregarSubProducto(productoprim, productosec);
+    }
 }

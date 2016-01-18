@@ -34,11 +34,28 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     public ProductosFacade() {
         super(Productos.class);
     }
+
     @Override
-    public List<Productos> findAllFetch(){
-        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.categoriasList",Productos.class);
-        List<Productos> productos=query.getResultList();
+    public List<Productos> findAllFetch() {
+        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.categoriasList", Productos.class);
+        List<Productos> productos = query.getResultList();
         return productos;
+    }
+
+    @Override
+    public List<Productos> findAllSubFetch(Productos producto) {
+        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.productosList1 WHERE p.idProducto = :prod", Productos.class);
+        query.setParameter("prod", producto.getIdProducto());
+        Productos productos = (Productos) query.getSingleResult();
+        return productos.getProductosList1();
+    }
+
+    @Override
+    public void AgregarSubProducto(Productos productoprim, Productos productosec) {
+        Query query = em.createNativeQuery("INSERT INTO Subproductos (idProducto,idSubproducto) values(?,?)");
+        query.setParameter(1, productoprim.getIdProducto());
+        query.setParameter(2, productosec.getIdProducto());
+        query.executeUpdate();
     }
 
     @Override
@@ -53,7 +70,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
             query.setParameter(5, producto.getDetalle());
             query.setParameter(6, producto.getMarca());
             query.executeUpdate();
-            producto.setIdProducto(((BigInteger) em.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).intValue() ); //opcion SELECT LAST_INSERT_ID() ó SELECT @@IDENTITY
+            producto.setIdProducto(((BigInteger) em.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).intValue()); //opcion SELECT LAST_INSERT_ID() ó SELECT @@IDENTITY
             for (Categorias cat : producto.getCategoriasList()) {
                 query = em.createNativeQuery("INSERT INTO CategoriaProductos (idProducto,idCategoria) values(?,?)");
                 query.setParameter(1, producto.getIdProducto());
@@ -66,7 +83,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
                 query.setParameter(2, prod.getIdProducto());
                 query.executeUpdate();
             }
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ProductosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
 

@@ -38,8 +38,7 @@ public class AgregarProductosBean {
         producto=new Productos();
     }
     public List<Productos> getListProductos(){
-        List<Productos> prods=productosSession.findAllFetch();
-        return prods;
+        return productosSession.findAllFetch();
     }
     public void createProducto(){
         List<Productos> listProd=new LinkedList();
