@@ -6,7 +6,7 @@
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
       <property name="eclipselink.logging.level" value="ALL"/>
-      <property name="eclipselink.cache.type.default" value="Soft"/>
+      <property name="eclipselink.cache.type.default" value="NONE"/>
     </properties>
   </persistence-unit>
 </persistence>

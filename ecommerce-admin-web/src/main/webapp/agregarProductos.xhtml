@@ -35,7 +35,7 @@
                     </p:selectCheckboxMenu>
                     <p:outputLabel value="Categorias" for="categoria" />
                     <p:selectCheckboxMenu id="categoria" value="#{agregarProductosBean.categorias}" label="Categorias" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
-                        <f:selectItems value="#{agregarProductosBean.listCategorias}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCategoria}" />
+                        <f:selectItems value="#{agregarProductosBean.listCategorias}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCategoria}"/>
                     </p:selectCheckboxMenu>
                     <f:facet name="footer">
                         <p:commandButton value="Aplicar" update="growl,listProducto" action="#{agregarProductosBean.createProducto()}"/>
@@ -103,6 +103,20 @@
                         <h:link outcome="agregarArchivos" value="Agregar Imagenes">
                             <f:param name="idProducto" value="#{item.idProducto}" />
                         </h:link>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="SubProductos"/>
+                        </f:facet>
+                        <h:link outcome="" value="subproductos">
+                            <f:param name="idProducto" value="#{item.idProducto}" />
+                        </h:link>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Editar"/>
+                        </f:facet>
+                        <p:commandLink value="Editar"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

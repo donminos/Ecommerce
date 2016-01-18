@@ -6,7 +6,6 @@
 package com.sysio.ecommerce.data.session;
 
 import com.sysio.ecommerce.data.entity.Categorias;
-import com.sysio.ecommerce.data.entity.Productos;
 import com.sysio.ecommerce.data.facade.CategoriasFacadeLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -54,11 +53,6 @@ public class CategoriasSession implements CategoriasSessionRemote {
     @Override
     public int count() {
         return categoriasFacade.count();
-    }
-
-    @Override
-    public List<Categorias> categoriasForProducto(Productos producto) {
-        return categoriasFacade.categoriasForProducto(producto);
     }
 
 }

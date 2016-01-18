@@ -6,7 +6,6 @@
 package com.sysio.ecommerce.data.facade;
 
 import com.sysio.ecommerce.data.entity.Categorias;
-import com.sysio.ecommerce.data.entity.Productos;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,8 +28,5 @@ public interface CategoriasFacadeLocal {
 
     List<Categorias> findRange(int[] range);
 
-    int count();
-    
-    List<Categorias> categoriasForProducto(Productos producto);
-    
+    int count();    
 }

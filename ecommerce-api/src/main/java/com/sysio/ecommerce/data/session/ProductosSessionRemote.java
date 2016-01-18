@@ -30,4 +30,6 @@ public interface ProductosSessionRemote {
     public int count();
     
     public void AgregarProducto(Productos producto);
+    
+    public List<Productos> findAllFetch();
 }

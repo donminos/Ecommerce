@@ -31,4 +31,6 @@ public interface ProductosFacadeLocal {
     int count();
     
     void AgregarProducto(Productos producto);
+    
+    List<Productos> findAllFetch();
 }

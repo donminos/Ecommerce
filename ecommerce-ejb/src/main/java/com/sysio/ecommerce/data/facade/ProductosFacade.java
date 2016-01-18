@@ -8,6 +8,7 @@ package com.sysio.ecommerce.data.facade;
 import com.sysio.ecommerce.data.entity.Categorias;
 import com.sysio.ecommerce.data.entity.Productos;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -32,6 +33,12 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     public ProductosFacade() {
         super(Productos.class);
+    }
+    @Override
+    public List<Productos> findAllFetch(){
+        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.categoriasList",Productos.class);
+        List<Productos> productos=query.getResultList();
+        return productos;
     }
 
     @Override

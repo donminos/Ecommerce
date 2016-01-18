@@ -59,5 +59,10 @@ public class ProductosSession implements ProductosSessionRemote {
     public void AgregarProducto(Productos producto) {
         productosFacade.AgregarProducto(producto);
     }
+
+    @Override
+    public List<Productos> findAllFetch() {
+        return productosFacade.findAllFetch();
+    }
     
 }

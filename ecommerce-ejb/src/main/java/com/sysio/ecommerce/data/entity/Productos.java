@@ -16,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -43,6 +42,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Productos.findByDetalle", query = "SELECT p FROM Productos p WHERE p.detalle = :detalle"),
     @NamedQuery(name = "Productos.findByMarca", query = "SELECT p FROM Productos p WHERE p.marca = :marca")})
 public class Productos implements Serializable {
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "Costo")
+    private Float costo;
+    @Column(name = "Cantidad")
+    private Float cantidad;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,12 +58,6 @@ public class Productos implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "Descripcion")
     private String descripcion;
-    @Lob
-    @Size(max = 16777215)
-    @Column(name = "Costo")
-    private String costo;
-    @Column(name = "Cantidad")
-    private Integer cantidad;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -122,21 +120,6 @@ public class Productos implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getCosto() {
-        return costo;
-    }
-
-    public void setCosto(String costo) {
-        this.costo = costo;
-    }
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
 
     public String getNombre() {
         return nombre;
@@ -239,6 +222,22 @@ public class Productos implements Serializable {
     @Override
     public String toString() {
         return "com.sysio.ecommerce.data.entity.Productos[ idProducto=" + idProducto + " ]";
+    }
+
+    public Float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(Float costo) {
+        this.costo = costo;
+    }
+
+    public Float getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Float cantidad) {
+        this.cantidad = cantidad;
     }
     
 }

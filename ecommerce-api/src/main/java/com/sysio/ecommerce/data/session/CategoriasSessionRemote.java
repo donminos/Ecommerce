@@ -6,7 +6,6 @@
 package com.sysio.ecommerce.data.session;
 
 import com.sysio.ecommerce.data.entity.Categorias;
-import com.sysio.ecommerce.data.entity.Productos;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -29,6 +28,4 @@ public interface CategoriasSessionRemote {
     public List<Categorias> findRange(int[] range);
 
     public int count();
-    
-    public List<Categorias> categoriasForProducto(Productos producto);
 }
