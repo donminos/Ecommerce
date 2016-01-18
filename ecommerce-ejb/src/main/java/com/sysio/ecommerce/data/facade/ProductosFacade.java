@@ -15,11 +15,13 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import lombok.extern.java.Log;
 
 /**
  *
  * @author Carlos Cesar Rosas<face_less@hotmail.com>
  */
+@Log
 @Stateless
 public class ProductosFacade extends AbstractFacade<Productos> implements ProductosFacadeLocal {
 
@@ -44,9 +46,14 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     @Override
     public List<Productos> findAllSubFetch(Productos producto) {
-        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.productosList1 WHERE p.idProducto = :prod", Productos.class);
+        Productos productos=new Productos();
+        try{
+        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.productosList1 WHERE p.idProducto = :prod and p.idProducto", Productos.class);
         query.setParameter("prod", producto.getIdProducto());
-        Productos productos = (Productos) query.getSingleResult();
+        productos = (Productos) query.getSingleResult();
+        }catch(Exception ex){
+            log.severe(ex.getMessage());
+        }
         return productos.getProductosList1();
     }
 
