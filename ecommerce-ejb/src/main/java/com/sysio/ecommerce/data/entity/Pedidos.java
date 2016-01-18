@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,13 +36,13 @@ public class Pedidos implements Serializable {
     @Column(name = "idPedido")
     private Integer idPedido;
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Usuarios idUsuario;
     @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Productos idProducto;
     @JoinColumn(name = "idStatus", referencedColumnName = "idEstatus")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Estatus idStatus;
 
     public Pedidos() {

@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,9 +51,9 @@ public class Categorias implements Serializable {
     @JoinTable(name = "CategoriaProductos", joinColumns = {
         @JoinColumn(name = "idCategoria", referencedColumnName = "idCategoria")}, inverseJoinColumns = {
         @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")})
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Productos> productosList;
-    @OneToMany(mappedBy = "idCategoria", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "idCategoria")
     private List<Cupones> cuponesList;
 
     public Categorias() {
