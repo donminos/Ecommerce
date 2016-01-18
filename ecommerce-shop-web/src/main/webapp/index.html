@@ -3,8 +3,25 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>
+            var jqxhr = $.getJSON("/shop/public/categorias/findAll.do", function () {
+            }).always(function (data) {
+                var categorias='';
+                data.forEach(function(dato){
+                    categorias+='<li><a href="#" values="'+dato.idCategoria+'">'+dato.nombre+'</a></li>';
+                });
+
+                $('#menuCat').html(categorias);
+            });
+        </script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Ecommerce</h1>
+
+        <ul id="menuCat">
+
+        </ul>
     </body>
+
 </html>

@@ -5,6 +5,7 @@ import com.sysio.ecommerce.data.entity.Categorias;
 import com.sysio.ecommerce.data.entity.Productos;
 import com.sysio.ecommerce.data.session.CategoriasSessionRemote;
 import com.sysio.ecommerce.data.session.ProductosSessionRemote;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -37,7 +38,12 @@ public class AgregarProductosBean {
         producto=new Productos();
     }
     public List<Productos> getListProductos(){
-        return productosSession.findAll();
+        List<Productos> prods=productosSession.findAll();
+        List<Productos> productos=new ArrayList();
+        for(Productos prod:prods){
+            productos.add(prod);
+        }
+        return productos;
     }
     public void createProducto(){
         List<Productos> listProd=new LinkedList();

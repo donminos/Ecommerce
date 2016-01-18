@@ -1,0 +1,52 @@
+package com.sysio.ecommerce.admin.web.beans;
+
+import com.sysio.ecommerce.data.entity.Categorias;
+import com.sysio.ecommerce.data.session.CategoriasSessionRemote;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ *
+ * @author Carlos Cesar Rosas<face_less@hotmail.com>
+ */
+@Named(value = "agregarCategoriasBean")
+@RequestScoped
+public class AgregarCategoriasBean {
+
+    @EJB
+    private CategoriasSessionRemote categoriasSession;
+
+    @Setter
+    @Getter
+    private Categorias categoria;
+
+    public AgregarCategoriasBean() {
+        categoria = new Categorias();
+    }
+
+    public void createCategoria() {
+        if (categoria.getIdCategoria() == null) {
+            categoriasSession.create(categoria);
+        } else {
+            categoriasSession.edit(categoria);
+        }
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Completo", "Se ha aplicado el cambio"));
+
+    }
+
+    public List<Categorias> getLstCategorias() {
+        return categoriasSession.findAll();
+    }
+
+    public void chargeCategoria(Categorias catlst) {
+        this.categoria = catlst;
+    }
+
+}
