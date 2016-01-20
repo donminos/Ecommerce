@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.portlet.ModelAndView;
 
 /**
  *
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public void index(HttpServletRequest request, HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-        response.setHeader("Location", "index.html");
+    public String index(HttpServletRequest request, HttpServletResponse response) {
+        /*response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+        response.setHeader("Location", "index.html");*/
+        return "redirect:index.html";
     }
 
 }
