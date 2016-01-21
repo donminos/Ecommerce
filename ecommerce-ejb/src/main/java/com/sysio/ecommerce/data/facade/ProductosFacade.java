@@ -8,6 +8,7 @@ package com.sysio.ecommerce.data.facade;
 import com.sysio.ecommerce.data.entity.Categorias;
 import com.sysio.ecommerce.data.entity.Productos;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,13 +49,17 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     public List<Productos> findAllSubFetch(Productos producto) {
         Productos productos=new Productos();
         try{
-        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.productosList1 WHERE p.idProducto = :prod and p.idProducto", Productos.class);
+        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.productosList1 WHERE p.idProducto = :prod", Productos.class);
         query.setParameter("prod", producto.getIdProducto());
         productos = (Productos) query.getSingleResult();
         }catch(Exception ex){
             log.severe(ex.getMessage());
         }
-        return productos.getProductosList1();
+        List<Productos> prods=new ArrayList();
+        for(Productos prod:productos.getProductosList()){
+            prods.add(prod);
+        }
+        return prods;
     }
 
     @Override
@@ -63,6 +68,16 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
         query.setParameter(1, productoprim.getIdProducto());
         query.setParameter(2, productosec.getIdProducto());
         query.executeUpdate();
+    }
+    
+    @Override
+    public void AgregarSubProducto(Productos productoprim, List<Productos> productosec) {
+        for(Productos subprod:productosec){
+        Query query = em.createNativeQuery("INSERT INTO Subproductos (idProducto,idSubproducto) values(?,?)");
+        query.setParameter(1, productoprim.getIdProducto());
+        query.setParameter(2, subprod.getIdProducto());
+        query.executeUpdate();
+        }
     }
 
     @Override

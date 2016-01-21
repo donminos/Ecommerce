@@ -33,13 +33,12 @@
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
                     </p:column>
-                    
-                    <!--<p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="Nombre"/>
                         </f:facet>
-                        <p:graphicImage value="#{agregarArchivosBean.dinamicImage(item.path)}" />
-                    </p:column>-->
+                        <p:graphicImage width="100px" value="#{request.getPathInfo()}/public/imageServlet.do?image=#{item.path}" />
+                    </p:column>
                 </p:dataTable>
             </h:form>
 

@@ -14,7 +14,7 @@ public class RandomName {
      * @return
      */
     public static String randomIdentifier(String extension) {
-        String lexicon = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890@#$!?¿";
+        String lexicon = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
         Random rand = new Random();
         StringBuilder builder = new StringBuilder();
         while (builder.toString().length() == 0) {

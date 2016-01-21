@@ -1,8 +1,11 @@
 
 package com.sysio.ecommerce.shop.web.controller;
 
+import com.sysio.ecommerce.data.entity.Imagenes;
 import com.sysio.ecommerce.data.entity.Productos;
+import com.sysio.ecommerce.data.session.ImagenesSessionRemote;
 import com.sysio.ecommerce.data.session.ProductosSessionRemote;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,11 +24,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/public/productos")
 public class ProductosController {
+    ImagenesSessionRemote imagenesSession = lookupImagenesSessionRemote();
     ProductosSessionRemote productosSession = lookupProductosSessionRemote();
+    
 
     @RequestMapping(value = "/findAll.do", method = RequestMethod.GET, produces = "application/json")
     public List<Productos> findAll() {
-        return productosSession.findAll();
+        List<Productos> prods=new ArrayList();
+        for(Productos prod:productosSession.findAll()){
+            prod.setCategoriasList(new ArrayList());
+            prod.setProductosList(new ArrayList());
+            prod.setProductosList1(new ArrayList());
+            prod.setCuponesList(new ArrayList());
+            prod.setPedidosList(new ArrayList());
+            List<Imagenes> imgs=imagenesSession.findAllId(prod.getIdProducto());
+            for(Imagenes img:imgs)
+                img.setIdProducto(null);
+            prod.setImagenesList(imgs.isEmpty()?new ArrayList():imgs);
+            prods.add(prod);
+        }
+        return prods;
     }
     @RequestMapping(value = "/findId.do>{id}", method = RequestMethod.GET, produces = "application/json")
     public Productos findId(@PathVariable("id") Integer id) {
@@ -36,6 +54,16 @@ public class ProductosController {
         try {
             Context c = new InitialContext();
             return (ProductosSessionRemote) c.lookup("java:global/ecommerce-ejb/ProductosSession!com.sysio.ecommerce.data.session.ProductosSessionRemote");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private ImagenesSessionRemote lookupImagenesSessionRemote() {
+        try {
+            Context c = new InitialContext();
+            return (ImagenesSessionRemote) c.lookup("java:global/ecommerce-ejb/ImagenesSession!com.sysio.ecommerce.data.session.ImagenesSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

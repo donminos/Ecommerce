@@ -9,6 +9,7 @@
     </h:head>
     <h:body>
         <f:view>
+            <p:growl id="messages" showDetail="true" />
             <f:metadata>
                 <f:viewParam name="idProducto" value="#{editarSubproductos.idproducto}" />
             </f:metadata>
@@ -19,12 +20,12 @@
                         <f:selectItems value="#{editarSubproductos.listProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
                     </p:selectCheckboxMenu>
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar"/>
+                        <p:commandButton value="Agregar" action="#{editarSubproductos.addProducto()}" update="lstSubProd messages"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>
-            <h:form>
-                <h1><h:outputText value="List"/></h1>
+            <h:form id="lstSubProd">
+                <h1><h:outputText value="Lista"/></h1>
                 <p:dataTable value="#{editarSubproductos.lstSubProductos}" var="item">
                     <p:column>
                         <f:facet name="header">
@@ -67,6 +68,12 @@
                             <h:outputText value="Cantidad"/>
                         </f:facet>
                         <h:outputText value="#{item.cantidad}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Acción"/>
+                        </f:facet>
+                        <p:commandLink value="Eliminar" update="lstSubProd messages" action="#{editarSubproductos.eliminarProducto(item)}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
