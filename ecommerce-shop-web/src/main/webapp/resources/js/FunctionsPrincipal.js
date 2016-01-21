@@ -11,12 +11,24 @@ Handlebars.getTemplate = function (name) {
             "%": lvalue % rvalue
         }[operator];
     });
-    Handlebars.registerHelper("cont", function (lvalue, operator, options) {
-        lvalue = parseFloat(lvalue);
+    Handlebars.registerHelper('addOne', function (value) {
+        return value + 1;
+    });
+    Handlebars.registerHelper('eachtable', function (context, options) {
+        var ret = "";
+        var cont = 0;
+        debugger;
+        for (var i = 0, j = context.length; i < j; i++) {
+            if (cont <= 2) {
+                ret+=options.fn(context[i]);
+            }else{
+                ret+='<tr>'+options.fn(context[i])+'</tr>';
+                cont=0;
+            }
+            cont++;
+        }
 
-        return {
-            "++": lvalue + 1
-        }[operator];
+        return ret;
     });
     if (Handlebars.templates === undefined || Handlebars.templates[ name ] === undefined) {
         $.ajax({

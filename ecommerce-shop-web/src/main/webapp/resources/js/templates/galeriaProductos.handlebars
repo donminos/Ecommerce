@@ -1,4 +1,3 @@
-{{#each responseJSON}}
-    {{cont 1 "++"}}
-        <li class="galeria"><a id="prod_{{{idProducto}}}" href="#">{{{nombre}}}{{@index}}{{@key}}{{math 0 "+" 1}}</a></li>
-{{/each}}
+{{#eachtable responseJSON}}
+        <td class="galeria"><a id="prod_{{{idProducto}}}" href="#">{{{nombre}}}{{@index}}{{@key}}{{math 0 "+" 1}}</a></td>
+{{/eachtable}}
