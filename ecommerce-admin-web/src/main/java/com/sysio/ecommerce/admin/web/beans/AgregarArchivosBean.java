@@ -50,14 +50,14 @@ public class AgregarArchivosBean implements Serializable {
 
         String propFileName = "file.properties";
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        try{
-        prop = new Properties();
-        if (inputStream != null) {
-            prop.load(inputStream);
-        } else {
-            throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-        }
-        }catch(Exception ex){
+        try {
+            prop = new Properties();
+            if (inputStream != null) {
+                prop.load(inputStream);
+            } else {
+                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+            }
+        } catch (Exception ex) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", ex.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
@@ -111,9 +111,19 @@ public class AgregarArchivosBean implements Serializable {
         return imagenes;
     }
 
-    public StreamedContent dinamicImage(String name) throws FileNotFoundException {
-        File archivo = new File(prop.getProperty("file.directorio.producto.imagenes") + name);
-        image = new DefaultStreamedContent(new FileInputStream(archivo), "image/jpeg");
-        return image;
+    public void eliminarImagen(Imagenes image) {
+        try {
+            File targetFile = new File(prop.getProperty("file.directorio.producto.imagenes") + image.getPath());
+            if(targetFile.exists()){
+                targetFile.delete();
+            }
+            imagenesSession.remove(image);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Se ha eliminado la imagen del sistema");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (Exception ex) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", ex.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
     }
+
 }

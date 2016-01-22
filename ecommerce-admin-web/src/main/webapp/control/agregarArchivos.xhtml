@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../templates/commonTemplate.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <f:metadata>
+                        <f:viewParam name="idProducto" value="#{agregarArchivosBean.idProducto}" />
+                    </f:metadata>
+                    <h1><h:outputText value="Imagenes del producto"/></h1>
+                    <p:growl id="messages" showDetail="true" />
+                    <h:form>
+                        <p:fileUpload fileUploadListener="#{agregarArchivosBean.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                                      multiple="true" update="messages,imageneslst" sizeLimit="1000000" fileLimit="5" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                        
+                    </h:form>
+
+                    <h:form id="imageneslst">
+                        <p:dataTable value="#{agregarArchivosBean.listImages}" reflow="true" resizableColumns="true" var="item">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Path"/>
+                                </f:facet>
+                                <h:outputText value="#{item.path}"/>
+                            </p:column>
+                            <p:column class="column-middle">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </p:column>
+                            <p:column class="column-middle">
+                                <f:facet name="header">
+                                    <h:outputText value="Imagen"/>
+                                </f:facet>
+                                <p:graphicImage width="100px" value="#{request.getPathInfo()}/public/imageServlet.do?image=#{item.path}" />
+                            </p:column>
+                            <p:column class="column-small">
+                                <f:facet name="header">
+                                    <h:outputText value="Acción"/>
+                                </f:facet>
+                                <p:commandLink value="Eliminar" action="#{agregarArchivosBean.eliminarImagen(item)}" update="imageneslst,messages"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../templates/commonTemplate.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <p:growl id="messages" showDetail="true" />
+                    <f:metadata>
+                        <f:viewParam name="idProducto" value="#{editarSubproductos.idproducto}" />
+                    </f:metadata>
+                    
+                        <h1><h:outputText value="SubProductos"/></h1>
+                    <h:form>
+                        <p:panelGrid columns="1" layout="grid">
+                            <p:outputLabel value="Subproductos:" for="subproducto" />
+                            <p:selectCheckboxMenu id="subproducto" value="#{editarSubproductos.subproducto}" label="Productos" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
+                                <f:selectItems value="#{editarSubproductos.listProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
+                            </p:selectCheckboxMenu>
+                            <f:facet name="footer">
+                                <p:commandButton value="Agregar" action="#{editarSubproductos.addProducto()}" update="lstSubProd messages"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+                    <h:form id="lstSubProd">
+                        <p:dataTable value="#{editarSubproductos.lstSubProductos}" reflow="true" var="item">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdProducto"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idProducto}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Detalle"/>
+                                </f:facet>
+                                <h:outputText value="#{item.detalle}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Marca"/>
+                                </f:facet>
+                                <h:outputText value="#{item.marca}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Costo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.costo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cantidad"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cantidad}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Acción"/>
+                                </f:facet>
+                                <p:commandLink value="Eliminar" update="lstSubProd messages" action="#{editarSubproductos.eliminarProducto(item)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
