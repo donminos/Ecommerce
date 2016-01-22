@@ -22,7 +22,7 @@ Handlebars.getTemplate = function (name) {
             if (cont <= 2) {
                 ret+=options.fn(context[i]);
             }else{
-                ret+='<tr>'+options.fn(context[i])+'</tr>';
+                ret+=options.fn('<tr>'+context[i]+'</tr>');
                 cont=0;
             }
             cont++;
