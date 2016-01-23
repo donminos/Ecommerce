@@ -15,10 +15,9 @@
                 <f:view>
                     <h:form id="programCreate">
                         <p:growl id="growl" showDetail="true" sticky="true" life="800" />
-                        <h1 class="title-principal"><h:outputText value="Productos"/></h1>
                         <p:panelGrid columns="4" layout="grid">
                             <f:facet name="header">
-                                <p:outputLabel value="Creación y edición"/>
+                                <p:outputLabel value="PRODUCTOS"/>
                             </f:facet>
                             <p:outputLabel value="Descripcion:" for="descripcion" />
                             <p:inputTextarea id="descripcion" rows="4" cols="20"  value="#{agregarProductosBean.producto.descripcion}" title="Descripcion" required="true" requiredMessage="The Descripcion field is required."/>

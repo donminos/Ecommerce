@@ -9,11 +9,13 @@
     <h:body>
         <f:view>
             <h:form>
-                <p:menubar>
+                <p:menubar id="barra">
                     <p:menuitem class="color-link" value="Inicio" icon="fa fa-fw fa-windows" outcome="panelControl"/>
                     <p:menuitem class="color-link" value="Productos" icon="fa fa-fw fa-hdd-o" outcome="agregarProductos"/>
                     <p:menuitem class="color-link" value="Categorias" icon="fa fa-fw fa-pencil" outcome="agregarCategorias"/>
-                    
+                    <f:facet name="options">
+                        <p:outputLabel id="title" value=""/>
+                    </f:facet>
                 </p:menubar>
             </h:form>
         </f:view>

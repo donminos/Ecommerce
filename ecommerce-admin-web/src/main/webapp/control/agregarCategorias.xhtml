@@ -14,8 +14,10 @@
                 <f:view>
                     <p:growl id="messages" showDetail="true" sticky="true" life="800" />  
                     <h:form id="formCat">
-                        <h1><h:outputText value="Categorias"/></h1>
-                        <p:panelGrid columns="3">
+                        <p:panelGrid columns="3" layout="grid">
+                            <f:facet name="header">
+                                <p:outputLabel value="CATEGORIAS"/>
+                            </f:facet>
                             <p:outputLabel value="Nombre:" for="nombre" />
                             <p:inputText id="nombre" value="#{agregarCategoriasBean.categoria.nombre}" title="Nombre" autocomplete="false" required="true" requiredMessage="The Nombre field is required."/>
                             <h:inputHidden value="#{agregarCategoriasBean.categoria.idCategoria}"/>
@@ -27,6 +29,9 @@
 
                     <h:form id="lstCategorias">
                         <p:dataTable value="#{agregarCategoriasBean.lstCategorias}" reflow="true" var="item">
+                            <f:facet name="header">
+                                <p:outputLabel value="Lista categorias"/>
+                            </f:facet>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>

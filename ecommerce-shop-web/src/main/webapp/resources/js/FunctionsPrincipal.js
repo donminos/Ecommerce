@@ -57,7 +57,6 @@ function chargeProd(id) {
     var categorias = '';
     var jqxhr = $.getJSON("/shop/public/productos/findAll.do");
     jqxhr.complete(function (data) {
-        debugger;
         var postulantsList = Handlebars.getTemplate('galeriaProductos');
         $('#' + id).html(postulantsList(data));
     });

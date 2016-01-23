@@ -47,17 +47,19 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     @Override
     public List<Productos> findAllSubFetch(Productos producto) {
-        Productos productos=new Productos();
-        try{
-        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.productosList1 WHERE p.idProducto = :prod", Productos.class);
-        query.setParameter("prod", producto.getIdProducto());
-        productos = (Productos) query.getSingleResult();
-        }catch(Exception ex){
+        List<Productos> prods = new ArrayList();
+        try {
+            Query query = em.createQuery("SELECT distinct p FROM Productos p "+/*JOIN FETCH p.productosList1*/" WHERE p.idProducto = :prod", Productos.class);
+            query.setParameter("prod", producto.getIdProducto());
+            Productos productos = new Productos();
+            productos = (Productos) query.getSingleResult();
+
+            for (Productos prod : productos.getProductosList()) {
+                prods.add(prod);
+            }
+
+        } catch (Exception ex) {
             log.severe(ex.getMessage());
-        }
-        List<Productos> prods=new ArrayList();
-        for(Productos prod:productos.getProductosList()){
-            prods.add(prod);
         }
         return prods;
     }
@@ -69,14 +71,14 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
         query.setParameter(2, productosec.getIdProducto());
         query.executeUpdate();
     }
-    
+
     @Override
     public void AgregarSubProducto(Productos productoprim, List<Productos> productosec) {
-        for(Productos subprod:productosec){
-        Query query = em.createNativeQuery("INSERT INTO Subproductos (idProducto,idSubproducto) values(?,?)");
-        query.setParameter(1, productoprim.getIdProducto());
-        query.setParameter(2, subprod.getIdProducto());
-        query.executeUpdate();
+        for (Productos subprod : productosec) {
+            Query query = em.createNativeQuery("INSERT INTO Subproductos (idProducto,idSubproducto) values(?,?)");
+            query.setParameter(1, productoprim.getIdProducto());
+            query.setParameter(2, subprod.getIdProducto());
+            query.executeUpdate();
         }
     }
 
