@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DatosUsuario.findByTelefonoCelular", query = "SELECT d FROM DatosUsuario d WHERE d.telefonoCelular = :telefonoCelular"),
     @NamedQuery(name = "DatosUsuario.findByTelefonoOtro", query = "SELECT d FROM DatosUsuario d WHERE d.telefonoOtro = :telefonoOtro"),
     @NamedQuery(name = "DatosUsuario.findByNumeroInt", query = "SELECT d FROM DatosUsuario d WHERE d.numeroInt = :numeroInt"),
-    @NamedQuery(name = "DatosUsuario.findByNumeroExt", query = "SELECT d FROM DatosUsuario d WHERE d.numeroExt = :numeroExt")})
+    @NamedQuery(name = "DatosUsuario.findByNumeroExt", query = "SELECT d FROM DatosUsuario d WHERE d.numeroExt = :numeroExt"),
+    @NamedQuery(name = "DatosUsuario.findByRfc", query = "SELECT d FROM DatosUsuario d WHERE d.rfc = :rfc")})
 public class DatosUsuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,12 +87,12 @@ public class DatosUsuario implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "Colonia")
     private String colonia;
+    @Size(max = 45)
+    @Column(name = "TelefonoCelular")
+    private String telefonoCelular;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "TelefonoCelular")
-    private String telefonoCelular;
-    @Size(max = 45)
     @Column(name = "TelefonoOtro")
     private String telefonoOtro;
     @Basic(optional = false)
@@ -102,6 +103,11 @@ public class DatosUsuario implements Serializable {
     @Size(max = 45)
     @Column(name = "NumeroExt")
     private String numeroExt;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 13)
+    @Column(name = "RFC")
+    private String rfc;
     @JoinColumn(name = "idDatosUsuario", referencedColumnName = "idUsuario", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuarios usuarios;
@@ -113,7 +119,7 @@ public class DatosUsuario implements Serializable {
         this.idDatosUsuario = idDatosUsuario;
     }
 
-    public DatosUsuario(Integer idDatosUsuario, String nombre, String apellidoPaterno, String cp, String estado, String ciudad, String delegacion, String colonia, String telefonoCelular, String numeroInt) {
+    public DatosUsuario(Integer idDatosUsuario, String nombre, String apellidoPaterno, String cp, String estado, String ciudad, String delegacion, String colonia, String telefonoOtro, String numeroInt, String rfc) {
         this.idDatosUsuario = idDatosUsuario;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -122,8 +128,9 @@ public class DatosUsuario implements Serializable {
         this.ciudad = ciudad;
         this.delegacion = delegacion;
         this.colonia = colonia;
-        this.telefonoCelular = telefonoCelular;
+        this.telefonoOtro = telefonoOtro;
         this.numeroInt = numeroInt;
+        this.rfc = rfc;
     }
 
     public Integer getIdDatosUsuario() {
@@ -228,6 +235,14 @@ public class DatosUsuario implements Serializable {
 
     public void setNumeroExt(String numeroExt) {
         this.numeroExt = numeroExt;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
     }
 
     public Usuarios getUsuarios() {

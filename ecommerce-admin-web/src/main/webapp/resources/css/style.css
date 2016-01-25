@@ -31,11 +31,17 @@
 .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
     background: rgba(255, 255, 255, 1) !important;
 }
+.ui-inputfield{
+    padding: 6px !important;
+}
 .ui-widget-header{
     background: #062F48 !important;
     border: 1px solid #fff !important;
     color:#fff !important;
     text-shadow: 0 0 !important;
+}
+.ui-selectonemenu-panel .ui-selectonemenu-filter{
+    width: 250px !important;
 }
 .color-link{
     color:#fff !important;

@@ -5,7 +5,7 @@
  */
 package com.sysio.ecommerce.data.facade;
 
-import com.sysio.ecommerce.data.entity.Cupones;
+import com.sysio.ecommerce.data.entity.Marca;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author Carlos Cesar Rosas<face_less@hotmail.com>
  */
 @Local
-public interface CuponesFacadeLocal {
+public interface MarcaFacadeLocal {
 
-    void create(Cupones cupones);
+    void create(Marca marca);
 
-    void edit(Cupones cupones);
+    void edit(Marca marca);
 
-    void remove(Cupones cupones);
+    void remove(Marca marca);
 
-    Cupones find(Object id);
+    Marca find(Object id);
 
-    List<Cupones> findAll();
+    List<Marca> findAll();
 
-    List<Cupones> findRange(int[] range);
+    List<Marca> findRange(int[] range);
 
     int count();
     

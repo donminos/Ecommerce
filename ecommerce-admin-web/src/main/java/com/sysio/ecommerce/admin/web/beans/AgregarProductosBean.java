@@ -2,8 +2,10 @@
 package com.sysio.ecommerce.admin.web.beans;
 
 import com.sysio.ecommerce.data.entity.Categorias;
+import com.sysio.ecommerce.data.entity.Marca;
 import com.sysio.ecommerce.data.entity.Productos;
 import com.sysio.ecommerce.data.session.CategoriasSessionRemote;
+import com.sysio.ecommerce.data.session.MarcaSessionRemote;
 import com.sysio.ecommerce.data.session.ProductosSessionRemote;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,13 +26,17 @@ import lombok.Setter;
 @RequestScoped
 public class AgregarProductosBean {
     @EJB
+    private MarcaSessionRemote marcaSession;
+    @EJB
     private CategoriasSessionRemote categoriasSession;
     @EJB
-    private ProductosSessionRemote productosSession;
+    private ProductosSessionRemote productosSession;    
     
     @Getter @Setter private Productos producto;
     
     @Getter @Setter private List<String> subproducto;
+    
+    @Getter @Setter private Integer marca;
     
     @Getter @Setter private List<String> categorias;
     
@@ -40,6 +46,11 @@ public class AgregarProductosBean {
     public List<Productos> getListProductos(){
         return productosSession.findAllFetch();
     }
+    
+    public List<Marca> getListMarcas(){
+        return marcaSession.findAll();
+    }
+    
     public void createProducto(){
         List<Productos> listProd=new LinkedList();
         for (String produc : subproducto) {
@@ -49,6 +60,7 @@ public class AgregarProductosBean {
         for (String categoria : categorias) {
             listCat.add(categoriasSession.find(Integer.parseInt(categoria)));
         }
+        producto.setIdMarca(marcaSession.find(marca));
         producto.setProductosList(listProd);
         producto.setCategoriasList(listCat);
         productosSession.AgregarProducto(producto);

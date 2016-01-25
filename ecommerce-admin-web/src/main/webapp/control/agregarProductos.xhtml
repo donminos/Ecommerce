@@ -30,7 +30,10 @@
                             <p:outputLabel value="Detalle:" for="detalle" />
                             <p:inputText id="detalle" value="#{agregarProductosBean.producto.detalle}" title="Detalle" required="true" requiredMessage="The Detalle field is required."/>
                             <p:outputLabel value="Marca:" for="marca" />
-                            <p:inputText id="marca" value="#{agregarProductosBean.producto.marca}" title="Marca" required="true" requiredMessage="The Marca field is required."/>
+                            <p:selectOneMenu id="marca" value="#{agregarProductosBean.marca}" label="Marca" panelStyle="width:280px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Marcas" itemValue="" />
+                                <f:selectItems value="#{agregarProductosBean.listMarcas}" var="m" itemLabel="#{m.nombre}" itemValue="#{m.idMarca}"/>
+                            </p:selectOneMenu>
                             <p:outputLabel value="Subproductos:" for="subproducto" />
                             <p:selectCheckboxMenu id="subproducto" value="#{agregarProductosBean.subproducto}" label="Productos" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
                                 <f:selectItems value="#{agregarProductosBean.listProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
@@ -86,11 +89,11 @@
                                 </f:facet>
                                 <h:outputText value="#{item.detalle}"/>
                             </p:column>
-                            <p:column sortBy="#{item.marca}">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Marca"/>
                                 </f:facet>
-                                <h:outputText value="#{item.marca}"/>
+                                <h:outputText value="#{item.idMarca.nombre}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">

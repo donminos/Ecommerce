@@ -33,15 +33,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "VUsuariosRoles.findByDescripcion", query = "SELECT v FROM VUsuariosRoles v WHERE v.descripcion = :descripcion")})
 public class VUsuariosRoles implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "idUsuario")
+    @Id
     private int idUsuario;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "Usuario")
     private String usuario;
-    @Size(max = 63)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 63)
     @Column(name = "Contrasena")
     private String contrasena;
     @Basic(optional = false)

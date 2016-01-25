@@ -30,22 +30,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Carlos Cesar Rosas<face_less@hotmail.com>
  */
 @Entity
-@Table(name = "Cupones")
+@Table(name = "CuponesDescuentos")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cupones.findAll", query = "SELECT c FROM Cupones c"),
-    @NamedQuery(name = "Cupones.findByIdCupon", query = "SELECT c FROM Cupones c WHERE c.idCupon = :idCupon"),
-    @NamedQuery(name = "Cupones.findByDescripcion", query = "SELECT c FROM Cupones c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "Cupones.findByCantidad", query = "SELECT c FROM Cupones c WHERE c.cantidad = :cantidad"),
-    @NamedQuery(name = "Cupones.findByInicia", query = "SELECT c FROM Cupones c WHERE c.inicia = :inicia"),
-    @NamedQuery(name = "Cupones.findByTermina", query = "SELECT c FROM Cupones c WHERE c.termina = :termina")})
-public class Cupones implements Serializable {
+    @NamedQuery(name = "CuponesDescuentos.findAll", query = "SELECT c FROM CuponesDescuentos c"),
+    @NamedQuery(name = "CuponesDescuentos.findByIdCuponDescuetos", query = "SELECT c FROM CuponesDescuentos c WHERE c.idCuponDescuetos = :idCuponDescuetos"),
+    @NamedQuery(name = "CuponesDescuentos.findByDescripcion", query = "SELECT c FROM CuponesDescuentos c WHERE c.descripcion = :descripcion"),
+    @NamedQuery(name = "CuponesDescuentos.findByCantidad", query = "SELECT c FROM CuponesDescuentos c WHERE c.cantidad = :cantidad"),
+    @NamedQuery(name = "CuponesDescuentos.findByInicia", query = "SELECT c FROM CuponesDescuentos c WHERE c.inicia = :inicia"),
+    @NamedQuery(name = "CuponesDescuentos.findByTermina", query = "SELECT c FROM CuponesDescuentos c WHERE c.termina = :termina")})
+public class CuponesDescuentos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idCupon")
-    private Integer idCupon;
+    @Column(name = "idCuponDescuetos")
+    private Integer idCuponDescuetos;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -64,7 +64,7 @@ public class Cupones implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "Inicia")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date inicia;
     @Basic(optional = false)
     @NotNull
@@ -72,21 +72,18 @@ public class Cupones implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date termina;
     @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Productos idProducto;
-    @JoinColumn(name = "idCategoria", referencedColumnName = "idCategoria")
-    @ManyToOne
-    private Categorias idCategoria;
 
-    public Cupones() {
+    public CuponesDescuentos() {
     }
 
-    public Cupones(Integer idCupon) {
-        this.idCupon = idCupon;
+    public CuponesDescuentos(Integer idCuponDescuetos) {
+        this.idCuponDescuetos = idCuponDescuetos;
     }
 
-    public Cupones(Integer idCupon, String descripcion, String cantidadDescuento, int cantidad, Date inicia, Date termina) {
-        this.idCupon = idCupon;
+    public CuponesDescuentos(Integer idCuponDescuetos, String descripcion, String cantidadDescuento, int cantidad, Date inicia, Date termina) {
+        this.idCuponDescuetos = idCuponDescuetos;
         this.descripcion = descripcion;
         this.cantidadDescuento = cantidadDescuento;
         this.cantidad = cantidad;
@@ -94,12 +91,12 @@ public class Cupones implements Serializable {
         this.termina = termina;
     }
 
-    public Integer getIdCupon() {
-        return idCupon;
+    public Integer getIdCuponDescuetos() {
+        return idCuponDescuetos;
     }
 
-    public void setIdCupon(Integer idCupon) {
-        this.idCupon = idCupon;
+    public void setIdCuponDescuetos(Integer idCuponDescuetos) {
+        this.idCuponDescuetos = idCuponDescuetos;
     }
 
     public String getDescripcion() {
@@ -150,29 +147,21 @@ public class Cupones implements Serializable {
         this.idProducto = idProducto;
     }
 
-    public Categorias getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(Categorias idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCupon != null ? idCupon.hashCode() : 0);
+        hash += (idCuponDescuetos != null ? idCuponDescuetos.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cupones)) {
+        if (!(object instanceof CuponesDescuentos)) {
             return false;
         }
-        Cupones other = (Cupones) object;
-        if ((this.idCupon == null && other.idCupon != null) || (this.idCupon != null && !this.idCupon.equals(other.idCupon))) {
+        CuponesDescuentos other = (CuponesDescuentos) object;
+        if ((this.idCuponDescuetos == null && other.idCuponDescuetos != null) || (this.idCuponDescuetos != null && !this.idCuponDescuetos.equals(other.idCuponDescuetos))) {
             return false;
         }
         return true;
@@ -180,7 +169,7 @@ public class Cupones implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sysio.ecommerce.data.entity.Cupones[ idCupon=" + idCupon + " ]";
+        return "com.sysio.ecommerce.data.entity.CuponesDescuentos[ idCuponDescuetos=" + idCuponDescuetos + " ]";
     }
     
 }

@@ -18,7 +18,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -48,13 +47,18 @@ public class Categorias implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "Nombre")
     private String nombre;
+    @JoinTable(name = "Subcategorias", joinColumns = {
+        @JoinColumn(name = "idSubcategoria", referencedColumnName = "idCategoria")}, inverseJoinColumns = {
+        @JoinColumn(name = "idCategoria", referencedColumnName = "idCategoria")})
+    @ManyToMany
+    private List<Categorias> categoriasList;
+    @ManyToMany(mappedBy = "categoriasList")
+    private List<Categorias> categoriasList1;
     @JoinTable(name = "CategoriaProductos", joinColumns = {
         @JoinColumn(name = "idCategoria", referencedColumnName = "idCategoria")}, inverseJoinColumns = {
         @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")})
     @ManyToMany
     private List<Productos> productosList;
-    @OneToMany(mappedBy = "idCategoria")
-    private List<Cupones> cuponesList;
 
     public Categorias() {
     }
@@ -85,21 +89,30 @@ public class Categorias implements Serializable {
     }
 
     @XmlTransient
+    public List<Categorias> getCategoriasList() {
+        return categoriasList;
+    }
+
+    public void setCategoriasList(List<Categorias> categoriasList) {
+        this.categoriasList = categoriasList;
+    }
+
+    @XmlTransient
+    public List<Categorias> getCategoriasList1() {
+        return categoriasList1;
+    }
+
+    public void setCategoriasList1(List<Categorias> categoriasList1) {
+        this.categoriasList1 = categoriasList1;
+    }
+
+    @XmlTransient
     public List<Productos> getProductosList() {
         return productosList;
     }
 
     public void setProductosList(List<Productos> productosList) {
         this.productosList = productosList;
-    }
-
-    @XmlTransient
-    public List<Cupones> getCuponesList() {
-        return cuponesList;
-    }
-
-    public void setCuponesList(List<Cupones> cuponesList) {
-        this.cuponesList = cuponesList;
     }
 
     @Override

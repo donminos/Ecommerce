@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -42,10 +43,14 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @Column(name = "idUsuario")
     private Integer idUsuario;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "Usuario")
     private String usuario;
-    @Size(max = 63)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 63)
     @Column(name = "Contrasena")
     private String contrasena;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios")
@@ -60,6 +65,12 @@ public class Usuarios implements Serializable {
 
     public Usuarios(Integer idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public Usuarios(Integer idUsuario, String usuario, String contrasena) {
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
     }
 
     public Integer getIdUsuario() {

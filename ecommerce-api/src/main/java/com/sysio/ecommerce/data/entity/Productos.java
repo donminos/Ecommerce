@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,16 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Productos.findAll", query = "SELECT p FROM Productos p"),
     @NamedQuery(name = "Productos.findByIdProducto", query = "SELECT p FROM Productos p WHERE p.idProducto = :idProducto"),
     @NamedQuery(name = "Productos.findByDescripcion", query = "SELECT p FROM Productos p WHERE p.descripcion = :descripcion"),
+    @NamedQuery(name = "Productos.findByCosto", query = "SELECT p FROM Productos p WHERE p.costo = :costo"),
     @NamedQuery(name = "Productos.findByCantidad", query = "SELECT p FROM Productos p WHERE p.cantidad = :cantidad"),
     @NamedQuery(name = "Productos.findByNombre", query = "SELECT p FROM Productos p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Productos.findByDetalle", query = "SELECT p FROM Productos p WHERE p.detalle = :detalle"),
-    @NamedQuery(name = "Productos.findByMarca", query = "SELECT p FROM Productos p WHERE p.marca = :marca")})
+    @NamedQuery(name = "Productos.findByVideoDemostrativo", query = "SELECT p FROM Productos p WHERE p.videoDemostrativo = :videoDemostrativo")})
 public class Productos implements Serializable {
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "Costo")
-    private Float costo;
-    @Column(name = "Cantidad")
-    private Float cantidad;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +55,11 @@ public class Productos implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "Descripcion")
     private String descripcion;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "Costo")
+    private Float costo;
+    @Column(name = "Cantidad")
+    private Float cantidad;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -68,11 +70,9 @@ public class Productos implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "Detalle")
     private String detalle;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "Marca")
-    private String marca;
+    @Size(max = 60)
+    @Column(name = "VideoDemostrativo")
+    private String videoDemostrativo;
     @JoinTable(name = "Subproductos", joinColumns = {
         @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")}, inverseJoinColumns = {
         @JoinColumn(name = "idSubproducto", referencedColumnName = "idProducto")})
@@ -82,12 +82,15 @@ public class Productos implements Serializable {
     private List<Productos> productosList1;
     @ManyToMany(mappedBy = "productosList")
     private List<Categorias> categoriasList;
-    @OneToMany(mappedBy = "idProducto")
-    private List<Cupones> cuponesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
     private List<Imagenes> imagenesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
+    private List<CuponesDescuentos> cuponesDescuentosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
     private List<Pedidos> pedidosList;
+    @JoinColumn(name = "idMarca", referencedColumnName = "idMarca")
+    @ManyToOne(optional = false)
+    private Marca idMarca;
 
     public Productos() {
     }
@@ -96,12 +99,11 @@ public class Productos implements Serializable {
         this.idProducto = idProducto;
     }
 
-    public Productos(Integer idProducto, String descripcion, String nombre, String detalle, String marca) {
+    public Productos(Integer idProducto, String descripcion, String nombre, String detalle) {
         this.idProducto = idProducto;
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.detalle = detalle;
-        this.marca = marca;
     }
 
     public Integer getIdProducto() {
@@ -120,6 +122,21 @@ public class Productos implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(Float costo) {
+        this.costo = costo;
+    }
+
+    public Float getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Float cantidad) {
+        this.cantidad = cantidad;
+    }
 
     public String getNombre() {
         return nombre;
@@ -137,12 +154,12 @@ public class Productos implements Serializable {
         this.detalle = detalle;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getVideoDemostrativo() {
+        return videoDemostrativo;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setVideoDemostrativo(String videoDemostrativo) {
+        this.videoDemostrativo = videoDemostrativo;
     }
 
     @XmlTransient
@@ -173,15 +190,6 @@ public class Productos implements Serializable {
     }
 
     @XmlTransient
-    public List<Cupones> getCuponesList() {
-        return cuponesList;
-    }
-
-    public void setCuponesList(List<Cupones> cuponesList) {
-        this.cuponesList = cuponesList;
-    }
-
-    @XmlTransient
     public List<Imagenes> getImagenesList() {
         return imagenesList;
     }
@@ -191,12 +199,29 @@ public class Productos implements Serializable {
     }
 
     @XmlTransient
+    public List<CuponesDescuentos> getCuponesDescuentosList() {
+        return cuponesDescuentosList;
+    }
+
+    public void setCuponesDescuentosList(List<CuponesDescuentos> cuponesDescuentosList) {
+        this.cuponesDescuentosList = cuponesDescuentosList;
+    }
+
+    @XmlTransient
     public List<Pedidos> getPedidosList() {
         return pedidosList;
     }
 
     public void setPedidosList(List<Pedidos> pedidosList) {
         this.pedidosList = pedidosList;
+    }
+
+    public Marca getIdMarca() {
+        return idMarca;
+    }
+
+    public void setIdMarca(Marca idMarca) {
+        this.idMarca = idMarca;
     }
 
     @Override
@@ -222,22 +247,6 @@ public class Productos implements Serializable {
     @Override
     public String toString() {
         return "com.sysio.ecommerce.data.entity.Productos[ idProducto=" + idProducto + " ]";
-    }
-
-    public Float getCosto() {
-        return costo;
-    }
-
-    public void setCosto(Float costo) {
-        this.costo = costo;
-    }
-
-    public Float getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Float cantidad) {
-        this.cantidad = cantidad;
     }
     
 }

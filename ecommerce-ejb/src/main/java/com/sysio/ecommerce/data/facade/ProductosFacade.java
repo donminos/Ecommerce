@@ -86,13 +86,14 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     public void AgregarProducto(Productos producto) {
 
         try {
-            Query query = em.createNativeQuery("INSERT INTO Productos (Descripcion,Costo,Cantidad,Nombre,Detalle,Marca) values(?,?,?,?,?,?)");
+            Query query = em.createNativeQuery("INSERT INTO Productos (Descripcion,Costo,Cantidad,Nombre,Detalle,idMarca,VideoDemostrativo) values(?,?,?,?,?,?,?)");
             query.setParameter(1, producto.getDescripcion());
             query.setParameter(2, producto.getCosto());
             query.setParameter(3, producto.getCantidad());
             query.setParameter(4, producto.getNombre());
             query.setParameter(5, producto.getDetalle());
-            query.setParameter(6, producto.getMarca());
+            query.setParameter(6, producto.getIdMarca().getIdMarca());
+            query.setParameter(7, producto.getVideoDemostrativo());
             query.executeUpdate();
             producto.setIdProducto(((BigInteger) em.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).intValue()); //opcion SELECT LAST_INSERT_ID() ó SELECT @@IDENTITY
             for (Categorias cat : producto.getCategoriasList()) {

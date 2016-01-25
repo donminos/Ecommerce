@@ -5,7 +5,7 @@
  */
 package com.sysio.ecommerce.data.facade;
 
-import com.sysio.ecommerce.data.entity.Cupones;
+import com.sysio.ecommerce.data.entity.Marca;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Carlos Cesar Rosas<face_less@hotmail.com>
  */
 @Stateless
-public class CuponesFacade extends AbstractFacade<Cupones> implements CuponesFacadeLocal {
+public class MarcaFacade extends AbstractFacade<Marca> implements MarcaFacadeLocal {
     @PersistenceContext(unitName = "ecommerce-ejb")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class CuponesFacade extends AbstractFacade<Cupones> implements CuponesFac
         return em;
     }
 
-    public CuponesFacade() {
-        super(Cupones.class);
+    public MarcaFacade() {
+        super(Marca.class);
     }
     
 }
