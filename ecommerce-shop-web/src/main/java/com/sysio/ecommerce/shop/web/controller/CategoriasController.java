@@ -6,7 +6,6 @@ import com.sysio.ecommerce.data.session.CategoriasSessionRemote;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -30,7 +29,8 @@ public class CategoriasController {
         List<Categorias> cats=categoriasSession.findAll();
         for(int i=0;i<cats.size();i++){
             cats.get(i).setProductosList(new ArrayList());
-            cats.get(i).setCuponesList(new ArrayList());
+            cats.get(i).setCategoriasList(new ArrayList());
+            cats.get(i).setCategoriasList1(new ArrayList());
         }
         return cats;
     }

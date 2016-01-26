@@ -2,6 +2,7 @@ package com.sysio.ecommerce.admin.web.beans;
 
 import com.sysio.ecommerce.data.entity.Categorias;
 import com.sysio.ecommerce.data.session.CategoriasSessionRemote;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -26,12 +27,24 @@ public class AgregarCategoriasBean {
     @Getter
     private Categorias categoria;
 
+    @Setter
+    @Getter
+    private List<String> subcategoria;
+
     public AgregarCategoriasBean() {
         categoria = new Categorias();
     }
 
     public void createCategoria() {
         if (categoria.getIdCategoria() == null) {
+            List<Categorias> subcatsObj=new ArrayList();
+            List<Categorias> catsObj=new ArrayList();
+            for(String cats:subcategoria){
+                subcatsObj.add(categoriasSession.find(Integer.valueOf(cats)));
+            }
+            catsObj.add(categoria);
+            categoria.setCategoriasList1(subcatsObj);
+            categoria.setCategoriasList(catsObj);
             categoriasSession.create(categoria);
         } else {
             categoriasSession.edit(categoria);
