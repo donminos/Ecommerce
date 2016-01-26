@@ -30,4 +30,6 @@ public interface PedidosFacadeLocal {
 
     int count();
     
+    List<Pedidos> findAllStatus(Integer status);
+    
 }

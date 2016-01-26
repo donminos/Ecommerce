@@ -6,16 +6,23 @@
 package com.sysio.ecommerce.data.facade;
 
 import com.sysio.ecommerce.data.entity.Pedidos;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import lombok.extern.java.Log;
 
 /**
  *
  * @author Carlos Cesar Rosas<face_less@hotmail.com>
  */
+@Log
 @Stateless
 public class PedidosFacade extends AbstractFacade<Pedidos> implements PedidosFacadeLocal {
+
     @PersistenceContext(unitName = "ecommerce-ejb")
     private EntityManager em;
 
@@ -27,5 +34,18 @@ public class PedidosFacade extends AbstractFacade<Pedidos> implements PedidosFac
     public PedidosFacade() {
         super(Pedidos.class);
     }
-    
+
+    @Override
+    public List<Pedidos> findAllStatus(Integer status) {
+        List<Pedidos> pedidos=new ArrayList();
+        try {
+            Query query=em.createQuery("SELECT p FROM Pedidos p where p.idStatus=:status");
+            query.setParameter("status", status);
+            pedidos=query.getResultList();
+        } catch (Exception ex) {
+            log.log(Level.SEVERE,ex.getMessage());
+        }
+        return pedidos;
+    }
+
 }
