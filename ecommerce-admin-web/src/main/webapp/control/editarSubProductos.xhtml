@@ -15,7 +15,7 @@
                 <f:view>
                     <p:growl id="messages" showDetail="true" />
                     <f:metadata>
-                        <f:viewParam name="idProducto" value="#{editarSubproductos.idproducto}" />
+                        <f:viewParam name="idProducto" value="#{editarSubproductosBean.idproducto}" />
                     </f:metadata>
                     <h:form>
                         <p:panelGrid columns="1" layout="grid">
@@ -23,8 +23,8 @@
                                 <p:outputLabel value="SUBPRODUCTOS"/>
                             </f:facet>
                             <p:outputLabel value="Subproductos:" for="subproducto" />
-                            <p:selectCheckboxMenu id="subproducto" value="#{editarSubproductos.subproducto}" label="Productos" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
-                                <f:selectItems value="#{editarSubproductos.listProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
+                            <p:selectCheckboxMenu id="subproducto" value="#{editarSubproductosBean.subproducto}" label="Productos" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
+                                <f:selectItems value="#{editarSubproductosBean.listProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
                             </p:selectCheckboxMenu>
                             <f:facet name="footer">
                                 <p:commandButton value="Agregar" action="#{editarSubproductos.addProducto()}" update="lstSubProd messages"/>
@@ -32,7 +32,7 @@
                         </p:panelGrid>
                     </h:form>
                     <h:form id="lstSubProd">
-                        <p:dataTable value="#{editarSubproductos.lstSubProductos}" reflow="true" var="item">
+                        <p:dataTable value="#{editarSubproductosBean.lstSubProductos}" reflow="true" var="item">
                             <f:facet name="header">
                                 <p:outputLabel value="Lista de subproductos"/>
                             </f:facet>
@@ -82,7 +82,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Acción"/>
                                 </f:facet>
-                                <p:commandLink value="Eliminar" update="lstSubProd messages" action="#{editarSubproductos.eliminarProducto(item)}"/>
+                                <p:commandLink value="Eliminar" update="lstSubProd messages" action="#{editarSubproductosBean.eliminarProducto(item)}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

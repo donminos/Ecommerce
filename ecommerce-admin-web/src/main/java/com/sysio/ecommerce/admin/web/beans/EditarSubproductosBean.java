@@ -22,9 +22,9 @@ import lombok.extern.java.Log;
  * @author Carlos Cesar Rosas<face_less@hotmail.com>
  */
 @Log
-@Named(value = "editarSubproductos")
+@Named(value = "editarSubproductosBean")
 @ViewScoped
-public class EditarSubproductos implements Serializable{
+public class EditarSubproductosBean implements Serializable{
     @EJB
     private ProductosSessionRemote productosSession;
 
@@ -32,7 +32,7 @@ public class EditarSubproductos implements Serializable{
     
     @Getter @Setter private List<String> subproducto;
     
-    public EditarSubproductos() {
+    public EditarSubproductosBean() {
     }
     
     public List<Productos> getLstSubProductos(){

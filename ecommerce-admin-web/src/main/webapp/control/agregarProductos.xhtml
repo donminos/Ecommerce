@@ -29,6 +29,8 @@
                             <p:inputText id="nombre" value="#{agregarProductosBean.producto.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
                             <p:outputLabel value="Detalle:" for="detalle" />
                             <p:inputText id="detalle" value="#{agregarProductosBean.producto.detalle}" title="Detalle" required="true" requiredMessage="The Detalle field is required."/>
+                            <p:outputLabel value="Video Demostrativo" for="video" />
+                            <p:inputText id="video" value="#{agregarProductosBean.producto.videoDemostrativo}" title="Video" required="false"/>
                             <p:outputLabel value="Marca:" for="marca" />
                             <p:selectOneMenu id="marca" value="#{agregarProductosBean.marca}" label="Marca" panelStyle="width:280px" filter="true" filterMatchMode="startsWith">
                                 <f:selectItem itemLabel="Marcas" itemValue="" />
