@@ -42,7 +42,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Acción"/>
                                 </f:facet>
-                                <p:commandLink value="Modificar" action="#{agregarMarcasBean.modMarca(item)}" update="formMarca"/>
+                                <p:commandLink value="Modificar" ajax="false" action="#{agregarMarcasBean.modMarca(item)}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

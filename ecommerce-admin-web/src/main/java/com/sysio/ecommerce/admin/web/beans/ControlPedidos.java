@@ -13,6 +13,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +35,7 @@ public class ControlPedidos {
     @Getter @Setter Integer status;
     
     public ControlPedidos() {
+        status=1;
     }
     
     public List<Pedidos> getLstPedidos(){
@@ -41,6 +44,13 @@ public class ControlPedidos {
     
     public List<Estatus> getLstStatus(){
         return estatusSession.findAll();
+    }
+    
+    public void changeStatus(Pedidos pedido){
+        pedido.setIdStatus(estatusSession.find(this.status));
+        pedidosSession.edit(pedido);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Completo",  "El pedido ha pasado a "+pedido.getIdStatus().getEstatus()));
     }
     
 }

@@ -13,7 +13,8 @@
         <ui:composition template="../templates/commonTemplate.xhtml">
             <ui:define name="content">
                 <f:view>
-                    <h:form>
+                    <h:form id="formpedidos">
+                        <p:growl id="growl" showDetail="true" sticky="true" life="800" />
                         <p:dataTable value="#{controlPedidos.lstPedidos}" var="item">
                             <f:facet name="header">
                                 <p:outputLabel value="PEDIDOS"/>
@@ -48,6 +49,7 @@
                                 </f:facet>
                                 <p:selectOneMenu value="#{controlPedidos.status}">
                                     <f:selectItems value="#{controlPedidos.lstStatus}" var="s" itemValue="#{s.idEstatus}" itemLabel="#{s.estatus}"/>
+                                    <p:ajax process="@this" update="formpedidos,formpedidos:growl" listener="#{controlPedidos.changeStatus(item)}"/>
                                 </p:selectOneMenu>
                             </p:column>
                         </p:dataTable>

@@ -45,7 +45,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Accion"/>
                                 </f:facet>
-                                <p:commandButton value="Editar" action="#{agregarCategoriasBean.chargeCategoria(item)}" update="formCat"/>
+                                <p:commandLink  value="Editar" ajax="false" action="#{agregarCategoriasBean.chargeCategoria(item)}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

@@ -2,6 +2,7 @@ package com.sysio.ecommerce.admin.web.beans;
 
 import com.sysio.ecommerce.data.entity.Categorias;
 import com.sysio.ecommerce.data.session.CategoriasSessionRemote;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -18,7 +19,7 @@ import lombok.Setter;
  */
 @Named(value = "agregarCategoriasBean")
 @RequestScoped
-public class AgregarCategoriasBean {
+public class AgregarCategoriasBean implements Serializable{
 
     @EJB
     private CategoriasSessionRemote categoriasSession;

@@ -29,9 +29,6 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     @PersistenceContext(unitName = "ecommerce-ejb")
     private EntityManager em;
-
-    @Resource
-    private javax.transaction.UserTransaction utx;
     
     @Override
     protected EntityManager getEntityManager() {
@@ -90,7 +87,6 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     public void AgregarProducto(Productos producto) {
 
         try {
-            utx.begin();
             Query query = em.createNativeQuery("INSERT INTO Productos (Descripcion,Costo,Cantidad,Nombre,Detalle,idMarca,VideoDemostrativo) values(?,?,?,?,?,?,?)");
             query.setParameter(1, producto.getDescripcion());
             query.setParameter(2, producto.getCosto());
@@ -113,7 +109,6 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
                 query.setParameter(2, prod.getIdProducto());
                 query.executeUpdate();
             }
-            utx.commit();
         } catch (Exception ex) {
             Logger.getLogger(ProductosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
