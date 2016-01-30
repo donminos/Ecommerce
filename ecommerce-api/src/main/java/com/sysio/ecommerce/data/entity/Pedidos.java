@@ -6,6 +6,8 @@
 package com.sysio.ecommerce.data.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,11 +15,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pedidos.findAll", query = "SELECT p FROM Pedidos p"),
-    @NamedQuery(name = "Pedidos.findByIdPedido", query = "SELECT p FROM Pedidos p WHERE p.idPedido = :idPedido")})
+    @NamedQuery(name = "Pedidos.findByIdPedido", query = "SELECT p FROM Pedidos p WHERE p.idPedido = :idPedido"),
+    @NamedQuery(name = "Pedidos.findByFechaPedido", query = "SELECT p FROM Pedidos p WHERE p.fechaPedido = :fechaPedido")})
 public class Pedidos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,12 +45,19 @@ public class Pedidos implements Serializable {
     @Basic(optional = false)
     @Column(name = "idPedido")
     private Integer idPedido;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FechaPedido")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaPedido;
+    @JoinTable(name = "PedidoProductos", joinColumns = {
+        @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")}, inverseJoinColumns = {
+        @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")})
+    @ManyToMany
+    private List<Productos> productosList;
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false)
     private Usuarios idUsuario;
-    @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")
-    @ManyToOne(optional = false)
-    private Productos idProducto;
     @JoinColumn(name = "idStatus", referencedColumnName = "idEstatus")
     @ManyToOne(optional = false)
     private Estatus idStatus;
@@ -53,6 +69,11 @@ public class Pedidos implements Serializable {
         this.idPedido = idPedido;
     }
 
+    public Pedidos(Integer idPedido, Date fechaPedido) {
+        this.idPedido = idPedido;
+        this.fechaPedido = fechaPedido;
+    }
+
     public Integer getIdPedido() {
         return idPedido;
     }
@@ -61,20 +82,29 @@ public class Pedidos implements Serializable {
         this.idPedido = idPedido;
     }
 
+    public Date getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(Date fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
+
+    @XmlTransient
+    public List<Productos> getProductosList() {
+        return productosList;
+    }
+
+    public void setProductosList(List<Productos> productosList) {
+        this.productosList = productosList;
+    }
+
     public Usuarios getIdUsuario() {
         return idUsuario;
     }
 
     public void setIdUsuario(Usuarios idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    public Productos getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(Productos idProducto) {
-        this.idProducto = idProducto;
     }
 
     public Estatus getIdStatus() {
