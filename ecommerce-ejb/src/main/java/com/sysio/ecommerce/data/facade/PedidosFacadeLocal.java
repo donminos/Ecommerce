@@ -32,4 +32,6 @@ public interface PedidosFacadeLocal {
     
     List<Pedidos> findAllStatus(Integer status);
     
+    List<Pedidos> findAllFetch();
+    
 }

@@ -31,4 +31,7 @@ public interface PedidosSessionRemote {
     public int count();
 
     public List<Pedidos> findAllStatus(Integer status);
+    
+    public List<Pedidos> findAllFetch();
+    
 }

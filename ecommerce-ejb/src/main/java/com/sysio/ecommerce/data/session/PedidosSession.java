@@ -56,4 +56,9 @@ public class PedidosSession implements PedidosSessionRemote {
         return pedidosFacade.findAllStatus(status);
     }
 
+    @Override
+    public List<Pedidos> findAllFetch() {
+        return pedidosFacade.findAllFetch();
+    }
+
 }

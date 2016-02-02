@@ -23,6 +23,9 @@
                             <p:inputText id="nombre" value="#{agregarMarcasBean.marca.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
                             <f:facet name="footer">
                                 <p:commandButton value="Aplicar" action="#{agregarMarcasBean.createMarca()}" update="growl,lstMarcas"/>
+                                <p:commandButton value="Limpiar" ajax="false" immediate="true">
+                                    <p:resetInput target="formMarca"/>
+                                </p:commandButton>
                             </f:facet>
                         </p:panelGrid>
                     </h:form>

@@ -46,6 +46,9 @@
                             </p:selectCheckboxMenu>
                             <f:facet name="footer">
                                 <p:commandButton value="Aplicar" update="growl,listProducto" icon="ui-icon-disk" action="#{agregarProductosBean.createProducto()}"/>
+                                <p:commandButton value="Limpiar" ajax="false" immediate="true">
+                                    <p:resetInput target="programCreate"/>
+                                </p:commandButton>
                             </f:facet>
                         </p:panelGrid>
                     </h:form>

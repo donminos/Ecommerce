@@ -3,13 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         <ui:composition template="../templates/commonTemplate.xhtml">
             <ui:define name="content">
+                <p:selectOneMenu>
+                    <f:selectItems value="#{panelControl.lstProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}"/>
+                </p:selectOneMenu>
                 <p:chart type="line" model="#{panelControl.lineModel}" style="height:300px;"/>
             </ui:define>
         </ui:composition>

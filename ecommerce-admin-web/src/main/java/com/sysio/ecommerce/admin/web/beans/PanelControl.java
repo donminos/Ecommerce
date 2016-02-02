@@ -1,6 +1,10 @@
 package com.sysio.ecommerce.admin.web.beans;
 
+import com.sysio.ecommerce.data.entity.Productos;
+import com.sysio.ecommerce.data.session.ProductosSessionRemote;
 import java.io.Serializable;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import lombok.Getter;
@@ -17,6 +21,8 @@ import org.primefaces.model.chart.LineChartSeries;
 @Named(value = "panelControl")
 @RequestScoped
 public class PanelControl implements Serializable {
+    @EJB
+    private ProductosSessionRemote productosSession;
 
     @Getter
     @Setter
@@ -30,6 +36,11 @@ public class PanelControl implements Serializable {
         yAxis.setMin(0);
         yAxis.setMax(10);
     }
+    
+    public List<Productos> getLstProductos(){
+        return productosSession.findAll();
+    }
+    
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
  

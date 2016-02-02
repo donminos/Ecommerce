@@ -9,7 +9,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        
+
         <ui:composition template="../templates/commonTemplate.xhtml">
             <ui:define name="content">
                 <f:view>
@@ -35,7 +35,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="IdProducto"/>
                                 </f:facet>
-                                <h:outputText value="#{item.productosList}"/>
+                                <p:commandLink id="productosBtn" value="Productos" type="button"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
@@ -53,6 +53,26 @@
                                 </p:selectOneMenu>
                             </p:column>
                         </p:dataTable>
+
+                        <p:overlayPanel id="prodPanel" for="productosBtn" hideEffect="fade" dynamic="true" style="width:600px">
+                            <p:dataTable var="prod" value="#{item.productosList}" rows="5" paginator="true">
+                                <p:column headerText="Movie">
+                                    <h:outputText value="#{prod.}" />
+                                </p:column>
+
+                                <p:column headerText="Directed By">
+                                    <h:outputText value="#{movies.directedBy}" />
+                                </p:column>
+
+                                <p:column headerText="Genres">
+                                    <h:outputText value="#{movies.genres}" />
+                                </p:column>
+
+                                <p:column headerText="Run Time(min.)">
+                                    <h:outputText value="#{movies.runTime}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:overlayPanel>
                     </h:form>
                 </f:view>
 

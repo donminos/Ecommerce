@@ -58,6 +58,14 @@ public class AgregarCategoriasBean implements Serializable{
     public List<Categorias> getLstCategorias() {
         return categoriasSession.findAll();
     }
+    public List<Categorias> getLstSubCategorias(){
+        
+        List<Categorias> cats=categoriasSession.findAll();
+        if(categoria!=null){
+            cats.remove(categoria);
+        }
+        return cats;
+    }
 
     public void chargeCategoria(Categorias catlst) {
         this.categoria = catlst;

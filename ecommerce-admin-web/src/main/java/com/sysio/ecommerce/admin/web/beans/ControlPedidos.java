@@ -39,7 +39,7 @@ public class ControlPedidos {
     }
     
     public List<Pedidos> getLstPedidos(){
-        return pedidosSession.findAll(); 
+        return pedidosSession.findAllFetch(); 
     }
     
     public List<Estatus> getLstStatus(){

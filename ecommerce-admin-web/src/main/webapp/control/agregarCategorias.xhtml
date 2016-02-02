@@ -21,11 +21,14 @@
                             <p:outputLabel value="Nombre:" for="nombre" />
                             <p:inputText id="nombre" value="#{agregarCategoriasBean.categoria.nombre}" title="Nombre" autocomplete="false" required="true" requiredMessage="The Nombre field is required."/>
                             <p:selectCheckboxMenu id="subcat" label="Subcategoria" value="#{agregarCategoriasBean.subcategoria}">
-                                <f:selectItems value="#{agregarCategoriasBean.lstCategorias}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCategoria}"/>
+                                <f:selectItems value="#{agregarCategoriasBean.lstSubCategorias}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCategoria}"/>
                             </p:selectCheckboxMenu>
                             <h:inputHidden value="#{agregarCategoriasBean.categoria.idCategoria}"/>
                             <f:facet name="footer">
                                 <p:commandButton value="Aplicar" update="messages lstCategorias" action="#{agregarCategoriasBean.createCategoria}"/>
+                                <p:commandButton value="Limpiar" ajax="false" immediate="true">
+                                    <p:resetInput target="formCat"/>
+                                </p:commandButton>
                             </f:facet>
                         </p:panelGrid>
                     </h:form>
