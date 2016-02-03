@@ -36,7 +36,7 @@ public class ProductosController {
             prod.setProductosList(new ArrayList());
             prod.setProductosList1(new ArrayList());
             prod.setCategoriasList(new ArrayList());
-            prod.setPedidosList(new ArrayList());
+            prod.setPedidoProductosList(new ArrayList());
             List<Imagenes> imgs=imagenesSession.findAllId(prod.getIdProducto());
             for(Imagenes img:imgs)
                 img.setIdProducto(null);

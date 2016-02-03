@@ -9,17 +9,17 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,17 +50,14 @@ public class Pedidos implements Serializable {
     @Column(name = "FechaPedido")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaPedido;
-    @JoinTable(name = "PedidoProductos", joinColumns = {
-        @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")}, inverseJoinColumns = {
-        @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")})
-    @ManyToMany
-    private List<Productos> productosList;
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false)
     private Usuarios idUsuario;
     @JoinColumn(name = "idStatus", referencedColumnName = "idEstatus")
     @ManyToOne(optional = false)
     private Estatus idStatus;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidos")
+    private List<PedidoProductos> pedidoProductosList;
 
     public Pedidos() {
     }
@@ -90,15 +87,6 @@ public class Pedidos implements Serializable {
         this.fechaPedido = fechaPedido;
     }
 
-    @XmlTransient
-    public List<Productos> getProductosList() {
-        return productosList;
-    }
-
-    public void setProductosList(List<Productos> productosList) {
-        this.productosList = productosList;
-    }
-
     public Usuarios getIdUsuario() {
         return idUsuario;
     }
@@ -113,6 +101,15 @@ public class Pedidos implements Serializable {
 
     public void setIdStatus(Estatus idStatus) {
         this.idStatus = idStatus;
+    }
+
+    @XmlTransient
+    public List<PedidoProductos> getPedidoProductosList() {
+        return pedidoProductosList;
+    }
+
+    public void setPedidoProductosList(List<PedidoProductos> pedidoProductosList) {
+        this.pedidoProductosList = pedidoProductosList;
     }
 
     @Override

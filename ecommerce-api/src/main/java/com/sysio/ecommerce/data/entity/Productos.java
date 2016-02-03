@@ -82,8 +82,6 @@ public class Productos implements Serializable {
     private List<Productos> productosList1;
     @ManyToMany(mappedBy = "productosList")
     private List<Categorias> categoriasList;
-    @ManyToMany(mappedBy = "productosList")
-    private List<Pedidos> pedidosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
     private List<Imagenes> imagenesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
@@ -91,6 +89,8 @@ public class Productos implements Serializable {
     @JoinColumn(name = "idMarca", referencedColumnName = "idMarca")
     @ManyToOne(optional = false)
     private Marca idMarca;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productos")
+    private List<PedidoProductos> pedidoProductosList;
 
     public Productos() {
     }
@@ -190,15 +190,6 @@ public class Productos implements Serializable {
     }
 
     @XmlTransient
-    public List<Pedidos> getPedidosList() {
-        return pedidosList;
-    }
-
-    public void setPedidosList(List<Pedidos> pedidosList) {
-        this.pedidosList = pedidosList;
-    }
-
-    @XmlTransient
     public List<Imagenes> getImagenesList() {
         return imagenesList;
     }
@@ -222,6 +213,15 @@ public class Productos implements Serializable {
 
     public void setIdMarca(Marca idMarca) {
         this.idMarca = idMarca;
+    }
+
+    @XmlTransient
+    public List<PedidoProductos> getPedidoProductosList() {
+        return pedidoProductosList;
+    }
+
+    public void setPedidoProductosList(List<PedidoProductos> pedidoProductosList) {
+        this.pedidoProductosList = pedidoProductosList;
     }
 
     @Override
