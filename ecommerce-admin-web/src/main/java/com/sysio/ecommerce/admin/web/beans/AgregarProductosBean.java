@@ -1,4 +1,3 @@
-
 package com.sysio.ecommerce.admin.web.beans;
 
 import com.sysio.ecommerce.data.entity.Categorias;
@@ -25,38 +24,50 @@ import lombok.Setter;
 @Named(value = "agregarProductosBean")
 @RequestScoped
 public class AgregarProductosBean {
+
     @EJB
     private MarcaSessionRemote marcaSession;
     @EJB
     private CategoriasSessionRemote categoriasSession;
     @EJB
-    private ProductosSessionRemote productosSession;    
-    
-    @Getter @Setter private Productos producto;
-    
-    @Getter @Setter private List<String> subproducto;
-    
-    @Getter @Setter private Integer marca;
-    
-    @Getter @Setter private List<String> categorias;
-    
+    private ProductosSessionRemote productosSession;
+
+    @Getter
+    @Setter
+    private Productos producto;
+
+    @Getter
+    @Setter
+    private List<String> subproducto;
+
+    @Getter
+    @Setter
+    private Integer marca;
+
+    @Getter
+    @Setter
+    private List<String> categorias;
+
     public AgregarProductosBean() {
-        producto=new Productos();
+        producto = new Productos();
     }
-    public List<Productos> getListProductos(){
-        return productosSession.findAllFetch();
+
+    public List<Productos> getListProductos() {
+        List<Productos> prods;
+        prods = productosSession.findAllFetch();
+        return prods;
     }
-    
-    public List<Marca> getListMarcas(){
+
+    public List<Marca> getListMarcas() {
         return marcaSession.findAll();
     }
-    
-    public void createProducto(){
-        List<Productos> listProd=new LinkedList();
+
+    public void createProducto() {
+        List<Productos> listProd = new LinkedList();
         for (String produc : subproducto) {
             listProd.add(productosSession.find(Integer.parseInt(produc)));
         }
-        List<Categorias> listCat=new LinkedList();
+        List<Categorias> listCat = new LinkedList();
         for (String categoria : categorias) {
             listCat.add(categoriasSession.find(Integer.parseInt(categoria)));
         }
@@ -64,26 +75,29 @@ public class AgregarProductosBean {
         producto.setProductosList(listProd);
         producto.setCategoriasList(listCat);
         productosSession.AgregarProducto(producto);
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
-         
-        context.addMessage(null, new FacesMessage("Completo",  "El registro del producto se agrego satisfactoriamente") );
+
+        context.addMessage(null, new FacesMessage("Completo", "El registro del producto se agrego satisfactoriamente"));
     }
-    public List<Productos> getListSubProductos(Integer id){
-        Productos prod=productosSession.find(id);
-        List<Productos> sublista=productosSession.findAll();
+
+    public List<Productos> getListSubProductos(Integer id) {
+        Productos prod = productosSession.find(id);
+        List<Productos> sublista = productosSession.findAll();
         sublista.remove(prod);
         return sublista;
     }
-    public List<Categorias> getListCategorias(){
+
+    public List<Categorias> getListCategorias() {
         return categoriasSession.findAll();
     }
-    public String getConcatenarCategorias(List<Categorias> categoriasincluidas){
-        String categoriasconcat="";
-        for(Categorias cat:categoriasincluidas){
-            categoriasconcat+=cat.getNombre()+",";
+
+    public String getConcatenarCategorias(List<Categorias> categoriasincluidas) {
+        String categoriasconcat = "";
+        for (Categorias cat : categoriasincluidas) {
+            categoriasconcat += cat.getNombre() + ",";
         }
-        categoriasconcat=categoriasconcat.substring(0,categoriasconcat.length()-1);
+        categoriasconcat = categoriasconcat.substring(0, categoriasconcat.length() - 1);
         return categoriasconcat;
     }
 }

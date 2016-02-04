@@ -39,13 +39,13 @@
                                 
 
                         <p:overlayPanel id="prodPanel" for="productosBtn" hideEffect="fade" dynamic="true" style="width:600px">
-                            <p:dataTable var="prod" value="#{item.productosList}" rows="5" paginator="true">
+                            <p:dataTable var="prod" value="#{item.pedidoProductosList}" rows="5" paginator="true">
                                 <p:column headerText="idProducto">
-                                    <h:outputText value="#{prod.idProducto}" />
+                                    <h:outputText value="#{prod.productos.idProducto}" />
                                 </p:column>
 
                                 <p:column headerText="Nombre">
-                                    <h:outputText value="#{prod.nombre}" />
+                                    <h:outputText value="#{prod.productos.nombre}" />
                                 </p:column>
                             </p:dataTable>
                         </p:overlayPanel>

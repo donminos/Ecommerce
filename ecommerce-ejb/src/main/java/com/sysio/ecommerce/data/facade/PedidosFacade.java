@@ -49,7 +49,7 @@ public class PedidosFacade extends AbstractFacade<Pedidos> implements PedidosFac
     }
     @Override
     public List<Pedidos> findAllFetch() {
-        Query query = em.createQuery("SELECT distinct p FROM Pedidos p JOIN FETCH p.productosList", Pedidos.class);
+        Query query = em.createQuery("SELECT distinct p FROM Pedidos p JOIN FETCH p.pedidoProductosList", Pedidos.class);
         List<Pedidos> pedidos = query.getResultList();
         return pedidos;
     }
