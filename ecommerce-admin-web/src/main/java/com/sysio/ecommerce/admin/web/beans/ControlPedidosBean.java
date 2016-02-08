@@ -22,9 +22,9 @@ import lombok.Setter;
  *
  * @author Carlos Cesar Rosas
  */
-@Named(value = "controlPedidos")
+@Named(value = "controlPedidosBean")
 @RequestScoped
-public class ControlPedidos {
+public class ControlPedidosBean {
 
     @EJB
     private EstatusSessionRemote estatusSession;
@@ -34,7 +34,7 @@ public class ControlPedidos {
     
     @Getter @Setter Integer status;
     
-    public ControlPedidos() {
+    public ControlPedidosBean() {
         status=1;
     }
     

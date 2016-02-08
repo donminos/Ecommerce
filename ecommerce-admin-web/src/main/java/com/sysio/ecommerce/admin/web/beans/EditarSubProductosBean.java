@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -24,7 +23,7 @@ import lombok.extern.java.Log;
 @Log
 @Named(value = "editarSubproductosBean")
 @ViewScoped
-public class EditarSubproductosBean implements Serializable{
+public class EditarSubProductosBean implements Serializable{
     @EJB
     private ProductosSessionRemote productosSession;
 
@@ -32,7 +31,7 @@ public class EditarSubproductosBean implements Serializable{
     
     @Getter @Setter private List<String> subproducto;
     
-    public EditarSubproductosBean() {
+    public EditarSubProductosBean() {
     }
     
     public List<Productos> getLstSubProductos(){

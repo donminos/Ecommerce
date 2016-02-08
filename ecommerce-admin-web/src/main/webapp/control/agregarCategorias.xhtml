@@ -25,7 +25,7 @@
                             </p:selectCheckboxMenu>
                             <h:inputHidden value="#{agregarCategoriasBean.categoria.idCategoria}"/>
                             <f:facet name="footer">
-                                <p:commandButton value="Aplicar" update="messages lstCategorias" action="#{agregarCategoriasBean.createCategoria}"/>
+                                <p:commandButton value="Aplicar" ajax="false" action="#{agregarCategoriasBean.createCategoria}"/>
                                 <p:commandButton value="Limpiar" ajax="false" immediate="true">
                                     <p:resetInput target="formCat"/>
                                 </p:commandButton>
@@ -49,6 +49,31 @@
                                     <h:outputText value="Accion"/>
                                 </f:facet>
                                 <p:commandLink  value="Editar" ajax="false" action="#{agregarCategoriasBean.chargeCategoria(item)}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="SubCategorias"/>
+                                </f:facet>                                
+                                <p:commandLink id="subcategoriasBtn" value="SubCategorias" type="button"/>
+                                <p:overlayPanel id="prodPanel" for="subcategoriasBtn" hideEffect="fade" dynamic="true" style="width:600px">
+                                    <p:dataTable id="tablesubcat" var="cat" value="#{item.categoriasList1}" rows="5" paginator="true">
+                                        <p:column headerText="idProducto">
+                                            <h:outputText value="#{cat.idCategoria}" />
+                                        </p:column>
+                                        <p:column headerText="Nombre">
+                                            <h:outputText value="#{cat.nombre}" />
+                                        </p:column>
+                                        <p:column headerText="Accion">
+                                            <p:commandLink value="Remover" update="tablesubcat" action="#{agregarCategoriasBean.removeCategoria(cat, item)}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:overlayPanel>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Eliminar"/>
+                                </f:facet>
+                                <p:commandLink  value="Quitar Producto" ajax="false" action="#{agregarCategoriasBean.removeCategoria(item)}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

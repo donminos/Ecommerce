@@ -28,4 +28,16 @@ public interface CategoriasSessionRemote {
     public List<Categorias> findRange(int[] range);
 
     public int count();
+    
+    public void createSubCategoria(Categorias categoria);
+    
+    public void editSubCategoria(Categorias categoria);
+    
+    public List<Categorias> findAllFetch();
+    
+    public List<Categorias> findForIdAllFetch(Integer idCategoria);
+    
+    public void removeSubCategoria(Categorias categoria);
+    
+    public void removeCategoria(Categorias categoria);
 }

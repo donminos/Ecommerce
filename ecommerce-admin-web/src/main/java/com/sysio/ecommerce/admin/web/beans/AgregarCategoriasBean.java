@@ -19,7 +19,7 @@ import lombok.Setter;
  */
 @Named(value = "agregarCategoriasBean")
 @RequestScoped
-public class AgregarCategoriasBean implements Serializable{
+public class AgregarCategoriasBean implements Serializable {
 
     @EJB
     private CategoriasSessionRemote categoriasSession;
@@ -38,17 +38,19 @@ public class AgregarCategoriasBean implements Serializable{
 
     public void createCategoria() {
         if (categoria.getIdCategoria() == null) {
-            List<Categorias> subcatsObj=new ArrayList();
-            List<Categorias> catsObj=new ArrayList();
-            for(String cats:subcategoria){
+            List<Categorias> subcatsObj = new ArrayList();
+            for (String cats : subcategoria) {
                 subcatsObj.add(categoriasSession.find(Integer.valueOf(cats)));
             }
-            catsObj.add(categoria);
             categoria.setCategoriasList1(subcatsObj);
-            categoria.setCategoriasList(catsObj);
-            categoriasSession.create(categoria);
+            categoriasSession.createSubCategoria(categoria);
         } else {
-            categoriasSession.edit(categoria);
+            List<Categorias> subcatsObj = new ArrayList();
+            for (String cats : subcategoria) {
+                subcatsObj.add(categoriasSession.find(Integer.valueOf(cats)));
+            }
+            categoria.setCategoriasList1(subcatsObj);
+            categoriasSession.editSubCategoria(categoria);
         }
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Completo", "Se ha aplicado el cambio"));
@@ -56,12 +58,13 @@ public class AgregarCategoriasBean implements Serializable{
     }
 
     public List<Categorias> getLstCategorias() {
-        return categoriasSession.findAll();
+        return categoriasSession.findAllFetch();
     }
-    public List<Categorias> getLstSubCategorias(){
-        
-        List<Categorias> cats=categoriasSession.findAll();
-        if(categoria!=null){
+
+    public List<Categorias> getLstSubCategorias() {
+
+        List<Categorias> cats = categoriasSession.findAll();
+        if (categoria != null) {
             cats.remove(categoria);
         }
         return cats;
@@ -69,6 +72,26 @@ public class AgregarCategoriasBean implements Serializable{
 
     public void chargeCategoria(Categorias catlst) {
         this.categoria = catlst;
+    }
+
+    public void removeCategoria(Categorias categoria, Categorias catprincipal) {
+        List<Categorias> subcategory = new ArrayList();
+        subcategory.add(categoria);
+        catprincipal.setCategoriasList1(subcategory);
+        categoriasSession.removeSubCategoria(catprincipal);
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Se ha removido la subcategoria");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public void removeCategoria(Categorias categoria) {
+        try {
+            categoriasSession.removeCategoria(categoria);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Se ha removido la categoria");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (javax.ejb.EJBTransactionRolledbackException ex) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La categoria tiene productos ligados");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
     }
 
 }

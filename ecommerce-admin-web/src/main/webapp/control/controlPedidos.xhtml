@@ -15,7 +15,7 @@
                 <f:view>
                     <h:form id="formpedidos">
                         <p:growl id="growl" showDetail="true" sticky="true" life="800" />
-                        <p:dataTable value="#{controlPedidos.lstPedidos}" var="item">
+                        <p:dataTable value="#{controlPedidosBean.lstPedidos}" var="item">
                             <f:facet name="header">
                                 <p:outputLabel value="PEDIDOS"/>
                             </f:facet>
@@ -36,19 +36,17 @@
                                     <h:outputText value="Productos"/>
                                 </f:facet>
                                 <p:commandLink id="productosBtn" value="Productos" type="button"/>
-                                
+                                <p:overlayPanel id="prodPanel" for="productosBtn" hideEffect="fade" dynamic="true" style="width:600px">
+                                    <p:dataTable var="prod" value="#{item.pedidoProductosList}" rows="5" paginator="true">
+                                        <p:column headerText="idProducto">
+                                            <h:outputText value="#{prod.productos.idProducto}" />
+                                        </p:column>
 
-                        <p:overlayPanel id="prodPanel" for="productosBtn" hideEffect="fade" dynamic="true" style="width:600px">
-                            <p:dataTable var="prod" value="#{item.pedidoProductosList}" rows="5" paginator="true">
-                                <p:column headerText="idProducto">
-                                    <h:outputText value="#{prod.productos.idProducto}" />
-                                </p:column>
-
-                                <p:column headerText="Nombre">
-                                    <h:outputText value="#{prod.productos.nombre}" />
-                                </p:column>
-                            </p:dataTable>
-                        </p:overlayPanel>
+                                        <p:column headerText="Nombre">
+                                            <h:outputText value="#{prod.productos.nombre}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:overlayPanel>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
@@ -60,9 +58,9 @@
                                 <f:facet name="header">
                                     <h:outputText value="Accion"/>
                                 </f:facet>
-                                <p:selectOneMenu value="#{controlPedidos.status}">
-                                    <f:selectItems value="#{controlPedidos.lstStatus}" var="s" itemValue="#{s.idEstatus}" itemLabel="#{s.estatus}"/>
-                                    <p:ajax process="@this" update="formpedidos,formpedidos:growl" listener="#{controlPedidos.changeStatus(item)}"/>
+                                <p:selectOneMenu value="#{controlPedidosBean.status}">
+                                    <f:selectItems value="#{controlPedidosBean.lstStatus}" var="s" itemValue="#{s.idEstatus}" itemLabel="#{s.estatus}"/>
+                                    <p:ajax process="@this" update="formpedidos,formpedidos:growl" listener="#{controlPedidosBean.changeStatus(item)}"/>
                                 </p:selectOneMenu>
                             </p:column>
                         </p:dataTable>

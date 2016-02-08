@@ -55,4 +55,34 @@ public class CategoriasSession implements CategoriasSessionRemote {
         return categoriasFacade.count();
     }
 
+    @Override
+    public void editSubCategoria(Categorias categoria) {
+        categoriasFacade.editSubCategoria(categoria);
+    }
+
+    @Override
+    public List<Categorias> findAllFetch() {
+        return categoriasFacade.findAllFetch();
+    }
+
+    @Override
+    public List<Categorias> findForIdAllFetch(Integer idCategoria) {
+        return categoriasFacade.findForIdAllFetch(idCategoria);
+    }
+
+    @Override
+    public void removeSubCategoria(Categorias categoria) {
+        categoriasFacade.removeSubCategoria(categoria);
+    }
+
+    @Override
+    public void createSubCategoria(Categorias categoria) {
+        categoriasFacade.createSubCategoria(categoria);
+    }
+
+    @Override
+    public void removeCategoria(Categorias categoria) {
+        categoriasFacade.removeCategoria(categoria);
+    }    
+        
 }

@@ -102,6 +102,18 @@
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
+                                    <h:outputText value="Visible"/>
+                                </f:facet>
+                                <h:outputText value="#{item.visible}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Activo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.activo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
                                     <h:outputText value="Categorias"/>
                                 </f:facet>
                                 <h:outputText value="#{agregarProductosBean.getConcatenarCategorias(item.categoriasList)}"/>
@@ -127,6 +139,13 @@
                                     <h:outputText value="Editar"/>
                                 </f:facet>
                                 <p:commandLink value="Editar"/>
+                            </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Eliminar"/>
+                                </f:facet>
+                                <p:commandLink value="Borrar Producto" action="#{agregarProductosBean.removerProducto(item)}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

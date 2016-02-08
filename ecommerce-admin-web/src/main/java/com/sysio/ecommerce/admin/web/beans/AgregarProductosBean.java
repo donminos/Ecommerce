@@ -77,7 +77,6 @@ public class AgregarProductosBean {
         productosSession.AgregarProducto(producto);
 
         FacesContext context = FacesContext.getCurrentInstance();
-
         context.addMessage(null, new FacesMessage("Completo", "El registro del producto se agrego satisfactoriamente"));
     }
 
@@ -99,5 +98,11 @@ public class AgregarProductosBean {
         }
         categoriasconcat = categoriasconcat.substring(0, categoriasconcat.length() - 1);
         return categoriasconcat;
+    }
+
+    public void removerProducto(Productos prod) {
+        productosSession.remove(prod);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Completo", "El producto se ha eliminado"));
     }
 }

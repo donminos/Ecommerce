@@ -28,5 +28,17 @@ public interface CategoriasFacadeLocal {
 
     List<Categorias> findRange(int[] range);
 
-    int count();    
+    int count();
+    
+    public void createSubCategoria(Categorias categoria);
+    
+    void editSubCategoria(Categorias categoria);
+    
+    void removeSubCategoria(Categorias categoria);
+    
+    void removeCategoria(Categorias categoria);
+    
+    List<Categorias> findAllFetch();
+    
+    List<Categorias> findForIdAllFetch(Integer idCategoria);
 }

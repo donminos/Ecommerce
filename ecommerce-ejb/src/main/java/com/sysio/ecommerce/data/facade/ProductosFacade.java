@@ -29,7 +29,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     @PersistenceContext(unitName = "ecommerce-ejb")
     private EntityManager em;
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -50,7 +50,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     public List<Productos> findAllSubFetch(Productos producto) {
         List<Productos> prods = new ArrayList();
         try {
-            Query query = em.createQuery("SELECT distinct p FROM Productos p "+/*JOIN FETCH p.productosList1*/" WHERE p.idProducto = :prod", Productos.class);
+            Query query = em.createQuery("SELECT distinct p FROM Productos p " +/*JOIN FETCH p.productosList1*/ " WHERE p.idProducto = :prod", Productos.class);
             query.setParameter("prod", producto.getIdProducto());
             Productos productos = new Productos();
             productos = (Productos) query.getSingleResult();
@@ -85,26 +85,21 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     @Override
     public void AgregarProducto(Productos producto) {
-
+        //Futura optimización
         try {
-            Query query = em.createNativeQuery("INSERT INTO Productos (Descripcion,Costo,Cantidad,Nombre,Detalle,idMarca,VideoDemostrativo) values(?,?,?,?,?,?,?)");
-            query.setParameter(1, producto.getDescripcion());
-            query.setParameter(2, producto.getCosto());
-            query.setParameter(3, producto.getCantidad());
-            query.setParameter(4, producto.getNombre());
-            query.setParameter(5, producto.getDetalle());
-            query.setParameter(6, producto.getIdMarca().getIdMarca());
-            query.setParameter(7, producto.getVideoDemostrativo());
-            query.executeUpdate();
+            producto.setActivo((short) 1);
+            producto.setVisible((short) 1);
+            em.persist(producto);
+            em.flush();
             producto.setIdProducto(((BigInteger) em.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).intValue()); //opcion SELECT LAST_INSERT_ID() ó SELECT @@IDENTITY
             for (Categorias cat : producto.getCategoriasList()) {
-                query = em.createNativeQuery("INSERT INTO CategoriaProductos (idProducto,idCategoria) values(?,?)");
+                Query query = em.createNativeQuery("INSERT INTO CategoriaProductos (idProducto,idCategoria) values(?,?)");
                 query.setParameter(1, producto.getIdProducto());
                 query.setParameter(2, cat.getIdCategoria());
                 query.executeUpdate();
             }
             for (Productos prod : producto.getProductosList()) {
-                query = em.createNativeQuery("INSERT INTO Subproductos (idProducto,idSubproducto) values(?,?)");
+                Query query = em.createNativeQuery("INSERT INTO Subproductos (idProducto,idSubproducto) values(?,?)");
                 query.setParameter(1, producto.getIdProducto());
                 query.setParameter(2, prod.getIdProducto());
                 query.executeUpdate();

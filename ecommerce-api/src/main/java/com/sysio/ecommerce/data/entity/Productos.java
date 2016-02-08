@@ -6,6 +6,7 @@
 package com.sysio.ecommerce.data.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -22,6 +23,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,7 +45,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Productos.findByCantidad", query = "SELECT p FROM Productos p WHERE p.cantidad = :cantidad"),
     @NamedQuery(name = "Productos.findByNombre", query = "SELECT p FROM Productos p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Productos.findByDetalle", query = "SELECT p FROM Productos p WHERE p.detalle = :detalle"),
-    @NamedQuery(name = "Productos.findByVideoDemostrativo", query = "SELECT p FROM Productos p WHERE p.videoDemostrativo = :videoDemostrativo")})
+    @NamedQuery(name = "Productos.findByVideoDemostrativo", query = "SELECT p FROM Productos p WHERE p.videoDemostrativo = :videoDemostrativo"),
+    @NamedQuery(name = "Productos.findByActivo", query = "SELECT p FROM Productos p WHERE p.activo = :activo"),
+    @NamedQuery(name = "Productos.findByVisible", query = "SELECT p FROM Productos p WHERE p.visible = :visible"),
+    @NamedQuery(name = "Productos.findByFechaCaducidad", query = "SELECT p FROM Productos p WHERE p.fechaCaducidad = :fechaCaducidad")})
 public class Productos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,6 +79,17 @@ public class Productos implements Serializable {
     @Size(max = 60)
     @Column(name = "VideoDemostrativo")
     private String videoDemostrativo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Activo")
+    private short activo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Visible")
+    private short visible;
+    @Column(name = "FechaCaducidad")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaCaducidad;
     @JoinTable(name = "Subproductos", joinColumns = {
         @JoinColumn(name = "idProducto", referencedColumnName = "idProducto")}, inverseJoinColumns = {
         @JoinColumn(name = "idSubproducto", referencedColumnName = "idProducto")})
@@ -99,11 +116,13 @@ public class Productos implements Serializable {
         this.idProducto = idProducto;
     }
 
-    public Productos(Integer idProducto, String descripcion, String nombre, String detalle) {
+    public Productos(Integer idProducto, String descripcion, String nombre, String detalle, short activo, short visible) {
         this.idProducto = idProducto;
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.detalle = detalle;
+        this.activo = activo;
+        this.visible = visible;
     }
 
     public Integer getIdProducto() {
@@ -160,6 +179,30 @@ public class Productos implements Serializable {
 
     public void setVideoDemostrativo(String videoDemostrativo) {
         this.videoDemostrativo = videoDemostrativo;
+    }
+
+    public short getActivo() {
+        return activo;
+    }
+
+    public void setActivo(short activo) {
+        this.activo = activo;
+    }
+
+    public short getVisible() {
+        return visible;
+    }
+
+    public void setVisible(short visible) {
+        this.visible = visible;
+    }
+
+    public Date getFechaCaducidad() {
+        return fechaCaducidad;
+    }
+
+    public void setFechaCaducidad(Date fechaCaducidad) {
+        this.fechaCaducidad = fechaCaducidad;
     }
 
     @XmlTransient
