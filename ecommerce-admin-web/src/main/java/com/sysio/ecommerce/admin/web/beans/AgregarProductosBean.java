@@ -9,6 +9,7 @@ import com.sysio.ecommerce.data.session.ProductosSessionRemote;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -48,18 +49,22 @@ public class AgregarProductosBean {
     @Setter
     private List<String> categorias;
 
+    @Getter
+    @Setter
+    private List<Productos> ListProductos;
+
+    @Getter
+    @Setter
+    private List<Marca> ListMarcas;
+
     public AgregarProductosBean() {
         producto = new Productos();
     }
 
-    public List<Productos> getListProductos() {
-        List<Productos> prods;
-        prods = productosSession.findAllFetch();
-        return prods;
-    }
-
-    public List<Marca> getListMarcas() {
-        return marcaSession.findAll();
+    @PostConstruct
+    public void init() {
+        this.ListProductos = productosSession.findAllFetch();
+        this.ListMarcas = marcaSession.findAll();
     }
 
     public void createProducto() {
@@ -74,8 +79,11 @@ public class AgregarProductosBean {
         producto.setIdMarca(marcaSession.find(marca));
         producto.setProductosList(listProd);
         producto.setCategoriasList(listCat);
-        productosSession.AgregarProducto(producto);
-
+        if (producto.getIdProducto() == null) {
+            productosSession.AgregarProducto(producto);
+        } else {
+            productosSession.EditarProducto(producto);
+        }
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Completo", "El registro del producto se agrego satisfactoriamente"));
     }
@@ -91,18 +99,25 @@ public class AgregarProductosBean {
         return categoriasSession.findAll();
     }
 
-    public String getConcatenarCategorias(List<Categorias> categoriasincluidas) {
-        String categoriasconcat = "";
-        for (Categorias cat : categoriasincluidas) {
-            categoriasconcat += cat.getNombre() + ",";
+    public void removerProducto(Productos prod) {
+        if (prod.getActivo() == 1) {
+            prod.setActivo((short) 0);
+        } else {
+            prod.setActivo((short) 1);
         }
-        categoriasconcat = categoriasconcat.substring(0, categoriasconcat.length() - 1);
-        return categoriasconcat;
+        productosSession.edit(prod);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Completo", "El producto se ha desactivado"));
     }
 
-    public void removerProducto(Productos prod) {
-        productosSession.remove(prod);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Completo", "El producto se ha eliminado"));
+    public void chargeProducto(Productos prod) {
+        this.producto = prod;
+        this.marca = prod.getIdMarca().getIdMarca();
+    }
+
+    public void eliminarProducto(Productos prod, Productos subprod) {
+        prod.setProductosList(productosSession.findAllSubFetch(prod));
+        prod.getProductosList().remove(subprod);
+        productosSession.edit(prod);
     }
 }

@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../templates/commonTemplate.xhtml">
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <p:panelGrid columns="4" layout="grid">
+                            <f:facet name="header">
+                                <p:outputLabel value="USUARIOS"/>
+                            </f:facet>
+                            <p:outputLabel value="Email:" for="usuario" />
+                            <p:inputText id="usuario" value="#{agregarUsuariosBean.usuario.usuario}" title="Usuario" required="true" requiredMessage="The Usuario field is required."/>
+                            <p:outputLabel value="Contrasena:" for="contrasena" />
+                            <p:password id="contrasena" value="#{agregarUsuariosBean.usuario.contrasena}" title="Contrasena" required="true" requiredMessage="The Contrasena field is required."/>
+                            <p:outputLabel value="Confirmar contrasena:" for="confcontrasena" />
+                            <p:password id="confcontrasena" value="#{agregarUsuariosBean.usuario.contrasena}" title="Contrasena" required="true" requiredMessage="The Contrasena field is required."/>
+                            <p:outputLabel value="UsuarioRol:" for="usuarioRol" />
+                            <p:selectOneMenu id="usuarioRol" >
+                                <f:selectItem itemLabel="Roles" itemValue=""/>
+                                <f:selectItems value="#{agregarUsuariosBean.lstRoles}" var="r" itemLabel="#{r.descripcion}" itemValue="#{r.idRol}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nombre:" for="nombre" />
+                            <p:inputText id="nombre" value="#{agregarUsuariosBean.datosusuario.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
+                            <p:outputLabel value="ApellidoPaterno:" for="apellidoPaterno" />
+                            <p:inputText id="apellidoPaterno" value="#{agregarUsuariosBean.datosusuario.apellidoPaterno}" title="ApellidoPaterno" required="true" requiredMessage="The ApellidoPaterno field is required."/>
+                            <p:outputLabel value="ApellidoMaterno:" for="apellidoMaterno" />
+                            <p:inputText id="apellidoMaterno" value="#{agregarUsuariosBean.datosusuario.apellidoMaterno}" title="ApellidoMaterno" />
+                            <p:outputLabel value="Cp:" for="cp" />
+                            <p:inputText id="cp" value="#{agregarUsuariosBean.datosusuario.cp}" title="Cp" required="true" requiredMessage="The Cp field is required."/>
+                            <p:outputLabel value="Estado:" for="estado" />
+                            <p:inputText id="estado" value="#{agregarUsuariosBean.datosusuario.estado}" title="Estado" required="true" requiredMessage="The Estado field is required."/>
+                            <p:outputLabel value="Ciudad:" for="ciudad" />
+                            <p:inputText id="ciudad" value="#{agregarUsuariosBean.datosusuario.ciudad}" title="Ciudad" required="true" requiredMessage="The Ciudad field is required."/>
+                            <p:outputLabel value="Delegacion:" for="delegacion" />
+                            <p:inputText id="delegacion" value="#{agregarUsuariosBean.datosusuario.delegacion}" title="Delegacion" required="true" requiredMessage="The Delegacion field is required."/>
+                            <p:outputLabel value="Colonia:" for="colonia" />
+                            <p:inputText id="colonia" value="#{agregarUsuariosBean.datosusuario.colonia}" title="Colonia" required="true" requiredMessage="The Colonia field is required."/>
+                            <p:outputLabel value="TelefonoCelular:" for="telefonoCelular" />
+                            <p:inputText id="telefonoCelular" value="#{agregarUsuariosBean.datosusuario.telefonoCelular}" title="TelefonoCelular" />
+                            <p:outputLabel value="TelefonoOtro:" for="telefonoOtro" />
+                            <p:inputText id="telefonoOtro" value="#{agregarUsuariosBean.datosusuario.telefonoOtro}" title="TelefonoOtro" required="true" requiredMessage="The TelefonoOtro field is required."/>
+                            <p:outputLabel value="NumeroInt:" for="numeroInt" />
+                            <p:inputText id="numeroInt" value="#{agregarUsuariosBean.datosusuario.numeroInt}" title="NumeroInt" required="true" requiredMessage="The NumeroInt field is required."/>
+                            <p:outputLabel value="NumeroExt:" for="numeroExt" />
+                            <p:inputText id="numeroExt" value="#{agregarUsuariosBean.datosusuario.numeroExt}" title="NumeroExt" />
+                            <p:outputLabel value="RFC:" for="rfc" />
+                            <p:inputText id="rfc" value="#{agregarUsuariosBean.datosusuario.rfc}" title="Rfc" required="true" requiredMessage="The RFC field is required."/>
+                            <h:inputHidden value="#{agregarUsuariosBean.usuario.idUsuario}"/>
+                            <f:facet name="footer">
+                                <p:commandButton value="Aplicar"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:form>
+
+                    <h:form>
+                        <p:dataTable value="#{agregarUsuariosBean.lstUsuario}" var="item" paginator="true" rows="5">
+                            <f:facet name="header">
+                                <p:outputLabel value="Listado de Usuarios"/>
+                            </f:facet>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdUsuario"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idUsuario}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Usuario"/>
+                                </f:facet>
+                                <h:outputText value="#{item.usuario}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Contrasena"/>
+                                </f:facet>
+                                <h:outputText value="#{item.contrasena}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="UsuarioRol"/>
+                                </f:facet>
+                                <h:outputText value="#{item.usuarioRol}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="DatosUsuario"/>
+                                </f:facet>
+                                <h:outputText value="#{item.datosUsuario}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

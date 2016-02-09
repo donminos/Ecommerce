@@ -34,7 +34,7 @@
                     </h:form>
 
                     <h:form id="lstCategorias">
-                        <p:dataTable value="#{agregarCategoriasBean.lstCategorias}" reflow="true" var="item">
+                        <p:dataTable value="#{agregarCategoriasBean.lstCategorias}" paginator="true" rows="15" reflow="true" var="item">
                             <f:facet name="header">
                                 <p:outputLabel value="Lista categorias"/>
                             </f:facet>
@@ -53,10 +53,10 @@
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="SubCategorias"/>
-                                </f:facet>                                
+                                </f:facet>
                                 <p:commandLink id="subcategoriasBtn" value="SubCategorias" type="button"/>
-                                <p:overlayPanel id="prodPanel" for="subcategoriasBtn" hideEffect="fade" dynamic="true" style="width:600px">
-                                    <p:dataTable id="tablesubcat" var="cat" value="#{item.categoriasList1}" rows="5" paginator="true">
+                                <p:overlayPanel id="prodPanel" for="subcategoriasBtn" hideEffect="fade" dynamic="true" class="panelSubCats">
+                                    <p:dataTable id="tablesubcat" var="cat" value="#{item.categoriasList1}" rows="5" paginator="true" reflow="true">
                                         <p:column headerText="idProducto">
                                             <h:outputText value="#{cat.idCategoria}" />
                                         </p:column>
@@ -73,7 +73,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Eliminar"/>
                                 </f:facet>
-                                <p:commandLink  value="Quitar Producto" ajax="false" action="#{agregarCategoriasBean.removeCategoria(item)}"/>
+                                <p:commandLink  value="Quitar" ajax="false" action="#{agregarCategoriasBean.removeCategoria(item)}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

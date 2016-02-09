@@ -80,5 +80,9 @@ public class ProductosSession implements ProductosSessionRemote {
     public void AgregarSubProducto(Productos productoprim, List<Productos> productosec) {
         productosFacade.AgregarSubProducto(productoprim, productosec);
     }
-        
+
+    @Override
+    public void EditarProducto(Productos producto) {
+        productosFacade.EditarProducto(producto);
+    }
 }

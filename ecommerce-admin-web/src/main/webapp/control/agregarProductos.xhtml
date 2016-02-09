@@ -33,7 +33,7 @@
                             <p:inputText id="video" value="#{agregarProductosBean.producto.videoDemostrativo}" title="Video" required="false"/>
                             <p:outputLabel value="Marca:" for="marca" />
                             <p:selectOneMenu id="marca" value="#{agregarProductosBean.marca}" label="Marca" panelStyle="width:280px" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="The Marca field is required">
-                                <f:selectItem itemLabel="Marcas" itemValue="" />
+                                <f:selectItem itemLabel="Marca" itemValue="" />
                                 <f:selectItems value="#{agregarProductosBean.listMarcas}" var="m" itemLabel="#{m.nombre}" itemValue="#{m.idMarca}"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Subproductos:" for="subproducto" />
@@ -44,6 +44,7 @@
                             <p:selectCheckboxMenu id="categoria" value="#{agregarProductosBean.categorias}" label="Categorias" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
                                 <f:selectItems value="#{agregarProductosBean.listCategorias}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCategoria}"/>
                             </p:selectCheckboxMenu>
+                            <h:inputHidden value="#{agregarProductosBean.producto.idProducto}"/>
                             <f:facet name="footer">
                                 <p:commandButton value="Aplicar" update="growl,listProducto" icon="ui-icon-disk" action="#{agregarProductosBean.createProducto()}"/>
                                 <p:commandButton value="Limpiar" ajax="false" immediate="true">
@@ -54,11 +55,11 @@
                     </h:form>
 
                     <h:form id="listProducto">
-                        <p:dataTable value="#{agregarProductosBean.listProductos}" var="item" reflow="true" rows="15" paginator="true">
+                        <p:dataTable value="#{agregarProductosBean.listProductos}" var="item" reflow="true" rows="5" paginator="true">
                             <f:facet name="header">
                                 <p:outputLabel value="Listado de productos"/>
                             </f:facet>
-                            <p:column sortBy="#{item.idProducto}">
+                            <p:column filterBy="#{item.idProducto}">
                                 <f:facet name="header">
                                     <h:outputText value="IdProducto"/>
                                 </f:facet>
@@ -102,12 +103,6 @@
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Visible"/>
-                                </f:facet>
-                                <h:outputText value="#{item.visible}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
                                     <h:outputText value="Activo"/>
                                 </f:facet>
                                 <h:outputText value="#{item.activo}"/>
@@ -116,7 +111,20 @@
                                 <f:facet name="header">
                                     <h:outputText value="Categorias"/>
                                 </f:facet>
-                                <h:outputText value="#{agregarProductosBean.getConcatenarCategorias(item.categoriasList)}"/>
+                                <p:commandLink id="categoriasBtn" value="Categorias" type="button"/>
+                                <p:overlayPanel id="catPanel" for="categoriasBtn" hideEffect="fade" dynamic="true" class="panelSubCats">
+                                    <p:dataTable id="tablesubcat" var="cat" value="#{item.categoriasList}" rows="5" paginator="true" reflow="true">
+                                        <p:column headerText="idProducto">
+                                            <h:outputText value="#{cat.idCategoria}" />
+                                        </p:column>
+                                        <p:column headerText="Nombre">
+                                            <h:outputText value="#{cat.nombre}" />
+                                        </p:column>
+                                        <p:column headerText="Accion">
+                                            <p:commandLink value="Remover" update="tablesubcat" action="#{agregarCategoriasBean.removeCategoria(cat, item)}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:overlayPanel>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
@@ -129,23 +137,28 @@
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="SubProductos"/>
-                                </f:facet>
-                                <h:link outcome="editarSubProductos" value="subproductos">
-                                    <f:param name="idProducto" value="#{item.idProducto}" />
-                                </h:link>
+                                </f:facet>                                
+                                <p:commandLink id="subproductosBtn" value="SubProductos" type="button"/>
+                                <p:overlayPanel id="prodPanel" for="subproductosBtn" hideEffect="fade" dynamic="true" class="panelSubCats">
+                                    <p:dataTable id="tablesubprod" var="p" value="#{item.productosList}" rows="5" paginator="true" reflow="true">
+                                        <p:column headerText="idProducto">
+                                            <h:outputText value="#{p.idProducto}" />
+                                        </p:column>
+                                        <p:column headerText="Nombre">
+                                            <h:outputText value="#{p.nombre}" />
+                                        </p:column>
+                                        <p:column headerText="Accion">
+                                            <p:commandLink value="Remover" update="tablesubprod" action="#{agregarProductosBean.eliminarProducto(item, p)}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:overlayPanel>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Editar"/>
+                                    <h:outputText value="Acciones"/>
                                 </f:facet>
-                                <p:commandLink value="Editar"/>
-                            </p:column>
-                            
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Eliminar"/>
-                                </f:facet>
-                                <p:commandLink value="Borrar Producto" action="#{agregarProductosBean.removerProducto(item)}"/>
+                                <p:commandLink value="Editar" ajax="false" action="#{agregarProductosBean.chargeProducto(item)}"/><br /><br />
+                                <p:commandLink value="#{item.activo==1?'Desactivar':'Activar'}" update="listProducto" action="#{agregarProductosBean.removerProducto(item)}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

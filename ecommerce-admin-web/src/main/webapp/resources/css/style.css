@@ -54,9 +54,15 @@ tr:nth-child(even) {
 }
 .ui-panelgrid .ui-panelgrid-header{
     text-align: left !important;
-        font-size: 20px;
+    font-size: 20px;
     font-weight: lighter;
     letter-spacing: 5px;
+}
+.ui-datatable .ui-column-filter{
+    max-width: 80px !important;
+}
+.panelSubCats{
+    width:600px;
 }
 @media screen and (max-width:480px){
     .column-small{
@@ -64,5 +70,9 @@ tr:nth-child(even) {
     }   
     .column-middle{
         max-width: 100%;
+    }
+    .panelSubCats{
+        left: 0 !important;
+        width: 300px;
     }
 }

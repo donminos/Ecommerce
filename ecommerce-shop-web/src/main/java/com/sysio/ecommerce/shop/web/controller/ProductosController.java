@@ -31,12 +31,12 @@ public class ProductosController {
     @RequestMapping(value = "/findAll.do", method = RequestMethod.GET, produces = "application/json")
     public List<Productos> findAll() {
         List<Productos> prods=new ArrayList();
-        for(Productos prod:productosSession.findAll()){
-            prod.setCategoriasList(new ArrayList());
+        for(Productos prod:productosSession.findAllFetch()){
+            /*prod.setCategoriasList(new ArrayList());
             prod.setProductosList(new ArrayList());
             prod.setProductosList1(new ArrayList());
             prod.setCategoriasList(new ArrayList());
-            prod.setPedidoProductosList(new ArrayList());
+            prod.setPedidoProductosList(new ArrayList());*/
             List<Imagenes> imgs=imagenesSession.findAllId(prod.getIdProducto());
             for(Imagenes img:imgs)
                 img.setIdProducto(null);

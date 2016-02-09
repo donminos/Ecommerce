@@ -1,0 +1,54 @@
+
+package com.sysio.ecommerce.data.session;
+
+import com.sysio.ecommerce.data.entity.UsuarioRol;
+import com.sysio.ecommerce.data.facade.UsuarioRolFacadeLocal;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+
+/**
+ *
+ * @author Carlos Cesar Rosas<face_less@hotmail.com>
+ */
+@Stateless
+public class UsuarioRolSession implements UsuarioRolSessionRemote {
+    @EJB
+    private UsuarioRolFacadeLocal usuarioRolFacade;
+
+    @Override
+    public void create(UsuarioRol usuarioRol) {
+        usuarioRolFacade.create(usuarioRol);
+    }
+
+    @Override
+    public void edit(UsuarioRol usuarioRol) {
+        usuarioRolFacade.edit(usuarioRol);
+    }
+
+    @Override
+    public void remove(UsuarioRol usuarioRol) {
+        usuarioRolFacade.remove(usuarioRol);
+    }
+
+    @Override
+    public UsuarioRol find(Object id) {
+        return usuarioRolFacade.find(id);
+    }
+
+    @Override
+    public List<UsuarioRol> findAll() {
+        return usuarioRolFacade.findAll();
+    }
+
+    @Override
+    public List<UsuarioRol> findRange(int[] range) {
+        return usuarioRolFacade.findRange(range);
+    }
+
+    @Override
+    public int count() {
+        return usuarioRolFacade.count();
+    }
+
+}

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,7 +40,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     @Override
     public List<Productos> findAllFetch() {
-        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.categoriasList", Productos.class);
+        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.categoriasList LEFT JOIN FETCH p.productosList", Productos.class);
         List<Productos> productos = query.getResultList();
         return productos;
     }
@@ -52,8 +51,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
         try {
             Query query = em.createQuery("SELECT distinct p FROM Productos p " +/*JOIN FETCH p.productosList1*/ " WHERE p.idProducto = :prod", Productos.class);
             query.setParameter("prod", producto.getIdProducto());
-            Productos productos = new Productos();
-            productos = (Productos) query.getSingleResult();
+            Productos productos = (Productos) query.getSingleResult();
 
             for (Productos prod : productos.getProductosList()) {
                 prods.add(prod);
@@ -85,7 +83,6 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     @Override
     public void AgregarProducto(Productos producto) {
-        //Futura optimización
         try {
             producto.setActivo((short) 1);
             producto.setVisible((short) 1);
@@ -107,7 +104,38 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
         } catch (Exception ex) {
             Logger.getLogger(ProductosFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    @Override
+    public void EditarProducto(Productos producto) {
+        em.merge(producto);
+        try {
+            if (!producto.getCategoriasList().isEmpty()) {
+                Query query = em.createNativeQuery("DELETE FROM CategoriaProductos WHERE idProducto=?");
+                query.setParameter(1, producto.getIdProducto());
+                query.executeUpdate();
+                for (Categorias cat : producto.getCategoriasList()) {
+                    query = em.createNativeQuery("INSERT INTO CategoriaProductos (idProducto,idCategoria) values(?,?)");
+                    query.setParameter(1, producto.getIdProducto());
+                    query.setParameter(2, cat.getIdCategoria());
+                    query.executeUpdate();
+                }
+            }
+            if (!producto.getProductosList().isEmpty()) {
+                Query query = em.createNativeQuery("DELETE FROM Subproductos WHERE idProducto=?");
+                query.setParameter(1, producto.getIdProducto());
+                query.executeUpdate();
+                for (Productos prod : producto.getProductosList()) {
+                    query = em.createNativeQuery("INSERT INTO Subproductos (idProducto,idSubproducto) values(?,?)");
+                    query.setParameter(1, producto.getIdProducto());
+                    query.setParameter(2, prod.getIdProducto());
+                    query.executeUpdate();
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ProductosFacade.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }
 
 }
