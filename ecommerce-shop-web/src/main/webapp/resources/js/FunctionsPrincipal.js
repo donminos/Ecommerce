@@ -60,7 +60,7 @@ function chargeProd(id) {
         $('#' + id).html(postulantsList(data));
     });
 }
-$(document).ready(function () {
+$(window).load(function () {
     chargeCatMenu('menuCat');
-    chargeProd('producLst');
+    //chargeProd('producLst');
 });
