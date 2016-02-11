@@ -17,7 +17,6 @@ Handlebars.getTemplate = function (name) {
     Handlebars.registerHelper('eachtable', function (context, options) {
         var ret = "";
         var cont = 0;
-        debugger;
         for (var i = 0, j = context.length; i < j; i++) {
             if (cont <= 2) {
                 ret+=options.fn(context[i]);

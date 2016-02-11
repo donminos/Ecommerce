@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/favicon.ico" />
     </head>
     <body>
-        <h1>Ecommerce</h1>
-
-        <ul id="menuCat"></ul>
-        <table id="producLst"></table>
+        <header>
+            <div></div>
+        </header>        
+        <nav>
+            <a id="touch-menu" class="mobile-menu" href="#"><i class="icon-reorder"></i>Menu</a>
+            <ul id="menuCat" class="menu"></ul>
+        </nav>
+        <section>
+            <article>
+                <table id="producLst"></table>
+            </article>
+        </section>
+        <footer>
+        </footer>
         <div id="scripts">
-            <link rel="stylesheet" type="text/css" href="/shop/resources/css/style.css" />
+            <link rel="stylesheet" type="text/css" href="/shop/resources/css/style.css" media="screen"/>
+            <link rel="stylesheet" href="/shop/resources/css/style_menu.css" type="text/css" media="screen">
             <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
             <script src="/shop/resources/js/libs/handlebars-v4.0.5.js"></script>
             <script src="/shop/resources/js/FunctionsPrincipal.js"></script>

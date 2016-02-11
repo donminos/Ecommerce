@@ -1,4 +1,30 @@
-.menuCat{
+body{
+    margin:0;
+}
+#menuCat{
     display: inline;
     margin-left: 5px;
+}
+header{
+    background-color: #FAFAFA;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 50px;
+}
+nav{    
+    top:0;
+    left:0;
+    background: rgba(192,192,192,1);
+    background: -moz-linear-gradient(left, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(192,192,192,1)), color-stop(0%, rgba(231,231,233,1)), color-stop(51%, rgba(191,192,192,1)), color-stop(100%, rgba(231,231,233,1)));
+    background: -webkit-linear-gradient(left, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
+    background: -o-linear-gradient(left, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
+    background: -ms-linear-gradient(left, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
+    background: linear-gradient(to right, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0c0c0', endColorstr='#e7e7e9', GradientType=1 );
+}
+li{
+    display: inline;
+    list-style: none;
 }
