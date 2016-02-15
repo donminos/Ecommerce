@@ -1,30 +1,114 @@
 body{
     margin:0;
-}
-#menuCat{
-    display: inline;
-    margin-left: 5px;
+    font-family: 'Open Sans';
 }
 header{
+    position: relative;
+    display: table;
     background-color: #FAFAFA;
     top:0;
     left:0;
     width: 100%;
     height: 50px;
 }
-nav{    
+nav{
+    position: relative;
     top:0;
     left:0;
-    background: rgba(192,192,192,1);
-    background: -moz-linear-gradient(left, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(192,192,192,1)), color-stop(0%, rgba(231,231,233,1)), color-stop(51%, rgba(191,192,192,1)), color-stop(100%, rgba(231,231,233,1)));
-    background: -webkit-linear-gradient(left, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
-    background: -o-linear-gradient(left, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
-    background: -ms-linear-gradient(left, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
-    background: linear-gradient(to right, rgba(192,192,192,1) 0%, rgba(231,231,233,1) 0%, rgba(191,192,192,1) 51%, rgba(231,231,233,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0c0c0', endColorstr='#e7e7e9', GradientType=1 );
+    background: #e8e7ea;
+    background: -moz-linear-gradient(left, #e8e7ea 0%, #e8e7ea 0%, #c0c0c0 49%, #e8e7ea 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, #e8e7ea), color-stop(0%, #e8e7ea), color-stop(49%, #c0c0c0), color-stop(100%, #e8e7ea));
+    background: -webkit-linear-gradient(left, #e8e7ea 0%, #e8e7ea 0%, #c0c0c0 49%, #e8e7ea 100%);
+    background: -o-linear-gradient(left, #e8e7ea 0%, #e8e7ea 0%, #c0c0c0 49%, #e8e7ea 100%);
+    background: -ms-linear-gradient(left, #e8e7ea 0%, #e8e7ea 0%, #c0c0c0 49%, #e8e7ea 100%);
+    background: linear-gradient(to right, #e8e7ea 0%, #e8e7ea 0%, #c0c0c0 49%, #e8e7ea 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e7ea', endColorstr='#e8e7ea', GradientType=1 );
+}
+footer{
+    background: #f16f5c;
+    background: -moz-linear-gradient(left, #f16f5c 0%, #f6290c 0%, #f02f17 0%, #1c4386 0%, #2693bc 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, #f16f5c), color-stop(0%, #f6290c), color-stop(0%, #f02f17), color-stop(0%, #1c4386), color-stop(100%, #2693bc));
+    background: -webkit-linear-gradient(left, #f16f5c 0%, #f6290c 0%, #f02f17 0%, #1c4386 0%, #2693bc 100%);
+    background: -o-linear-gradient(left, #f16f5c 0%, #f6290c 0%, #f02f17 0%, #1c4386 0%, #2693bc 100%);
+    background: -ms-linear-gradient(left, #f16f5c 0%, #f6290c 0%, #f02f17 0%, #1c4386 0%, #2693bc 100%);
+    background: linear-gradient(to right, #f16f5c 0%, #f6290c 0%, #f02f17 0%, #1c4386 0%, #2693bc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f16f5c', endColorstr='#2693bc', GradientType=1 );
 }
 li{
     display: inline;
     list-style: none;
 }
+#menuCat{
+    display: inline;
+    margin-left: 5px;
+    font-family: 'Open Sans';
+    font-weight: 700;
+}
+.logoEmpresa {
+    background-image: url("../images/papershow-logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-right: 1px solid red;
+    height: 100%;
+    margin-left: 5%;
+    width: 160px;
+
+}
+h3.tituloPageIndex{
+    font-family: 'Open Sans';
+    font-weight: 700;
+    margin-left: 10%;
+    text-transform: uppercase;
+}
+/*Carrusel*/
+ul{
+    list-style: none outside none;
+    padding-left: 0;
+    margin: 0;
+}
+.carrusel .item{
+    margin-bottom: 60px;
+}
+.content-slider li{
+    /*background-color: #ed3020;*/
+    text-align: center;
+    /*color: #FFF;*/
+}
+.content-slider h3 {
+    margin: 0;
+    padding: 70px 0;
+}
+.carrusel{
+    width: 100%;
+}
+.carrusel-prod{
+    width: 90%;
+    margin: auto;
+    margin-bottom: 5%;
+}
+.carPrincipalItem{
+    width: 100%;
+    max-height: 500px;
+}
+/*Carrusel*/
+/*footer*/
+.foot {
+    height: 40px;
+    display: table;
+}
+
+.foot > li {
+    color: #fff;
+    display: table-cell;
+    font-family: open sans;
+    font-weight: 700;    
+    padding-left: 15px;
+    padding-right: 15px;
+    vertical-align: middle;
+}
+hr {
+    color: #fff;
+    height: 12px;
+    margin-top: 700%;
+}
+/*footer*/

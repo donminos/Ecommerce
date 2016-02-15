@@ -26,11 +26,20 @@ public class CategoriasController {
     
     @RequestMapping(value = "/findAll.do", method = RequestMethod.GET, produces = "application/json")
     public List<Categorias> findAll() {
-        List<Categorias> cats=categoriasSession.findAll();
-        for(int i=0;i<cats.size();i++){
+        List<Categorias> cats=categoriasSession.findAllFetch();
+        for (int i=0;i<cats.size();i++) {
             cats.get(i).setProductosList(new ArrayList());
             cats.get(i).setCategoriasList(new ArrayList());
-            cats.get(i).setCategoriasList1(new ArrayList());
+            for(int j=0;j<cats.get(i).getCategoriasList1().size();j++){
+                cats.remove(cats.get(i).getCategoriasList1().get(j));
+                cats.get(i).getCategoriasList1().get(j).setProductosList(new ArrayList());
+                cats.get(i).getCategoriasList1().get(j).setCategoriasList(new ArrayList());
+                for(int k=0;k<cats.get(i).getCategoriasList1().get(j).getCategoriasList1().size();k++){
+                    cats.remove(cats.get(i).getCategoriasList1().get(j).getCategoriasList1().get(k));
+                cats.get(i).getCategoriasList1().get(j).getCategoriasList1().get(k).setProductosList(new ArrayList());
+                cats.get(i).getCategoriasList1().get(j).getCategoriasList1().get(k).setCategoriasList(new ArrayList());
+                }
+            }
         }
         return cats;
     }
