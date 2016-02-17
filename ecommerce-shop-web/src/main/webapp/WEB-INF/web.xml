@@ -39,4 +39,9 @@
         <ejb-ref-type>Session</ejb-ref-type>
         <remote>com.sysio.ecommerce.data.session.ImagenesSessionRemote</remote>
     </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>CarroCompraSession</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.sysio.ecommerce.data.session.CarroCompraSessionRemote</remote>
+    </ejb-ref>
 </web-app>
