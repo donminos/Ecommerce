@@ -1,4 +1,3 @@
-
 package com.sysio.ecommerce.shop.web.controller;
 
 import com.sysio.ecommerce.data.entity.CuponesDescuentos;
@@ -25,28 +24,44 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/public/productos")
 public class ProductosController {
+
     ImagenesSessionRemote imagenesSession = lookupImagenesSessionRemote();
     ProductosSessionRemote productosSession = lookupProductosSessionRemote();
-    
 
     @RequestMapping(value = "/findAll.do", method = RequestMethod.GET, produces = "application/json")
     public List<Productos> findAll() {
-        List<Productos> prods=new ArrayList();
-        for(Productos prod:productosSession.findAllFetch()){
+        List<Productos> prods = new ArrayList();
+        for (Productos prod : productosSession.findAllFetch()) {
             prod.setCuponesDescuentosList(new ArrayList());
             prod.setProductosList1(new ArrayList());
+            prod.setCategoriasList(new ArrayList());
             prod.setPedidoProductosList(new ArrayList());
-            List<Imagenes> imgs=imagenesSession.findAllId(prod.getIdProducto());
-            for(Imagenes img:imgs)
+            prod.getIdMarca().setProductosList(new ArrayList());
+            List<Imagenes> imgs = imagenesSession.findAllId(prod.getIdProducto());
+            for (Imagenes img : imgs) {
                 img.setIdProducto(null);
-            prod.setImagenesList(imgs.isEmpty()?new ArrayList():imgs);
+            }
+            prod.setImagenesList(imgs.isEmpty() ? new ArrayList() : imgs);
             prods.add(prod);
         }
         return prods;
     }
+
     @RequestMapping(value = "/findId.do>{id}", method = RequestMethod.GET, produces = "application/json")
     public Productos findId(@PathVariable("id") Integer id) {
-        return productosSession.find(id);
+        Productos prod = productosSession.find(id);
+        prod.setCuponesDescuentosList(new ArrayList());
+        prod.setProductosList1(new ArrayList());
+        prod.setProductosList(new ArrayList());
+        prod.setCategoriasList(new ArrayList());
+        prod.setPedidoProductosList(new ArrayList());
+        prod.getIdMarca().setProductosList(new ArrayList());
+        List<Imagenes> imgs = imagenesSession.findAllId(prod.getIdProducto());
+        for (Imagenes img : imgs) {
+            img.setIdProducto(null);
+        }
+        prod.setImagenesList(imgs.isEmpty() ? new ArrayList() : imgs);
+        return prod;
     }
 
     private ProductosSessionRemote lookupProductosSessionRemote() {
@@ -68,5 +83,5 @@ public class ProductosController {
             throw new RuntimeException(ne);
         }
     }
-    
+
 }

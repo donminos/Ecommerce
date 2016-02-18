@@ -67,7 +67,7 @@ a:hover{color:#fff;text-decoration:underline;}
 body{
     /*background:#ffffff url("../images/bkg.jpg") no-repeat 0 0;*/
 color:#3E4156;
-font: 14px "Open Sans", Helvetica, Arial, sans-serif;
+/*font: 14px "Open Sans", Helvetica, Arial, sans-serif;*/
 -webkit-font-smoothing: antialiased;
 -webkit-text-size-adjust: 100%;
 line-height:1;
@@ -183,8 +183,7 @@ padding:8px;}
 
 .menu{display:none;}
 
-.mobile-menu{display:block;
-margin-top:100px;}
+.mobile-menu{display:block;}
 
 nav{margin:0;
 background:none;}
