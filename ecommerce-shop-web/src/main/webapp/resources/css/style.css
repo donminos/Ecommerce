@@ -145,4 +145,7 @@ hr.separatorFooter {
     border-radius: 5px;
     padding: 5px;
 }
+ul.content-slider.content-slider-prod.ligados.lightSlider.lSSlide.lsGrab {
+    height: 500px !important;
+}
 /*Vista Producto*/

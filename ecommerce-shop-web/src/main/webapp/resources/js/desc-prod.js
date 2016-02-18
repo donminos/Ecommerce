@@ -17,5 +17,5 @@ $(window).load(function () {
         $('#producto').html(list(data));
         zoomImage();
     });
-    chargeProd('ligados');
+    chargeProd('.ligados',4);
 });

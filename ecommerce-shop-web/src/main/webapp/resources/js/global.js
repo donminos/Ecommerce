@@ -1,4 +1,4 @@
-function getParameter(sParam){
+function getParameter(sParam) {
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     for (var i = 0; i < sURLVariables.length; i++) {
@@ -7,7 +7,8 @@ function getParameter(sParam){
             return sParameterName[1];
         }
     }
-};
+}
+;
 var chargeMenu = function () {
     var touch = $('#touch-menu');
     var menu = $('.menu');
@@ -24,57 +25,32 @@ var chargeMenu = function () {
         }
     });
 };
-var chargeCarrusel = function () {
-    $("#content-slider").lightSlider({
-        item: 1,
-        loop: true,
-        keyPress: true,
-        slideMove: 1, easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
-        speed: 600,
-        auto: true,
-        responsive: [
-            {
-                breakpoint: 800,
-                settings: {
-                    item: 1,
-                    slideMove: 1,
-                    slideMargin: 6
+var chargeCarrusel = function (id, items) {
+        $(id).lightSlider({
+            item: items,
+            loop: true,
+            keyPress: true,
+            slideMove: 1, easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+            speed: 600,
+            auto: true,
+            responsive: [
+                {
+                    breakpoint: 800,
+                    settings: {
+                        item: 2,
+                        slideMove: 1,
+                        slideMargin: 6
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        item: 1,
+                        slideMove: 1
+                    }
                 }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    item: 1,
-                    slideMove: 1
-                }
-            }
-        ]
-    });
-    $(".content-slider-prod").lightSlider({
-        item: 4,
-        loop: true,
-        keyPress: true,
-        slideMove: 1, easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
-        speed: 600,
-        auto: true,
-        responsive: [
-            {
-                breakpoint: 800,
-                settings: {
-                    item: 2,
-                    slideMove: 1,
-                    slideMargin: 6
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    item: 1,
-                    slideMove: 1
-                }
-            }
-        ]
-    });
+            ]
+        });
 };
 Handlebars.getTemplate = function (name) {
     Handlebars.registerHelper("math", function (lvalue, operator, rvalue, options) {
@@ -128,13 +104,14 @@ function chargeCatMenu() {
         chargeMenu();
     });
 }
-function chargeProd(id) {
+function chargeProd(id,items) {
     var jqxhr = $.getJSON("/shop/public/productos/findAll.do");
     jqxhr.complete(function (data) {
         var postulantsList = Handlebars.getTemplate('galeriaProductos_1');
-        $('.' + id).html(postulantsList(data));
-        chargeCarrusel();
+        $(id).html(postulantsList(data));
+        chargeCarrusel(id,items);
     });
+
 }
 $(document).ready(function () {
     $("header").load("resources/templates/header.html");
