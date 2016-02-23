@@ -1,3 +1,5 @@
-{{#each responseJSON}}
-        <td class="galeria"><a id="prod_{{{idProducto}}}" href="#">{{{nombre}}}{{@index}}{{@key}}{{math 0 "+" 1}}</a></td>
+{{#each data}}
+        <li data-thumb="public/images/getimage?image={{imagenesList.0.path}}">
+            <a href="desc-prod.html?prod={{idProducto}}"><img class="carPrincipalItem" src="public/images/getimage?image={{imagenesList.0.path}}" /></a>
+        </li>
 {{/each}}

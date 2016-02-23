@@ -7,6 +7,7 @@ package com.sysio.ecommerce.data.facade;
 
 import com.sysio.ecommerce.data.entity.Categorias;
 import com.sysio.ecommerce.data.entity.Productos;
+import com.sysio.ecommerce.data.entity.altern.Filtros;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,32 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
 
     @Override
     public List<Productos> findAllFetch() {
-        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.categoriasList LEFT JOIN FETCH p.productosList", Productos.class);
+        Query query = em.createQuery("SELECT distinct p FROM Productos p JOIN FETCH p.idMarca JOIN FETCH p.categoriasList LEFT JOIN FETCH p.productosList WHERE p.activo=1", Productos.class);
+        List<Productos> productos = query.getResultList();
+        return productos;
+    }
+        @Override
+    public List<Productos> findAllFetch(Filtros filtro) {
+        String sql="SELECT distinct p FROM Productos p JOIN FETCH JOIN p.idMarca m FETCH p.categoriasList c LEFT JOIN FETCH p.productosList p1 WHERE p.activo=1";
+        if(filtro!=null){
+            if(filtro.getCategoria()!=null){
+                sql+=" AND c.nombre=:cat";
+            }else if(filtro.getMarca()!=null){
+                sql+=" AND m.nombre=:mar";
+            }else if(filtro.getMarca()!=null){
+                sql+=" AND p.nombre LIKE :pro AND p.descripcion LIKE :pro AND p.detalle LIKE :pro";
+            }
+        }        
+        Query query = em.createQuery(sql, Productos.class);
+        if(filtro!=null){
+            if(filtro.getCategoria()!=null){
+                query.setParameter("cat", filtro.getCategoria());
+            }else if(filtro.getMarca()!=null){
+                query.setParameter("mar", filtro.getMarca());
+            }else if(filtro.getMarca()!=null){
+                query.setParameter("pro", filtro.getPalabraClave());
+            }
+        }    
         List<Productos> productos = query.getResultList();
         return productos;
     }

@@ -6,6 +6,7 @@
 package com.sysio.ecommerce.data.session;
 
 import com.sysio.ecommerce.data.entity.Productos;
+import com.sysio.ecommerce.data.entity.altern.Filtros;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -30,6 +31,8 @@ public interface ProductosSessionRemote {
     public int count();
     
     public void AgregarProducto(Productos producto);
+    
+    public List<Productos> findAllFetch(Filtros filtro);
     
     public List<Productos> findAllFetch();
     

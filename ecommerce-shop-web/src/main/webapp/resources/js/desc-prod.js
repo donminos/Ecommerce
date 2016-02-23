@@ -16,6 +16,8 @@ $(window).load(function () {
         var list = Handlebars.getTemplate('productoGaleria');
         $('#producto').html(list(data));
         zoomImage();
-    });
+        $('.descProd').html('<h3>'+data.responseJSON.nombre+'</h3><p>'+data.responseJSON.descripcion+'</p><p>'+data.responseJSON.detalle+'</p>');
+        $('.precios').html('<p>$'+data.responseJSON.costo+'</p><p><input type="text" placeholder="Calcular envio"/></p><p>Cantidad:<input type="number" min="1" max="'+data.responseJSON.cantidad+'" placeholder=""/></p><p><input type="button" class="boton" value="Agregar al carrito"/></p>');
+    });    
     chargeProd('.ligados',4);
 });

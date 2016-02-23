@@ -6,6 +6,7 @@
 package com.sysio.ecommerce.data.session;
 
 import com.sysio.ecommerce.data.entity.Productos;
+import com.sysio.ecommerce.data.entity.altern.Filtros;
 import com.sysio.ecommerce.data.facade.ProductosFacadeLocal;
 import java.util.List;
 import javax.ejb.EJB;
@@ -59,12 +60,7 @@ public class ProductosSession implements ProductosSessionRemote {
     public void AgregarProducto(Productos producto) {
         productosFacade.AgregarProducto(producto);
     }
-
-    @Override
-    public List<Productos> findAllFetch() {
-        return productosFacade.findAllFetch();
-    }
-
+    
     @Override
     public List<Productos> findAllSubFetch(Productos producto) {
         List<Productos> lst=productosFacade.findAllSubFetch(producto);
@@ -85,4 +81,15 @@ public class ProductosSession implements ProductosSessionRemote {
     public void EditarProducto(Productos producto) {
         productosFacade.EditarProducto(producto);
     }
+
+    @Override
+    public List<Productos> findAllFetch(Filtros filtro) {
+        return productosFacade.findAllFetch(filtro);
+    }
+
+    @Override
+    public List<Productos> findAllFetch() {
+        return productosFacade.findAllFetch();
+    }
+    
 }

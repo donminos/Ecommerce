@@ -127,6 +127,9 @@ hr.separatorFooter {
     margin-bottom: 3%;
     width: 33%;
 }
+.sectionProd.descProd {
+    padding-right: 10%;
+}
 .sectionProd.galeria{
     margin-left: 10%;
     width: 23%;

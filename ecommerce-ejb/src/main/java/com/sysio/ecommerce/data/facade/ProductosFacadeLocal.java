@@ -6,6 +6,7 @@
 package com.sysio.ecommerce.data.facade;
 
 import com.sysio.ecommerce.data.entity.Productos;
+import com.sysio.ecommerce.data.entity.altern.Filtros;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,6 +32,8 @@ public interface ProductosFacadeLocal {
     int count();
     
     void AgregarProducto(Productos producto);
+    
+    List<Productos> findAllFetch(Filtros filtro);
     
     List<Productos> findAllFetch();
     

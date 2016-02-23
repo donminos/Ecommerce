@@ -26,31 +26,31 @@ var chargeMenu = function () {
     });
 };
 var chargeCarrusel = function (id, items) {
-        $(id).lightSlider({
-            item: items,
-            loop: true,
-            keyPress: true,
-            slideMove: 1, easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
-            speed: 600,
-            auto: true,
-            responsive: [
-                {
-                    breakpoint: 800,
-                    settings: {
-                        item: 2,
-                        slideMove: 1,
-                        slideMargin: 6
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        item: 1,
-                        slideMove: 1
-                    }
+    $(id).lightSlider({
+        item: items,
+        loop: true,
+        keyPress: true,
+        slideMove: 1, easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+        speed: 600,
+        auto: true,
+        responsive: [
+            {
+                breakpoint: 800,
+                settings: {
+                    item: 2,
+                    slideMove: 1,
+                    slideMargin: 6
                 }
-            ]
-        });
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    item: 1,
+                    slideMove: 1
+                }
+            }
+        ]
+    });
 };
 Handlebars.getTemplate = function (name) {
     Handlebars.registerHelper("math", function (lvalue, operator, rvalue, options) {
@@ -104,14 +104,26 @@ function chargeCatMenu() {
         chargeMenu();
     });
 }
-function chargeProd(id,items) {
-    var jqxhr = $.getJSON("/shop/public/productos/findAll.do");
-    jqxhr.complete(function (data) {
-        var postulantsList = Handlebars.getTemplate('galeriaProductos_1');
-        $(id).html(postulantsList(data));
-        chargeCarrusel(id,items);
+function chargeProd(id, items) {
+    var param = {};
+    param.categoria = "", param.marca = "", param.palabraClave = "";
+    $.ajax({
+        type: "POST",
+        url: "/shop/public/productos/findAll.do",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            debugger;
+            var postulantsList = Handlebars.getTemplate('galeriaProductos');
+            $(id).html(postulantsList(data));
+            chargeCarrusel(id, items);
+        },
+        failure: function (errMsg) {
+            alert(errMsg);
+        }
     });
-
 }
 $(document).ready(function () {
     $("header").load("resources/templates/header.html");
