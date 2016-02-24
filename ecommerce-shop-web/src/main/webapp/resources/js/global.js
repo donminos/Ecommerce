@@ -88,13 +88,13 @@ function chargeCatMenu() {
     jqxhr.complete(function (data) {
         var constr = '';
         for (var i = 0; i < data.responseJSON.length; i++) {
-            constr += '<li class="categoria"><a id="cat_' + data.responseJSON[i].idCategoria + '" href="#">' + data.responseJSON[i].nombre + '</a>'
+            constr += '<li class="categoria"><a id="cat_' + data.responseJSON[i].idCategoria + '" href="galeria.html?cat='+data.responseJSON[i].idCategoria+'">' + data.responseJSON[i].nombre + '</a>'
                     + '<ul class="sub-menu">';
             for (var j = 0; j < data.responseJSON[i].categoriasList1.length; j++) {
-                constr += '<li><a id="cat_' + data.responseJSON[i].categoriasList1[j].idCategoria + '" href="#">' + data.responseJSON[i].categoriasList1[j].nombre + '</a>'
+                constr += '<li><a id="cat_' + data.responseJSON[i].categoriasList1[j].idCategoria + '" href="galeria.html?cat='+data.responseJSON[i].categoriasList1[j].idCategoria+'">' + data.responseJSON[i].categoriasList1[j].nombre + '</a>'
                         + '<ul>';
                 for (var k = 0; k < data.responseJSON[i].categoriasList1[j].categoriasList1.length; k++) {
-                    constr += '<li><a id="cat_' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].idCategoria + '" href="#">' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].nombre + '</a></li>';
+                    constr += '<li><a id="cat_' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].idCategoria + '" href="galeria.html?cat='+data.responseJSON[i].categoriasList1[j].categoriasList1[k].idCategoria+'">' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].nombre + '</a></li>';
                 }
                 constr += '</ul></li>';
             }
@@ -104,9 +104,7 @@ function chargeCatMenu() {
         chargeMenu();
     });
 }
-function chargeProd(id, items) {
-    var param = {};
-    param.categoria = "", param.marca = "", param.palabraClave = "";
+function chargeProd(id, items, param) {    
     $.ajax({
         type: "POST",
         url: "/shop/public/productos/findAll.do",
@@ -115,10 +113,30 @@ function chargeProd(id, items) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            debugger;
-            var postulantsList = Handlebars.getTemplate('galeriaProductos');
-            $(id).html(postulantsList(data));
+            var info = {};
+            info.data = data;
+            var postulantsList = Handlebars.getTemplate('galeriaProductos_1');
+            $(id).html(postulantsList(info));
             chargeCarrusel(id, items);
+        },
+        failure: function (errMsg) {
+            alert(errMsg);
+        }
+    });
+}
+function chargeProdGaleria(id, param){
+    $.ajax({
+        type: "POST",
+        url: "/shop/public/productos/findAll.do",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var info = {};
+            info.data = data;
+            var postulantsList = Handlebars.getTemplate('galeriaProductos_1');
+            $(id).html(postulantsList(info));
         },
         failure: function (errMsg) {
             alert(errMsg);

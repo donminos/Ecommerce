@@ -19,15 +19,24 @@
         display: none;
     }
 }
-@media screen and (max-width: 480px){
+@media screen and (max-width: 640px){
     .foot {
         display: table;
         height: 40px;
         text-align: center;
         width: 100%;
     }
+    .fist-item-footer{
+        padding-left: 0px !important;
+    }    
     .foot > li {
+        padding-bottom: 5px;
+        padding-top: 5px;
         display: list-item;
+    }    
+    hr.separatorFooter {
+        height: 2px;
+        margin-top: 0;
     }
     hr {
         height: 5px;

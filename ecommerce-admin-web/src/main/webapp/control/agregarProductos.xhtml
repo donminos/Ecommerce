@@ -38,7 +38,7 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Subproductos:" for="subproducto" />
                             <p:selectCheckboxMenu id="subproducto" value="#{agregarProductosBean.subproducto}" label="Productos" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
-                                <f:selectItems value="#{agregarProductosBean.listProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
+                                <f:selectItems value="#{agregarProductosBean.lstProductos}" var="p" itemLabel="#{p.idProducto} #{p.nombre}" itemValue="#{p.idProducto}" />
                             </p:selectCheckboxMenu>
                             <p:outputLabel value="Categorias" for="categoria" />
                             <p:selectCheckboxMenu id="categoria" value="#{agregarProductosBean.categorias}" label="Categorias" filter="true" filterMatchMode="startsWith" panelStyle="width:280px">
@@ -55,7 +55,7 @@
                     </h:form>
 
                     <h:form id="listProducto">
-                        <p:dataTable value="#{agregarProductosBean.listProductos}" var="item" reflow="true" rows="5" paginator="true">
+                        <p:dataTable value="#{agregarProductosBean.lstProductos}" var="item" reflow="true" rows="5" paginator="true">
                             <f:facet name="header">
                                 <p:outputLabel value="Listado de productos"/>
                             </f:facet>

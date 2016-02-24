@@ -51,10 +51,6 @@ public class AgregarProductosBean {
 
     @Getter
     @Setter
-    private List<Productos> ListProductos;
-
-    @Getter
-    @Setter
     private List<Marca> ListMarcas;
 
     public AgregarProductosBean() {
@@ -63,8 +59,11 @@ public class AgregarProductosBean {
 
     @PostConstruct
     public void init() {
-        this.ListProductos = productosSession.findAllFetch();
         this.ListMarcas = marcaSession.findAll();
+    }
+    
+    public List<Productos> getLstProductos(){
+        return productosSession.findAllFetch();
     }
 
     public void createProducto() {

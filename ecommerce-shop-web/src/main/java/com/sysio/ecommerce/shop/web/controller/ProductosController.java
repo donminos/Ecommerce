@@ -1,8 +1,8 @@
 package com.sysio.ecommerce.shop.web.controller;
 
-import com.sysio.ecommerce.data.entity.CuponesDescuentos;
 import com.sysio.ecommerce.data.entity.Imagenes;
 import com.sysio.ecommerce.data.entity.Productos;
+import com.sysio.ecommerce.data.entity.altern.Filtros;
 import com.sysio.ecommerce.data.session.ImagenesSessionRemote;
 import com.sysio.ecommerce.data.session.ProductosSessionRemote;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +29,14 @@ public class ProductosController {
     ImagenesSessionRemote imagenesSession = lookupImagenesSessionRemote();
     ProductosSessionRemote productosSession = lookupProductosSessionRemote();
 
-    @RequestMapping(value = "/findAll.do", method = RequestMethod.GET, produces = "application/json")
-    public List<Productos> findAll() {
+    @RequestMapping(value = "/findAll.do", method = RequestMethod.POST , produces = "application/json")
+    public List<Productos> findAll(@RequestBody Filtros filtro) {
         List<Productos> prods = new ArrayList();
-        for (Productos prod : productosSession.findAllFetch()) {
+        List<Productos> finprods = new ArrayList();
+        if (filtro != null) {
+            prods = productosSession.findAllFetch(filtro);
+        }
+        for (Productos prod : prods) {
             prod.setCuponesDescuentosList(new ArrayList());
             prod.setProductosList1(new ArrayList());
             prod.setCategoriasList(new ArrayList());
@@ -42,9 +47,9 @@ public class ProductosController {
                 img.setIdProducto(null);
             }
             prod.setImagenesList(imgs.isEmpty() ? new ArrayList() : imgs);
-            prods.add(prod);
+            finprods.add(prod);
         }
-        return prods;
+        return finprods;
     }
 
     @RequestMapping(value = "/findId.do>{id}", method = RequestMethod.GET, produces = "application/json")

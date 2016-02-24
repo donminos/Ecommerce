@@ -1,6 +1,8 @@
 $(window).load(function () {
-    chargeProd('.principal',1);
-    chargeProd('.popular',4);
-    chargeProd('.vendidos',4);
+    var param={};
+    param.categoria = 0, param.marca = 0, param.palabraClave = "";
+    chargeProd('.principal', 1, param);
+    chargeProd('.popular', 4, param);
+    chargeProd('.vendidos', 4, param);
     
 });

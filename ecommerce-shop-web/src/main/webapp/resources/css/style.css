@@ -119,6 +119,9 @@ hr.separatorFooter {
     height: 12px;
     margin-top: 700%;
 }
+.fist-item-footer{
+    padding-left: 50px !important;
+}
 /*footer*/
 /*Vista Producto*/
 .sectionProd{

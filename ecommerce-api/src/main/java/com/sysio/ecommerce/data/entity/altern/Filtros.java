@@ -10,15 +10,15 @@ import java.io.Serializable;
  */
 public class Filtros implements Serializable{
     private static final long serialVersionUID = 1L;
-    private String categoria;
+    private Integer categoria;
     private String palabraClave;
-    private String marca;
+    private Integer marca;
 
-    public String getCategoria() {
+    public Integer getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Integer categoria) {
         this.categoria = categoria;
     }
 
@@ -30,11 +30,11 @@ public class Filtros implements Serializable{
         this.palabraClave = palabraClave;
     }
 
-    public String getMarca() {
+    public Integer getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(Integer marca) {
         this.marca = marca;
     }
     
