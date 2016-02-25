@@ -155,3 +155,15 @@ ul.content-slider.content-slider-prod.ligados.lightSlider.lSSlide.lsGrab {
     height: 500px !important;
 }
 /*Vista Producto*/
+/*Lista productos*/
+.programa{
+    cursor: pointer;
+}
+.titleGaleria{
+    font-family: open sans;
+    font-weight: 700;
+}
+.costoGaleria{
+    color: #ff9800;
+}
+/*Lista productos*/

@@ -39,6 +39,7 @@ public class ProductosController {
         for (Productos prod : prods) {
             prod.setCuponesDescuentosList(new ArrayList());
             prod.setProductosList1(new ArrayList());
+            prod.setProductosList(new ArrayList());
             prod.setCategoriasList(new ArrayList());
             prod.setPedidoProductosList(new ArrayList());
             prod.getIdMarca().setProductosList(new ArrayList());

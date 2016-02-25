@@ -88,13 +88,13 @@ function chargeCatMenu() {
     jqxhr.complete(function (data) {
         var constr = '';
         for (var i = 0; i < data.responseJSON.length; i++) {
-            constr += '<li class="categoria"><a id="cat_' + data.responseJSON[i].idCategoria + '" href="galeria.html?cat='+data.responseJSON[i].idCategoria+'">' + data.responseJSON[i].nombre + '</a>'
+            constr += '<li class="categoria"><a id="cat_' + data.responseJSON[i].idCategoria + '" href="galeria.html?cat=' + data.responseJSON[i].idCategoria + '">' + data.responseJSON[i].nombre + '</a>'
                     + '<ul class="sub-menu">';
             for (var j = 0; j < data.responseJSON[i].categoriasList1.length; j++) {
-                constr += '<li><a id="cat_' + data.responseJSON[i].categoriasList1[j].idCategoria + '" href="galeria.html?cat='+data.responseJSON[i].categoriasList1[j].idCategoria+'">' + data.responseJSON[i].categoriasList1[j].nombre + '</a>'
+                constr += '<li><a id="cat_' + data.responseJSON[i].categoriasList1[j].idCategoria + '" href="galeria.html?cat=' + data.responseJSON[i].categoriasList1[j].idCategoria + '">' + data.responseJSON[i].categoriasList1[j].nombre + '</a>'
                         + '<ul>';
                 for (var k = 0; k < data.responseJSON[i].categoriasList1[j].categoriasList1.length; k++) {
-                    constr += '<li><a id="cat_' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].idCategoria + '" href="galeria.html?cat='+data.responseJSON[i].categoriasList1[j].categoriasList1[k].idCategoria+'">' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].nombre + '</a></li>';
+                    constr += '<li><a id="cat_' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].idCategoria + '" href="galeria.html?cat=' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].idCategoria + '">' + data.responseJSON[i].categoriasList1[j].categoriasList1[k].nombre + '</a></li>';
                 }
                 constr += '</ul></li>';
             }
@@ -104,7 +104,7 @@ function chargeCatMenu() {
         chargeMenu();
     });
 }
-function chargeProd(id, items, param) {    
+function chargeProd(id, items, param) {
     $.ajax({
         type: "POST",
         url: "/shop/public/productos/findAll.do",
@@ -124,23 +124,37 @@ function chargeProd(id, items, param) {
         }
     });
 }
-function chargeProdGaleria(id, param){
-    $.ajax({
-        type: "POST",
-        url: "/shop/public/productos/findAll.do",
-        // The key needs to match your method's input parameter (case-sensitive).
-        data: JSON.stringify(param),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            var info = {};
-            info.data = data;
-            var postulantsList = Handlebars.getTemplate('galeriaProductos_1');
-            $(id).html(postulantsList(info));
-        },
-        failure: function (errMsg) {
-            alert(errMsg);
-        }
+function chargeProdGaleria(id, param) {
+    var name;
+    $.getJSON('/shop/public/categorias/findId.do>' + param.categoria).complete(function (infoCat) {
+        $.ajax({
+            type: "POST",
+            url: "/shop/public/productos/findAll.do",
+            // The key needs to match your method's input parameter (case-sensitive).
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $(id).puidatagrid({
+                    paginator: {
+                        rows: 6
+                    },
+                    header: '<b>' + infoCat.responseJSON.nombre + '</b>',
+                    datasource: data,
+                    content: function (prod) {
+                        return $('<div id="prod_' + prod.idProducto + '" class="programa"><img width="80%" src="/shop/public/images/getimage?image=' + prod.imagenesList[0].path +
+                                '" /><div class="titleGaleria">' + prod.nombre + '</div><p>' + prod.detalle + '</p><p class="costoGaleria">$' + prod.costo + '</p></div>').puipanel();
+                    }
+                });
+                $('.programa').click(function () {
+                    var programa = this.id.replace('prod_', '');
+                    window.location.href = '/shop/desc-prod.html?prod=' + programa;
+                });
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
     });
 }
 $(document).ready(function () {

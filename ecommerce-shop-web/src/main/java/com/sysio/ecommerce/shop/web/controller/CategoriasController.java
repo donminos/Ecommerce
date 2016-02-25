@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import lombok.extern.java.Log;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +43,14 @@ public class CategoriasController {
             }
         }
         return cats;
+    }
+    @RequestMapping(value = "/findId.do>{id}", method = RequestMethod.GET, produces = "application/json")
+    public Categorias findId(@PathVariable("id") Integer id){
+        Categorias cat=categoriasSession.find(id);
+        cat.setCategoriasList(new ArrayList());
+        cat.setCategoriasList1(new ArrayList());
+        cat.setProductosList(new ArrayList());
+        return cat;
     }
 
     private CategoriasSessionRemote lookupCategoriasSessionRemote() {

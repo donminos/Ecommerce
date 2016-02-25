@@ -50,21 +50,21 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     public List<Productos> findAllFetch(Filtros filtro) {
         String sql = "SELECT distinct p FROM Productos p JOIN FETCH p.idMarca m JOIN FETCH p.categoriasList c LEFT JOIN FETCH c.categoriasList c1 LEFT JOIN FETCH c1.categoriasList c2 LEFT JOIN FETCH p.productosList p1 WHERE p.activo=1";
         if (filtro != null) {
-            if (filtro.getCategoria()!=0 && filtro.getCategoria()!=null) {
+            if (filtro.getCategoria()!=null) {
                 sql += " AND c.idCategoria=:cat OR c1.idCategoria=:cat OR c2.idCategoria=:cat";
-            } else if (filtro.getMarca()!=0 && filtro.getMarca()!=null) {
+            } else if (filtro.getMarca()!=null) {
                 sql += " AND m.idMarca=:mar";
-            } else if (!filtro.getPalabraClave().equals("") && filtro.getPalabraClave()!=null) {
+            } else if (filtro.getPalabraClave()!=null) {
                 sql += " AND p.nombre LIKE :pro AND p.descripcion LIKE :pro AND p.detalle LIKE :pro";
             }
         }
         Query query = em.createQuery(sql, Productos.class);
         if (filtro != null) {
-            if (filtro.getCategoria()!=0 && filtro.getCategoria()!=null) {
+            if (filtro.getCategoria()!=null) {
                 query.setParameter("cat", filtro.getCategoria());
-            } else if (filtro.getMarca()!=0 && filtro.getMarca()!=null) {
+            } else if (filtro.getMarca()!=null) {
                 query.setParameter("mar", filtro.getMarca());
-            } else if (!filtro.getPalabraClave().equals("") && filtro.getPalabraClave()!=null) {
+            } else if (filtro.getPalabraClave()!=null) {
                 query.setParameter("pro", filtro.getPalabraClave());
             }
         }
