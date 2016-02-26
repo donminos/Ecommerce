@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,11 +39,20 @@ public class CarroCompraController {
     }
         
     @RequestMapping(value = "/agregarCarro.do", method = RequestMethod.POST, produces = "application/json")
-    public void agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro){
+    public JsonResponseView agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro){
         Principal user=request.getUserPrincipal();
+        JsonResponseView json=new JsonResponseView();
+        try{
         if(carro.getCantidad()!=null && carro.getIdproducto()!=null){
             car.add(carro);
+        }else{
+            json.getResponse().put("error", "Faltan cantidad");
+            throw new Exception("Faltan cantidad");
         }
+        }catch(Exception ex){
+            return json;
+        }
+        return json;
     }
      @RequestMapping(value = "/verCarro.do", method = RequestMethod.POST, produces = "application/json")
     public List<ProductosCantidad> verCarro(){

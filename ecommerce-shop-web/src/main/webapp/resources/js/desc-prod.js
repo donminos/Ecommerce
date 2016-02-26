@@ -28,7 +28,7 @@ $(window).load(function () {
                 data: JSON.stringify(param),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function () {
+                success: function (data) {
                     $.fancybox('<p>Se ha agregado al carro de compras</p>');
                 },
                 failure: function (errMsg) {
