@@ -100,6 +100,7 @@ function chargeCatMenu() {
             }
             constr += '</ul></li>';
         }
+        constr += '<li style="float:right"><a href="carroCompra.html">Carrito</a></li>';
         $('#menuCat').html(constr);
         chargeMenu();
     });

@@ -24,6 +24,22 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>ecommerRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.html</form-login-page>
+            <form-error-page>/login.html?error=true</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>ADMINISTRADOR</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>CLIENTE</role-name>
+    </security-role>
     <ejb-ref>
         <ejb-ref-name>ProductosSession</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -43,5 +59,15 @@
         <ejb-ref-name>CarroCompraSession</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
         <remote>com.sysio.ecommerce.data.session.CarroCompraSessionRemote</remote>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>ProductosSession1</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.sysio.ecommerce.data.session.ProductosSessionRemote</remote>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>ImagenesSession1</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.sysio.ecommerce.data.session.ImagenesSessionRemote</remote>
     </ejb-ref>
 </web-app>

@@ -152,12 +152,13 @@ hr.separatorFooter {
     padding: 5px;
 }
 ul.content-slider.content-slider-prod.ligados.lightSlider.lSSlide.lsGrab {
-    height: 500px !important;
+    height: 350px !important;
 }
 /*Vista Producto*/
 /*Lista productos*/
 .programa{
     cursor: pointer;
+    text-align: center;
 }
 .titleGaleria{
     font-family: open sans;
@@ -167,3 +168,11 @@ ul.content-slider.content-slider-prod.ligados.lightSlider.lSSlide.lsGrab {
     color: #ff9800;
 }
 /*Lista productos*/
+/*Vista Login*/
+article.login {
+    margin: auto;
+    padding-bottom: 15%;
+    padding-top: 15%;
+    text-align: center;
+}
+/*Vista Login*/
