@@ -40,8 +40,6 @@ public class CarroCompraController {
     @RequestMapping(value = "/agregarCarro.do", method = RequestMethod.POST, produces = "application/json")
     public CarroCompra agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro) throws Exception{
         Principal user=request.getUserPrincipal();
-        JsonResponseView json=new JsonResponseView();
-        try{
         if(carro.getCantidad()!=null && carro.getIdproducto()!=null){
             car.add(carro);
         }else{
