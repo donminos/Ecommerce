@@ -105,6 +105,13 @@ function chargeCatMenu() {
         chargeMenu();
     });
 }
+function sesion(){
+    var jqxhr = $.getJSON("/shop/private/user/name.do");
+    jqxhr.complete(function (data) {
+       $('.login').html('Bienvenido '+data.responseJSON.datosUsuario.nombre+" "+data.responseJSON.datosUsuario.apellidoPaterno+" "+data.responseJSON.datosUsuario.apellidoMaterno);
+    });
+    //jqxhr.error(function (){alert('fallo');});
+}
 function chargeProd(id, items, param) {
     $.ajax({
         type: "POST",
@@ -165,4 +172,5 @@ $(document).ready(function () {
 });
 $(window).load(function () {
     chargeCatMenu();
+    sesion();
 });

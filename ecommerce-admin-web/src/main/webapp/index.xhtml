@@ -18,13 +18,13 @@
                     </f:facet>
                     
                     <p:outputLabel value="Usuario"/>
-                    <p:inputText/>
+                    <p:inputText value="#{indexBean.usuario}"/>
                     
                     <p:outputLabel value="Contraseña"/>
-                    <p:password/>
+                    <p:password value="#{indexBean.contrasena}"/>
                     
                     <f:facet name="footer">
-                        <h:commandButton value="Acceder" action="control/panelControl?faces-redirect=true"/>
+                        <h:commandButton value="Acceder" action="#{indexBean.login()}"/>
                     </f:facet>
                     
                 </p:panelGrid>

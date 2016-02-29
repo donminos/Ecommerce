@@ -12,6 +12,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -25,17 +27,25 @@ public class IndexBean {
         FacesContext context = FacesContext.getCurrentInstance();
         request = (HttpServletRequest) context.getExternalContext().getRequest();
     }
+    
+    @Setter @Getter private String usuario;
+    @Setter @Getter private String contrasena;
 
-    public void login() {
+    public String login() {
         try {
-            request.login("", "");
+            request.login(usuario, contrasena);
+            System.out.println(request.getUserPrincipal().getName());
+            System.out.println(request.isUserInRole("ADMINISTRADOR"));
+            System.out.println(request.isUserInRole("CLIENTE"));
         } catch (ServletException ex) {
             Logger.getLogger(IndexBean.class.getName()).log(Level.SEVERE, null, ex);
+            request.getSession().invalidate();
         }
+        return "control/panelControl?faces-redirect=true";
     }
 
     public void logout() {
-
+        request.getSession().invalidate();
     }
 
 }

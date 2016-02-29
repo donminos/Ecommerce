@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,20 +20,23 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Carlos Cesar Rosas<face_less@hotmail.com>
  */
 @RestController
-@RequestMapping("/public/user")
+@RequestMapping("/private/user")
 public class UsuariosController {
+
     UsuariosSessionRemote usuariosSession = lookupUsuariosSessionRemote();
-    
+
     DatosUsuarioSessionRemote datosUsuarioSession = lookupDatosUsuarioSessionRemote();
 
     @RequestMapping(value = "/name.do", method = RequestMethod.GET, produces = "application/json")
-    public Usuarios findName(Principal principal) throws Exception {
+    public Usuarios findName(Principal principal, HttpServletRequest request) throws Exception {
         Usuarios user = usuariosSession.findForEmail(principal.getName());
         user.getDatosUsuario().setUsuarios(null);
         user.getUsuarioRol().setUsuarios(null);
         user.setContrasena(null);
         user.getUsuarioRol().getIdRol().setUsuarioRolList(null);
         user.setPedidosList(null);
+        System.out.println(request.isUserInRole("ADMINISTRADOR"));
+        System.out.println(request.isUserInRole("CLIENTE"));
         return user;
     }
 
