@@ -30,9 +30,8 @@ $(window).load(function () {
                 dataType: "json",
                 success: function () {
                     $.fancybox('<p>Se ha agregado al carro de compras</p>');
-                },
-                failure: function (errMsg) {
-                    alert(errMsg);
+                },error: function(){
+                    $.fancybox('<p>Error no se logro agregar el producto</p>');
                 }
             });
         });

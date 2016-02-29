@@ -29,5 +29,4 @@ public interface DatosUsuarioFacadeLocal {
     List<DatosUsuario> findRange(int[] range);
 
     int count();
-    
 }

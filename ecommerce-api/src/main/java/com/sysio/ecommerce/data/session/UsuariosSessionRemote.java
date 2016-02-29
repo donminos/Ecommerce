@@ -29,4 +29,6 @@ public interface UsuariosSessionRemote {
     public List<Usuarios> findRange(int[] range);
 
     public int count();
+    
+    public Usuarios findForEmail(String email);
 }

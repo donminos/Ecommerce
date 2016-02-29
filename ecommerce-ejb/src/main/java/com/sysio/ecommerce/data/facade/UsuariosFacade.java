@@ -9,6 +9,7 @@ import com.sysio.ecommerce.data.entity.Usuarios;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class UsuariosFacade extends AbstractFacade<Usuarios> implements UsuariosFacadeLocal {
+
     @PersistenceContext(unitName = "ecommerce-ejb")
     private EntityManager em;
 
@@ -27,5 +29,13 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> implements Usuarios
     public UsuariosFacade() {
         super(Usuarios.class);
     }
-    
+
+    @Override
+    public Usuarios findForEmail(String email) {
+        Query query = em.createQuery("SELECT us FROM Usuarios us WHERE us.usuario=:email", Usuarios.class);
+        query.setParameter("email", email);
+        Usuarios user = (Usuarios) query.getSingleResult();
+        return user;
+    }
+
 }

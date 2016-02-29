@@ -14,7 +14,7 @@
         </nav>
         <section>
             <article class="login">
-                <form method=post action="j_security_check" >
+                <form method="GET" accept-charset="UTF-8"  action="/shop/j_security_check" >
                     <p>
                         <span>Username:</span>
                         <br />
@@ -25,8 +25,10 @@
                         <br />
                         <input type="password"  name= "j_password" >
                     </p>
+                    <p>Selecciona el mismo cuadro de la imagen</p>
+                    <div id="PuzzleCaptcha"></div>
                     <p>
-                        <input type="submit" class="boton" value="Login">
+                        <input type="submit" class="btnSubmit boton" style="display:none;" disabled="true" value="Login">
                     </p>
                 </form>
             </article>
@@ -40,6 +42,20 @@
             <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
             <script src="resources/js/libs/handlebars-v4.0.5.js"></script>
             <script src="resources/js/global.js"></script>
+            <!-- PuzzleCAPTCHA Style -->
+            <link rel="stylesheet" href="resources/css/puzzleCAPTCHA.css" media="screen">
+            <!-- PuzzleCAPTCHA Plugin -->
+            <script src="resources/js/libs/puzzleCAPTCHA.js"></script>
+            <script>
+
+                $("#PuzzleCaptcha").PuzzleCAPTCHA({
+                    rows: 3,
+                    targetInput: '.validationValue',
+                    targetVal: 'Validated!!',
+                    targetButton: '.btnSubmit'
+                });
+
+            </script>
         </div>
     </body>
 </html>

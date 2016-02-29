@@ -24,6 +24,10 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/errorUsuario.html</location>
+    </error-page>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>ecommerRealm</realm-name>
@@ -69,5 +73,30 @@
         <ejb-ref-name>ImagenesSession1</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
         <remote>com.sysio.ecommerce.data.session.ImagenesSessionRemote</remote>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>UsuariosSession</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.sysio.ecommerce.data.session.UsuariosSessionRemote</remote>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>UsuariosSession1</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.sysio.ecommerce.data.session.UsuariosSessionRemote</remote>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>DatosUsuarioSession</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.sysio.ecommerce.data.session.DatosUsuarioSessionRemote</remote>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>UsuarioRolSession</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.sysio.ecommerce.data.session.UsuarioRolSessionRemote</remote>
+    </ejb-ref>
+    <ejb-ref>
+        <ejb-ref-name>UsuariosSession2</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <remote>com.sysio.ecommerce.data.session.UsuariosSessionRemote</remote>
     </ejb-ref>
 </web-app>

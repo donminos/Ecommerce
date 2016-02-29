@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DatosUsuario.findAll", query = "SELECT d FROM DatosUsuario d"),
-    @NamedQuery(name = "DatosUsuario.findByIdDatosUsuario", query = "SELECT d FROM DatosUsuario d WHERE d.idDatosUsuario = :idDatosUsuario"),
+    @NamedQuery(name = "DatosUsuario.findByIdUsuario", query = "SELECT d FROM DatosUsuario d WHERE d.idUsuario = :idUsuario"),
     @NamedQuery(name = "DatosUsuario.findByNombre", query = "SELECT d FROM DatosUsuario d WHERE d.nombre = :nombre"),
     @NamedQuery(name = "DatosUsuario.findByApellidoPaterno", query = "SELECT d FROM DatosUsuario d WHERE d.apellidoPaterno = :apellidoPaterno"),
     @NamedQuery(name = "DatosUsuario.findByApellidoMaterno", query = "SELECT d FROM DatosUsuario d WHERE d.apellidoMaterno = :apellidoMaterno"),
@@ -47,8 +47,8 @@ public class DatosUsuario implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idDatosUsuario")
-    private Integer idDatosUsuario;
+    @Column(name = "idUsuario")
+    private Integer idUsuario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -95,12 +95,12 @@ public class DatosUsuario implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "TelefonoOtro")
     private String telefonoOtro;
+    @Size(max = 45)
+    @Column(name = "NumeroInt")
+    private String numeroInt;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "NumeroInt")
-    private String numeroInt;
-    @Size(max = 45)
     @Column(name = "NumeroExt")
     private String numeroExt;
     @Basic(optional = false)
@@ -108,19 +108,19 @@ public class DatosUsuario implements Serializable {
     @Size(min = 1, max = 13)
     @Column(name = "RFC")
     private String rfc;
-    @JoinColumn(name = "idDatosUsuario", referencedColumnName = "idUsuario", insertable = false, updatable = false)
+    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuarios usuarios;
 
     public DatosUsuario() {
     }
 
-    public DatosUsuario(Integer idDatosUsuario) {
-        this.idDatosUsuario = idDatosUsuario;
+    public DatosUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public DatosUsuario(Integer idDatosUsuario, String nombre, String apellidoPaterno, String cp, String estado, String ciudad, String delegacion, String colonia, String telefonoOtro, String numeroInt, String rfc) {
-        this.idDatosUsuario = idDatosUsuario;
+    public DatosUsuario(Integer idUsuario, String nombre, String apellidoPaterno, String cp, String estado, String ciudad, String delegacion, String colonia, String telefonoOtro, String numeroExt, String rfc) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.cp = cp;
@@ -129,16 +129,16 @@ public class DatosUsuario implements Serializable {
         this.delegacion = delegacion;
         this.colonia = colonia;
         this.telefonoOtro = telefonoOtro;
-        this.numeroInt = numeroInt;
+        this.numeroExt = numeroExt;
         this.rfc = rfc;
     }
 
-    public Integer getIdDatosUsuario() {
-        return idDatosUsuario;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdDatosUsuario(Integer idDatosUsuario) {
-        this.idDatosUsuario = idDatosUsuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
@@ -256,7 +256,7 @@ public class DatosUsuario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idDatosUsuario != null ? idDatosUsuario.hashCode() : 0);
+        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -267,7 +267,7 @@ public class DatosUsuario implements Serializable {
             return false;
         }
         DatosUsuario other = (DatosUsuario) object;
-        if ((this.idDatosUsuario == null && other.idDatosUsuario != null) || (this.idDatosUsuario != null && !this.idDatosUsuario.equals(other.idDatosUsuario))) {
+        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
             return false;
         }
         return true;
@@ -275,7 +275,7 @@ public class DatosUsuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sysio.ecommerce.data.entity.DatosUsuario[ idDatosUsuario=" + idDatosUsuario + " ]";
+        return "com.sysio.ecommerce.data.entity.DatosUsuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

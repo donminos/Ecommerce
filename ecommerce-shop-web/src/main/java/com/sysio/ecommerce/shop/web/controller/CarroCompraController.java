@@ -4,7 +4,6 @@ package com.sysio.ecommerce.shop.web.controller;
 import com.sysio.ecommerce.data.entity.Imagenes;
 import com.sysio.ecommerce.data.entity.Productos;
 import com.sysio.ecommerce.data.entity.altern.CarroCompra;
-import com.sysio.ecommerce.data.entity.altern.JsonResponseView;
 import com.sysio.ecommerce.data.entity.altern.ProductosCantidad;
 import com.sysio.ecommerce.data.session.ImagenesSessionRemote;
 import com.sysio.ecommerce.data.session.ProductosSessionRemote;
@@ -20,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,11 +38,14 @@ public class CarroCompraController {
     }
         
     @RequestMapping(value = "/agregarCarro.do", method = RequestMethod.POST, produces = "application/json")
-    public void agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro){
+    public CarroCompra agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro) throws Exception{
         Principal user=request.getUserPrincipal();
         if(carro.getCantidad()!=null && carro.getIdproducto()!=null){
             car.add(carro);
+        }else{
+            throw new Exception();
         }
+        return carro;
     }
      @RequestMapping(value = "/verCarro.do", method = RequestMethod.POST, produces = "application/json")
     public List<ProductosCantidad> verCarro(){
