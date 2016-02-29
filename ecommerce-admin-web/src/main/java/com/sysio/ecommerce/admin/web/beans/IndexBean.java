@@ -35,8 +35,8 @@ public class IndexBean {
         try {
             request.login(usuario, contrasena);
             System.out.println(request.getUserPrincipal().getName());
-            System.out.println(request.isUserInRole("ADMINISTRADOR"));
-            System.out.println(request.isUserInRole("CLIENTE"));
+            System.out.println(request.isUserInRole("Administrador"));
+            System.out.println(request.isUserInRole("Cliente"));
         } catch (ServletException ex) {
             Logger.getLogger(IndexBean.class.getName()).log(Level.SEVERE, null, ex);
             request.getSession().invalidate();

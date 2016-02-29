@@ -58,6 +58,18 @@
     <welcome-file-list>
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
+    <security-constraint>
+        <display-name>Control del Sitema</display-name>
+        <web-resource-collection>
+            <web-resource-name>Control</web-resource-name>
+            <description/>
+            <url-pattern>/control/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Only Admin</description>
+            <role-name>Administrador</role-name>
+        </auth-constraint>
+    </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>ecommerRealm</realm-name>

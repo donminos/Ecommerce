@@ -105,12 +105,16 @@ function chargeCatMenu() {
         chargeMenu();
     });
 }
-function sesion(){
-    var jqxhr = $.getJSON("/shop/private/user/name.do");
-    jqxhr.complete(function (data) {
-       $('.login').html('Bienvenido '+data.responseJSON.datosUsuario.nombre+" "+data.responseJSON.datosUsuario.apellidoPaterno+" "+data.responseJSON.datosUsuario.apellidoMaterno);
-    });
-    //jqxhr.error(function (){alert('fallo');});
+function sesion() {
+    try {
+        var jqxhr = $.getJSON("/shop/private/user/name.do");
+        jqxhr.complete(function (data) {
+            $('.login').html('Bienvenido ' + data.responseJSON.datosUsuario.nombre + " " + data.responseJSON.datosUsuario.apellidoPaterno + " " + data.responseJSON.datosUsuario.apellidoMaterno + "<button onclick=$.get('/shop/private/user/logout.do')>salir</button>");
+        });
+        //jqxhr.error(function (){alert('fallo');});
+    } catch (err) {
+        console.log(err);
+    }
 }
 function chargeProd(id, items, param) {
     $.ajax({

@@ -35,10 +35,17 @@ public class UsuariosController {
         user.setContrasena(null);
         user.getUsuarioRol().getIdRol().setUsuarioRolList(null);
         user.setPedidosList(null);
-        System.out.println(request.isUserInRole("ADMINISTRADOR"));
-        System.out.println(request.isUserInRole("CLIENTE"));
+        System.out.println(request.isUserInRole("Administrador"));
+        System.out.println(request.isUserInRole("Cliente"));
         return user;
     }
+
+    @RequestMapping(value = "/logout.do", method = RequestMethod.GET, produces = "application/json")
+    public void logout(Principal principal, HttpServletRequest request) throws Exception {
+        request.getSession().invalidate();
+    }
+
+    
 
     private DatosUsuarioSessionRemote lookupDatosUsuarioSessionRemote() {
         try {
