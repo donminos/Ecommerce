@@ -28,6 +28,11 @@ public class UsuariosController {
     @RequestMapping(value = "/name.do", method = RequestMethod.GET, produces = "application/json")
     public Usuarios findName(Principal principal) throws Exception {
         Usuarios user = usuariosSession.findForEmail(principal.getName());
+        user.getDatosUsuario().setUsuarios(null);
+        user.getUsuarioRol().setUsuarios(null);
+        user.setContrasena(null);
+        user.getUsuarioRol().getIdRol().setUsuarioRolList(null);
+        user.setPedidosList(null);
         return user;
     }
 
