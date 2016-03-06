@@ -176,3 +176,9 @@ article.login {
     text-align: center;
 }
 /*Vista Login*/
+
+/*Crear usuario*/
+.required.error {
+    background-color: red;
+}
+/*Crear usuario*/

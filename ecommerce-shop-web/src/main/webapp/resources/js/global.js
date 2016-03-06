@@ -106,15 +106,13 @@ function chargeCatMenu() {
     });
 }
 function sesion() {
-    try {
         var jqxhr = $.getJSON("/shop/private/user/name.do");
-        jqxhr.complete(function (data) {
-            $('.login').html('Bienvenido ' + data.responseJSON.datosUsuario.nombre + " " + data.responseJSON.datosUsuario.apellidoPaterno + " " + data.responseJSON.datosUsuario.apellidoMaterno + "<button onclick=$.get('/shop/private/user/logout.do')>salir</button>");
+        jqxhr.done(function (data) {
+                $('.login').html('Bienvenido ' + data.responseJSON.datosUsuario.nombre + " " + data.responseJSON.datosUsuario.apellidoPaterno + " " + data.responseJSON.datosUsuario.apellidoMaterno + "<button onclick=$.get('/shop/private/user/logout.do')>salir</button>");
         });
-        //jqxhr.error(function (){alert('fallo');});
-    } catch (err) {
-        console.log(err);
-    }
+        jqxhr.fail(function (data){
+            console.log('Error sesion no iniciada');
+        });
 }
 function chargeProd(id, items, param) {
     $.ajax({

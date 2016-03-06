@@ -1,6 +1,5 @@
 package com.sysio.ecommerce.shop.web.controller;
 
-import com.sysio.ecommerce.data.entity.DatosUsuario;
 import com.sysio.ecommerce.data.entity.Usuarios;
 import com.sysio.ecommerce.data.session.DatosUsuarioSessionRemote;
 import com.sysio.ecommerce.data.session.UsuariosSessionRemote;
