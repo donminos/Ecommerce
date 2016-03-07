@@ -13,6 +13,18 @@ function validarRFC(rfc) {
     else
         return true;
 }
+function validaNum(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla === 8 || tecla === 0) {
+        return true;
+    }
+
+// Patron de entrada, en este caso solo acepta numeros
+    patron = /[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
 function validateForm() {
     $('.required').each(function () {
         if (this.value === '') {
@@ -28,21 +40,23 @@ function validateForm() {
             this.classList.remove('error');
         }
     });
-    $('.numerico').each(function () {
-        if (isNaN(this.value) || this.value === '') {
-            this.classList.add('error');
-        } else {
-            this.classList.remove('error');
-        }
-    });
     $('.rfc').each(function () {
-        this.value=this.value.toUpperCase();
+        this.value = this.value.toUpperCase();
         if (!validarRFC(this.value)) {
             this.classList.add('error');
         } else {
             this.classList.remove('error');
         }
     });
+    if ($('.secret')[0].value !== $('.secret')[1].value || $('.secret')[0].value.length < 8) {
+        $('.secret').each(function () {
+            this.classList.add('error');
+        });
+    } else {
+        $('.secret').each(function () {
+            this.classList.remove('error');
+        });
+    }
 }
 $('#cp').blur(function () {
     $.ajax({
@@ -72,11 +86,39 @@ $('#cp').blur(function () {
     });
 });
 $('#send').click(function () {
-    var validado=true;
     validateForm();
-    if($('.error').length<=1){
-        alert('todos aceptados');
-        var param = {correo: $('#email').val(), name: $('#name').val()};
+    if ($('.error').length === 0) {
+        var param = {
+            correo: $('#correo').val(),
+            nombre: $('#name').val(),
+            app: $('#ap').val(),
+            apm: $('#am').val(),
+            cp: $('#cp').val(),
+            estado: $('#estado').val(),
+            ciudad: $('#ciudad').val(),
+            municipio: $('#del').val(),
+            colonia: $('#colonia').val(),
+            calle: $('#calle').val(),
+            numext: $('#numext').val(),
+            numint: $('#numint').val(),
+            rfc: $('#rfc').val(),
+            telcel: $('#cel').val(),
+            telfig: $('#otro').val(),
+            password:CryptoJS.SHA256($('#pass1').value).toString()
+        };
+        $.ajax({
+        type: "POST",
+        url: 'public/user/agregarUsuario.do',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(param),
+        success: function (data) {
+            alert(data);
+        },
+        failure: function (errMsg) {
+            alert(errMsg);
+        }
+    });
     }
 });
 

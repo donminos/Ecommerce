@@ -6,6 +6,7 @@
 package com.sysio.ecommerce.data.session;
 
 import com.sysio.ecommerce.data.entity.UsuarioRol;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -29,4 +30,6 @@ public interface UsuarioRolSessionRemote {
     public List<UsuarioRol> findRange(int[] range);
 
     public int count();
+    
+    public BigInteger createUserCliente(UsuarioRol user);
 }

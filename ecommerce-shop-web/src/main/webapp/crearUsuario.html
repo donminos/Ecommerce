@@ -41,10 +41,13 @@
                 
                 <input id="rfc" type="text" placeholder="RFC *" class="required rfc"  maxlength="13">
                 
-                <input id="cel" type="text" placeholder="Telefono Celular *" maxlength="10" class="required numerico">
+                <input id="cel" type="text" placeholder="Telefono Celular *" maxlength="10" class="required" onKeypress="return validaNum(event)">
                                 
-                <input id="otro" type="text" placeholder="Telefono Fijo" class="numerico" maxlength="10">
+                <input id="otro" type="text" placeholder="Telefono Fijo" maxlength="10" onKeypress="return validaNum(event)">
                 
+                <input id="pass1" type="password" placeholder="Contraseña" class="secret">
+                
+                <input id="pass2" type="password" placeholder="Confirmar Contraseña" class="secret">
                 
                 <input id="send" type="button" value="Registrarme">
             </article>
@@ -56,6 +59,7 @@
             <link rel="stylesheet" type="text/css" href="resources/css/style_responsive.css" media="screen"/>
             <link rel="stylesheet" href="resources/css/style_menu.css" type="text/css" media="screen">
             <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+            <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
             <script src="resources/js/libs/handlebars-v4.0.5.js"></script>
             <script src="resources/js/global.js"></script>
             <script src="resources/js/crearUsuario.js"></script>

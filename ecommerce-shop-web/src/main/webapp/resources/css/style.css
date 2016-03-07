@@ -178,7 +178,7 @@ article.login {
 /*Vista Login*/
 
 /*Crear usuario*/
-.required.error {
-    background-color: red;
+.error {
+    border-color: red;
 }
 /*Crear usuario*/

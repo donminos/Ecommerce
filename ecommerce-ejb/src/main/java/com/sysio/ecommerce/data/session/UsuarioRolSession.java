@@ -3,6 +3,7 @@ package com.sysio.ecommerce.data.session;
 
 import com.sysio.ecommerce.data.entity.UsuarioRol;
 import com.sysio.ecommerce.data.facade.UsuarioRolFacadeLocal;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -49,6 +50,11 @@ public class UsuarioRolSession implements UsuarioRolSessionRemote {
     @Override
     public int count() {
         return usuarioRolFacade.count();
+    }
+
+    @Override
+    public BigInteger createUserCliente(UsuarioRol user) {
+        return usuarioRolFacade.createUserCliente(user);
     }
 
 }

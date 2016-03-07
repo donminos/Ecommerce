@@ -6,6 +6,7 @@
 package com.sysio.ecommerce.data.facade;
 
 import com.sysio.ecommerce.data.entity.UsuarioRol;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,7 @@ public interface UsuarioRolFacadeLocal {
     List<UsuarioRol> findRange(int[] range);
 
     int count();
+    
+    BigInteger createUserCliente(UsuarioRol user);
     
 }
