@@ -31,7 +31,7 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> implements Usuarios
     }
 
     @Override
-    public Usuarios findForEmail(String email) {
+    public Usuarios findUserForEmail(String email) {
         Query query = em.createQuery("SELECT us FROM Usuarios us WHERE us.usuario=:email", Usuarios.class);
         query.setParameter("email", email);
         Usuarios user = (Usuarios) query.getSingleResult();

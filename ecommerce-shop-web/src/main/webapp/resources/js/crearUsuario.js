@@ -59,9 +59,10 @@ function validateForm() {
     }
 }
 $('#cp').blur(function () {
+    debugger;
     $.ajax({
         type: "GET",
-        url: '/codigos/public/consulta/buscarcp.do',
+        url: 'http://serviciosur.sytes.net/codigos/public/consulta/buscarcp.do',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: {cp: $('#cp').prop('value')},
@@ -104,21 +105,21 @@ $('#send').click(function () {
             rfc: $('#rfc').val(),
             telcel: $('#cel').val(),
             telfig: $('#otro').val(),
-            password:CryptoJS.SHA256($('#pass1').value).toString()
+            password: $('#pass1').val()
         };
         $.ajax({
-        type: "POST",
-        url: 'public/user/agregarUsuario.do',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(param),
-        success: function (data) {
-            alert(data);
-        },
-        failure: function (errMsg) {
-            alert(errMsg);
-        }
-    });
+            type: "POST",
+            url: 'public/user/agregarUsuario.do',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(param),
+            success: function (data) {
+                alert(data);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
     }
 });
 

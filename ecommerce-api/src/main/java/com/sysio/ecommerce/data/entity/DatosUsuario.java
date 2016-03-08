@@ -5,7 +5,6 @@
  */
 package com.sysio.ecommerce.data.entity;
 
-import com.sysio.ecommerce.data.entity.altern.UsuariosDatosJsonView;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -136,21 +135,6 @@ public class DatosUsuario implements Serializable {
         this.numeroExt = numeroExt;
         this.rfc = rfc;
         this.calle = calle;
-    }
-        public DatosUsuario(UsuariosDatosJsonView data) {
-        this.nombre = data.getNombre();
-        this.apellidoPaterno = data.getApp();
-        this.apellidoMaterno = data.getApm();
-        this.cp = data.getCp();
-        this.estado = data.getEstado();
-        this.delegacion = data.getMunicipio();
-        this.colonia = data.getColonia();
-        this.telefonoCelular = data.getTelcel();
-        this.telefonoOtro = data.getTelfig();
-        this.numeroExt = data.getNumext();
-        this.numeroInt = data.getNumint();
-        this.rfc = data.getRfc();
-        this.calle = data.getCalle();
     }
 
     public Integer getIdUsuario() {

@@ -1,13 +1,13 @@
 package com.sysio.ecommerce.shop.web.controller;
 
 import com.sysio.ecommerce.data.entity.DatosUsuario;
-import com.sysio.ecommerce.data.entity.Roles;
 import com.sysio.ecommerce.data.entity.UsuarioRol;
 import com.sysio.ecommerce.data.entity.Usuarios;
 import com.sysio.ecommerce.data.entity.altern.UsuariosDatosJsonView;
 import com.sysio.ecommerce.data.session.DatosUsuarioSessionRemote;
 import com.sysio.ecommerce.data.session.UsuarioRolSessionRemote;
 import com.sysio.ecommerce.data.session.UsuariosSessionRemote;
+import com.sysio.ecommerce.data.transfer.DataToDatosUsuariosTransfer;
 import java.security.Principal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,22 +26,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class UsuariosController {
-    UsuarioRolSessionRemote usuarioRolSession = lookupUsuarioRolSessionRemote();
-
     UsuariosSessionRemote usuariosSession = lookupUsuariosSessionRemote();
 
-    DatosUsuarioSessionRemote datosUsuarioSession = lookupDatosUsuarioSessionRemote();
+    UsuarioRolSessionRemote usuarioRolSession = lookupUsuarioRolSessionRemote();
 
     @RequestMapping(value = "/private/user/name.do", method = RequestMethod.GET, produces = "application/json")
-    public Usuarios findName(Principal principal, HttpServletRequest request) throws Exception {
-        Usuarios user = usuariosSession.findForEmail(principal.getName());
+    public Usuarios findName(Principal principal, HttpServletRequest request) throws Exception {        
+        System.out.println(request.isUserInRole("Administrador"));
+        System.out.println(request.isUserInRole("Cliente"));
+        Usuarios user = usuariosSession.findUserForEmail(principal.getName());
         user.getDatosUsuario().setUsuarios(null);
         user.getUsuarioRol().setUsuarios(null);
         user.setContrasena(null);
         user.getUsuarioRol().getIdRol().setUsuarioRolList(null);
         user.setPedidosList(null);
-        System.out.println(request.isUserInRole("Administrador"));
-        System.out.println(request.isUserInRole("Cliente"));
         return user;
     }
 
@@ -52,8 +50,8 @@ public class UsuariosController {
 
     @RequestMapping(value = "/public/user/agregarUsuario.do", method = RequestMethod.POST, produces = "application/json")
     public Usuarios agregarCarro(HttpServletRequest request, @RequestBody(required = true) UsuariosDatosJsonView datos) {
-        UsuarioRol userrol=new UsuarioRol();
-        DatosUsuario data = new DatosUsuario(datos);
+        UsuarioRol userrol = new UsuarioRol();
+        DatosUsuario data = new DataToDatosUsuariosTransfer().transferData(datos);
         Usuarios usuario = new Usuarios();
         usuario.setUsuario(datos.getCorreo());
         usuario.setContrasena(datos.getPassword());
@@ -63,10 +61,10 @@ public class UsuariosController {
         return usuario;
     }
 
-    private DatosUsuarioSessionRemote lookupDatosUsuarioSessionRemote() {
+    private UsuarioRolSessionRemote lookupUsuarioRolSessionRemote() {
         try {
             Context c = new InitialContext();
-            return (DatosUsuarioSessionRemote) c.lookup("java:global/ecommerce-ejb/DatosUsuarioSession!com.sysio.ecommerce.data.session.DatosUsuarioSessionRemote");
+            return (UsuarioRolSessionRemote) c.lookup("java:global/ecommerce-ejb/UsuarioRolSession!com.sysio.ecommerce.data.session.UsuarioRolSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -77,16 +75,6 @@ public class UsuariosController {
         try {
             Context c = new InitialContext();
             return (UsuariosSessionRemote) c.lookup("java:global/ecommerce-ejb/UsuariosSession!com.sysio.ecommerce.data.session.UsuariosSessionRemote");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private UsuarioRolSessionRemote lookupUsuarioRolSessionRemote() {
-        try {
-            Context c = new InitialContext();
-            return (UsuarioRolSessionRemote) c.lookup("java:global/ecommerce-ejb/UsuarioRolSession!com.sysio.ecommerce.data.session.UsuarioRolSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

@@ -30,6 +30,6 @@ public interface UsuariosFacadeLocal {
 
     int count();
     
-    Usuarios findForEmail(String email);
+    Usuarios findUserForEmail(String email);
     
 }

@@ -51,8 +51,10 @@ public class UsuariosSession implements UsuariosSessionRemote {
         return usuariosFacade.count();
     }
 
-    public Usuarios findForEmail(String email) {
-        return usuariosFacade.findForEmail(email);
+    @Override
+    public Usuarios findUserForEmail(String email) {
+        Usuarios user=usuariosFacade.findUserForEmail(email);
+        return user;
     }   
 
 }

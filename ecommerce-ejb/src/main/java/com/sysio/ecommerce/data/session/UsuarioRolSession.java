@@ -1,7 +1,9 @@
 
 package com.sysio.ecommerce.data.session;
 
+import com.google.common.base.Charsets;
 import com.sysio.ecommerce.data.entity.UsuarioRol;
+import com.google.common.hash.Hashing;
 import com.sysio.ecommerce.data.facade.UsuarioRolFacadeLocal;
 import java.math.BigInteger;
 import java.util.List;
@@ -54,6 +56,7 @@ public class UsuarioRolSession implements UsuarioRolSessionRemote {
 
     @Override
     public BigInteger createUserCliente(UsuarioRol user) {
+        user.getUsuarios().setContrasena((Hashing.sha256().hashString(user.getUsuarios().getContrasena(), Charsets.UTF_8).toString()));        
         return usuarioRolFacade.createUserCliente(user);
     }
 

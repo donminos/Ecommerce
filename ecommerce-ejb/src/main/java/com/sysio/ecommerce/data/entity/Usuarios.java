@@ -50,7 +50,7 @@ public class Usuarios implements Serializable {
     private String usuario;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 63)
+    @Size(min = 1, max = 64)
     @Column(name = "Contrasena")
     private String contrasena;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios")

@@ -30,5 +30,5 @@ public interface UsuariosSessionRemote {
 
     public int count();
     
-    public Usuarios findForEmail(String email);
+    public Usuarios findUserForEmail(String email);
 }

@@ -59,6 +59,7 @@ public class UsuarioRolFacade extends AbstractFacade<UsuarioRol> implements Usua
         query = em.createNativeQuery("INSERT INTO UsuarioRol (idUsuario, idRol) VALUES (?, '2');");
         query.setParameter(1, id);
         query.executeUpdate();
+        em.flush();
         return id;
     }
 
