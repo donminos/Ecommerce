@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PedidoProductos.findByIdPedido", query = "SELECT p FROM PedidoProductos p WHERE p.pedidoProductosPK.idPedido = :idPedido"),
     @NamedQuery(name = "PedidoProductos.findByCantidad", query = "SELECT p FROM PedidoProductos p WHERE p.cantidad = :cantidad")})
 public class PedidoProductos implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PedidoProductosPK pedidoProductosPK;

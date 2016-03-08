@@ -33,6 +33,8 @@ public class IndexBean {
 
     public String login() {
         try {
+            System.out.println(usuario);
+            System.out.println(contrasena);
             request.login(usuario, contrasena);
             System.out.println(request.getUserPrincipal().getName());
             System.out.println(request.isUserInRole("Administrador"));

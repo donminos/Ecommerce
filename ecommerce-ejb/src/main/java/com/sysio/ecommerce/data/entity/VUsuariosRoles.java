@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "VUsuariosRoles.findByIdRol", query = "SELECT v FROM VUsuariosRoles v WHERE v.idRol = :idRol"),
     @NamedQuery(name = "VUsuariosRoles.findByDescripcion", query = "SELECT v FROM VUsuariosRoles v WHERE v.descripcion = :descripcion")})
 public class VUsuariosRoles implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull

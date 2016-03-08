@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DatosUsuario.findByRfc", query = "SELECT d FROM DatosUsuario d WHERE d.rfc = :rfc"),
     @NamedQuery(name = "DatosUsuario.findByCalle", query = "SELECT d FROM DatosUsuario d WHERE d.calle = :calle")})
 public class DatosUsuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -73,7 +74,9 @@ public class DatosUsuario implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "Estado")
     private String estado;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "Ciudad")
     private String ciudad;
     @Basic(optional = false)
@@ -123,12 +126,13 @@ public class DatosUsuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public DatosUsuario(Integer idUsuario, String nombre, String apellidoPaterno, String cp, String estado, String delegacion, String colonia, String telefonoOtro, String numeroExt, String rfc, String calle) {
+    public DatosUsuario(Integer idUsuario, String nombre, String apellidoPaterno, String cp, String estado, String ciudad, String delegacion, String colonia, String telefonoOtro, String numeroExt, String rfc, String calle) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.cp = cp;
         this.estado = estado;
+        this.ciudad = ciudad;
         this.delegacion = delegacion;
         this.colonia = colonia;
         this.telefonoOtro = telefonoOtro;

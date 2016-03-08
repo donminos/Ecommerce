@@ -112,7 +112,6 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     public void AgregarProducto(Productos producto) {
         try {
             producto.setActivo((short) 1);
-            producto.setVisible((short) 1);
             em.persist(producto);
             em.flush();
             producto.setIdProducto(((BigInteger) em.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).intValue()); //opcion SELECT LAST_INSERT_ID() ó SELECT @@IDENTITY
@@ -136,7 +135,6 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     @Override
     public void EditarProducto(Productos producto) {
         producto.setActivo((short) 1);
-        producto.setVisible((short) 1);
         em.merge(producto);
         try {
             if (!producto.getCategoriasList().isEmpty()) {

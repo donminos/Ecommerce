@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CuponesDescuentos.findByInicia", query = "SELECT c FROM CuponesDescuentos c WHERE c.inicia = :inicia"),
     @NamedQuery(name = "CuponesDescuentos.findByTermina", query = "SELECT c FROM CuponesDescuentos c WHERE c.termina = :termina")})
 public class CuponesDescuentos implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

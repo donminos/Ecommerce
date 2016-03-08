@@ -47,9 +47,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Productos.findByDetalle", query = "SELECT p FROM Productos p WHERE p.detalle = :detalle"),
     @NamedQuery(name = "Productos.findByVideoDemostrativo", query = "SELECT p FROM Productos p WHERE p.videoDemostrativo = :videoDemostrativo"),
     @NamedQuery(name = "Productos.findByActivo", query = "SELECT p FROM Productos p WHERE p.activo = :activo"),
-    @NamedQuery(name = "Productos.findByVisible", query = "SELECT p FROM Productos p WHERE p.visible = :visible"),
+    @NamedQuery(name = "Productos.findByPromocionar", query = "SELECT p FROM Productos p WHERE p.promocionar = :promocionar"),
     @NamedQuery(name = "Productos.findByFechaCaducidad", query = "SELECT p FROM Productos p WHERE p.fechaCaducidad = :fechaCaducidad")})
 public class Productos implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +59,7 @@ public class Productos implements Serializable {
     private Integer idProducto;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 128)
+    @Size(min = 1, max = 500)
     @Column(name = "Descripcion")
     private String descripcion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -68,15 +69,15 @@ public class Productos implements Serializable {
     private Float cantidad;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 200)
     @Column(name = "Nombre")
     private String nombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 500)
     @Column(name = "Detalle")
     private String detalle;
-    @Size(max = 60)
+    @Size(max = 150)
     @Column(name = "VideoDemostrativo")
     private String videoDemostrativo;
     @Basic(optional = false)
@@ -85,8 +86,8 @@ public class Productos implements Serializable {
     private short activo;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "Visible")
-    private short visible;
+    @Column(name = "Promocionar")
+    private short promocionar;
     @Column(name = "FechaCaducidad")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCaducidad;
@@ -116,13 +117,13 @@ public class Productos implements Serializable {
         this.idProducto = idProducto;
     }
 
-    public Productos(Integer idProducto, String descripcion, String nombre, String detalle, short activo, short visible) {
+    public Productos(Integer idProducto, String descripcion, String nombre, String detalle, short activo, short promocionar) {
         this.idProducto = idProducto;
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.detalle = detalle;
         this.activo = activo;
-        this.visible = visible;
+        this.promocionar = promocionar;
     }
 
     public Integer getIdProducto() {
@@ -189,12 +190,12 @@ public class Productos implements Serializable {
         this.activo = activo;
     }
 
-    public short getVisible() {
-        return visible;
+    public short getPromocionar() {
+        return promocionar;
     }
 
-    public void setVisible(short visible) {
-        this.visible = visible;
+    public void setPromocionar(short promocionar) {
+        this.promocionar = promocionar;
     }
 
     public Date getFechaCaducidad() {
