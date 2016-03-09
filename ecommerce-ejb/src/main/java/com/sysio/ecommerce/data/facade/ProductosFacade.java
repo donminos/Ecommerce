@@ -65,7 +65,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
             } else if (filtro.getMarca()!=null) {
                 query.setParameter("mar", filtro.getMarca());
             } else if (filtro.getPalabraClave()!=null) {
-                query.setParameter("pro", filtro.getPalabraClave());
+                query.setParameter("pro", "%"+filtro.getPalabraClave()+"%");
             }
         }
         List<Productos> productos = query.getResultList();

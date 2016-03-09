@@ -12,12 +12,12 @@ function chargeFancybox() {
         head.appendChild(link);
     }
     $('#login-bt').click(function () {
-        $.get('/shop/j_security_check?j_username='+$('#user').val()+'&j_password='+$('#pass').val(),function(){
-            $.post('/shop/public/user/login.do',function(data){
-                window.location.href=data;
+        $.get('/shop/j_security_check?j_username=' + $('#user').val() + '&j_password=' + $('#pass').val(), function () {
+            $.post('/shop/public/user/login.do', function (data) {
+                window.location.href = data;
             });
         });
-        
+
     });
     $('.login').click(function () {
         $.fancybox($('#login'));
@@ -195,6 +195,11 @@ function initHeader() {
     chargeFancybox();
     chargeCatMenu();
     sesion();
+    $('#search').keydown(function (e) {
+        if (e.keyCode == 13) {
+            window.location.href ='galeria.html?palabra='+this.value;
+        }
+    });
 }
 $(document).ready(function () {
     $("header").load("resources/templates/header.html", function () {
