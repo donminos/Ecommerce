@@ -64,6 +64,13 @@ tr:nth-child(even) {
 .panelSubCats{
     width:600px;
 }
+.ui-datatable tbody td {
+        text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    width: 90%;
+}
 @media screen and (max-width:480px){
     .column-small{
         max-width: 100%;

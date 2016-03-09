@@ -99,6 +99,13 @@ ul{
     width: 100px;
 }
 /*Galeria producto*/
+/*Header*/
+.derechaHeader{
+    float: right;
+    padding-right: 50px;
+    padding-top: 10px;
+}
+/*Header*/
 /*footer*/
 .foot {
     height: 40px;

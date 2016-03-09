@@ -5,7 +5,6 @@ $(window).load(function () {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            debugger;
             var suma=0;
             var cont='<ul>';
             for(var i=0;i<data.length;i++){

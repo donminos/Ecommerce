@@ -1,4 +1,3 @@
-
 package com.sysio.ecommerce.shop.web.controller;
 
 import com.sysio.ecommerce.data.entity.Imagenes;
@@ -28,31 +27,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/public/compras")
 public class CarroCompraController {
+
     ImagenesSessionRemote imagenesSession = lookupImagenesSessionRemote();
     ProductosSessionRemote productosSession = lookupProductosSessionRemote();
-    
-    
-    List<CarroCompra> car;
-    CarroCompraController(){
-        car=new ArrayList();
+
+    CarroCompraController() {
     }
-        
+
     @RequestMapping(value = "/agregarCarro.do", method = RequestMethod.POST, produces = "application/json")
-    public CarroCompra agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro) throws Exception{
-        Principal user=request.getUserPrincipal();
-        if(carro.getCantidad()!=null && carro.getIdproducto()!=null){
+    public CarroCompra agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro) throws Exception {
+        Principal user = request.getUserPrincipal();
+        List<CarroCompra> car;
+        car = (List<CarroCompra>) request.getSession().getAttribute("productos");
+        if (car == null) {
+            car = new ArrayList();
+        }
+        if (carro.getCantidad() != null && carro.getIdproducto() != null) {
             car.add(carro);
-        }else{
+            request.getSession().setAttribute("productos", car);
+        } else {
             throw new Exception();
         }
         return carro;
     }
-     @RequestMapping(value = "/verCarro.do", method = RequestMethod.POST, produces = "application/json")
-    public List<ProductosCantidad> verCarro(){
+
+    @RequestMapping(value = "/verCarro.do", method = RequestMethod.POST, produces = "application/json")
+    public List<ProductosCantidad> verCarro(HttpServletRequest request) {
+        List<CarroCompra> car = (List<CarroCompra>) request.getSession().getAttribute("productos");
         ProductosCantidad prod;
-        List<ProductosCantidad> lst=new ArrayList();
-        for(CarroCompra c:car){
-            Productos p=productosSession.find(c.getIdproducto());
+        List<ProductosCantidad> lst = new ArrayList();
+        for (CarroCompra c : car) {
+            Productos p = productosSession.find(c.getIdproducto());
             p.setProductosList1(new ArrayList());
             p.setProductosList(new ArrayList());
             p.setCategoriasList(new ArrayList());
@@ -64,12 +69,12 @@ public class CarroCompraController {
                 img.setIdProducto(null);
             }
             p.setImagenesList(imgs.isEmpty() ? new ArrayList() : imgs);
-            
-            prod=new ProductosCantidad();
+
+            prod = new ProductosCantidad();
             prod.setProducto(p);
             prod.setCantidad(c.getCantidad());
             lst.add(prod);
-            
+
         }
         return lst;
     }

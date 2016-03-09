@@ -1,3 +1,21 @@
+function chargeFancybox() {
+    $.getScript("resources/js/libs/jquery.fancybox.js");
+    var cssId = 'jquery.fancybox';  // you could encode the css path itself to generate id..
+    if (!document.getElementById(cssId)){
+        var head = document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+        link.id = cssId;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'resources/css/jquery.fancybox.css';
+        link.media = 'all';
+        head.appendChild(link);
+    }
+    
+    $('.login').click(function () {
+        $.fancybox('login');
+    });
+}
 function getParameter(sParam) {
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
@@ -8,7 +26,6 @@ function getParameter(sParam) {
         }
     }
 }
-;
 var chargeMenu = function () {
     var touch = $('#touch-menu');
     var menu = $('.menu');
@@ -106,13 +123,13 @@ function chargeCatMenu() {
     });
 }
 function sesion() {
-        var jqxhr = $.getJSON("/shop/private/user/name.do");
-        jqxhr.done(function (data) {
-                $('.login').html('Bienvenido ' + data.responseJSON.datosUsuario.nombre + " " + data.responseJSON.datosUsuario.apellidoPaterno + " " + data.responseJSON.datosUsuario.apellidoMaterno + "<button onclick=$.get('/shop/private/user/logout.do')>salir</button>");
-        });
-        jqxhr.fail(function (data){
-            console.log('Error sesion no iniciada');
-        });
+    var jqxhr = $.getJSON("/shop/private/user/name.do");
+    jqxhr.done(function (data) {
+        $('.login').html('Bienvenido ' + data.datosUsuario.nombre + " " + data.datosUsuario.apellidoPaterno + " " + data.datosUsuario.apellidoMaterno + "<button onclick=$.get('/shop/private/user/logout.do')>salir</button>");
+    });
+    jqxhr.fail(function (data) {
+        console.log('Error sesion no iniciada');
+    });
 }
 function chargeProd(id, items, param) {
     $.ajax({
@@ -167,12 +184,15 @@ function chargeProdGaleria(id, param) {
         });
     });
 }
-$(document).ready(function () {
-    $("header").load("resources/templates/header.html");
-    $("nav").load("resources/templates/menu.html");
-    $("footer").load("resources/templates/footer.html");
-});
-$(window).load(function () {
+function initHeader() {
+    chargeFancybox();
     chargeCatMenu();
     sesion();
+}
+$(document).ready(function () {
+    $("header").load("resources/templates/header.html", function () {
+        initHeader();
+    });
+    $("nav").load("resources/templates/menu.html");
+    $("footer").load("resources/templates/footer.html");
 });
