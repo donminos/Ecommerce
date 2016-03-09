@@ -1,7 +1,7 @@
 function chargeFancybox() {
     $.getScript("resources/js/libs/jquery.fancybox.js");
     var cssId = 'jquery.fancybox';  // you could encode the css path itself to generate id..
-    if (!document.getElementById(cssId)){
+    if (!document.getElementById(cssId)) {
         var head = document.getElementsByTagName('head')[0];
         var link = document.createElement('link');
         link.id = cssId;
@@ -11,9 +11,16 @@ function chargeFancybox() {
         link.media = 'all';
         head.appendChild(link);
     }
-    
+    $('#login-bt').click(function () {
+        $.get('/shop/j_security_check?j_username='+$('#user').val()+'&j_password='+$('#pass').val(),function(){
+            $.post('/shop/public/user/login.do',function(data){
+                window.location.href=data;
+            });
+        });
+        
+    });
     $('.login').click(function () {
-        $.fancybox('login');
+        $.fancybox($('#login'));
     });
 }
 function getParameter(sParam) {
@@ -125,7 +132,7 @@ function chargeCatMenu() {
 function sesion() {
     var jqxhr = $.getJSON("/shop/private/user/name.do");
     jqxhr.done(function (data) {
-        $('.login').html('Bienvenido ' + data.datosUsuario.nombre + " " + data.datosUsuario.apellidoPaterno + " " + data.datosUsuario.apellidoMaterno + "<button onclick=$.get('/shop/private/user/logout.do')>salir</button>");
+        $('.panel-login').html('Bienvenido ' + data.datosUsuario.nombre + " " + data.datosUsuario.apellidoPaterno + " " + data.datosUsuario.apellidoMaterno + "<button onclick=$.get('/shop/private/user/logout.do');location.reload();>salir</button>");
     });
     jqxhr.fail(function (data) {
         console.log('Error sesion no iniciada');
