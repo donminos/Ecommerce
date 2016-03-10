@@ -108,6 +108,12 @@ ul{
 span.lb-login{
     display: block;
 }
+#login-bt{
+    float:left;
+}
+#reg-bt{
+    float: right;
+}
 /*Header*/
 /*footer*/
 .foot {

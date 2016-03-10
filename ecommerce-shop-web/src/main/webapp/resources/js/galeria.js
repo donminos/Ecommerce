@@ -11,7 +11,7 @@ function chargeProdGaleria(id, param) {
     });
     categoria.error(function(){
         var infoCat={};
-        infoCat.responseJSON={},infoCat.responseJSON={},infoCat.responseJSON.nombre='Busqueda de '+param.palabraClave;
+        infoCat.responseJSON={},infoCat.nombre='Busqueda de '+param.palabraClave;
         galeriaCharge(infoCat,param,id);
     });
 }
@@ -28,7 +28,7 @@ function galeriaCharge(infoCat,param,id){
                     paginator: {
                         rows: 6
                     },
-                    header: '<b>' + infoCat.responseJSON.nombre + '</b>',
+                    header: '<b>' + infoCat.nombre + '</b>',
                     datasource: data,
                     content: function (prod) {
                         return $('<div id="prod_' + prod.idProducto + '" class="programa"><img width="80%" src="/shop/public/images/getimage?image=' + prod.imagenesList[0].path +

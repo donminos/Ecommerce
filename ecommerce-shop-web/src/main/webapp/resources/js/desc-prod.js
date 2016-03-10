@@ -24,14 +24,14 @@ $(window).load(function () {
             param.cantidad=$('#cantidad').val();
             $.ajax({
                 type: "POST",
-                url: "/shop/public/compras/agregarCarro.do",
+                url: "/shop/private/compras/agregarCarro.do",
                 data: JSON.stringify(param),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
                     $.fancybox('<p>Se ha agregado al carro de compras</p>');
                 },error: function(){
-                    $.fancybox('<p>Error no se logro agregar el producto</p>');
+                    $.fancybox('<p>No se puede agregar productos al carro de compra hasta que inicie sesión</p>');
                 }
             });
         });

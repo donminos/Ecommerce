@@ -59,7 +59,6 @@ function validateForm() {
     }
 }
 $('#cp').blur(function () {
-    debugger;
     $.ajax({
         type: "GET",
         url: 'http://serviciosur.sytes.net/codigos/public/consulta/buscarcp.do',
@@ -114,7 +113,13 @@ $('#send').click(function () {
             dataType: "json",
             data: JSON.stringify(param),
             success: function (data) {
-                alert(data);
+                $.fancybox('<h3>Felicidades</h3><p>Te haz registrado en la pagina, ahora podrás realizar compras</p>',
+                        {
+                            scrolling: 'auto',
+                            afterClose: function () {
+                                location.href = "/shop/index.html";
+                            }
+                        });
             },
             failure: function (errMsg) {
                 alert(errMsg);
