@@ -19,6 +19,16 @@ function chargeFancybox() {
         });
 
     });
+
+    $('#pass').keydown(function (e) {
+        if (e.keyCode == 13) {
+            $.get('/shop/j_security_check?j_username=' + $('#user').val() + '&j_password=' + $('#pass').val(), function () {
+                $.post('/shop/public/user/login.do', function (data) {
+                    window.location.href = data;
+                });
+            });
+        }
+    });
     $('.login').click(function () {
         $.fancybox($('#login'));
     });
@@ -164,7 +174,7 @@ function initHeader() {
     sesion();
     $('#search').keydown(function (e) {
         if (e.keyCode == 13) {
-            window.location.href ='galeria.html?palabra='+this.value;
+            window.location.href = 'galeria.html?palabra=' + this.value;
         }
     });
 }

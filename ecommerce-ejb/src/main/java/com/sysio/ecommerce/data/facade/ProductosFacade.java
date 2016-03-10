@@ -55,7 +55,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
             } else if (filtro.getMarca()!=null) {
                 sql += " AND m.idMarca=:mar";
             } else if (filtro.getPalabraClave()!=null) {
-                sql += " AND p.nombre LIKE :pro AND p.descripcion LIKE :pro AND p.detalle LIKE :pro";
+                sql += " AND p.nombre LIKE :pro OR UPPER(p.descripcion) LIKE :pro OR p.detalle LIKE :pro";
             }
         }
         Query query = em.createQuery(sql, Productos.class);

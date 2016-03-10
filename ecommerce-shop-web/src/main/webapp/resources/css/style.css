@@ -105,6 +105,9 @@ ul{
     padding-right: 50px;
     padding-top: 10px;
 }
+span.lb-login{
+    display: block;
+}
 /*Header*/
 /*footer*/
 .foot {

@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Carlos Cesar Rosas
  */
 @RestController
-@RequestMapping("/public/compras")
 public class CarroCompraController {
 
     ImagenesSessionRemote imagenesSession = lookupImagenesSessionRemote();
@@ -34,7 +33,7 @@ public class CarroCompraController {
     CarroCompraController() {
     }
 
-    @RequestMapping(value = "/agregarCarro.do", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/private/compras/agregarCarro.do", method = RequestMethod.POST, produces = "application/json")
     public CarroCompra agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro) throws Exception {
         Principal user = request.getUserPrincipal();
         List<CarroCompra> car;
@@ -51,7 +50,7 @@ public class CarroCompraController {
         return carro;
     }
 
-    @RequestMapping(value = "/verCarro.do", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/public/compras/verCarro.do", method = RequestMethod.POST, produces = "application/json")
     public List<ProductosCantidad> verCarro(HttpServletRequest request) {
         List<CarroCompra> car = (List<CarroCompra>) request.getSession().getAttribute("productos");
         ProductosCantidad prod;

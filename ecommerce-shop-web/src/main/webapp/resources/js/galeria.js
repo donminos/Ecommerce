@@ -1,6 +1,21 @@
 function chargeProdGaleria(id, param) {
-    var name;
-    $.getJSON('/shop/public/categorias/findId.do>' + param.categoria).complete(function (infoCat) {
+    var variable;
+    if(param.categoria!==undefined){
+        variable=param.categoria;
+    }else if(param.palabraClave!==undefined){
+        variable=param.palabraClave;
+    }
+    var categoria=$.getJSON('/shop/public/categorias/findId.do>' + variable);
+    categoria.done(function(info){
+        galeriaCharge(info,param,id);
+    });
+    categoria.error(function(){
+        var infoCat={};
+        infoCat.responseJSON={},infoCat.responseJSON={},infoCat.responseJSON.nombre='Busqueda de '+param.palabraClave;
+        galeriaCharge(infoCat,param,id);
+    });
+}
+function galeriaCharge(infoCat,param,id){
         $.ajax({
             type: "POST",
             url: "/shop/public/productos/findAll.do",
@@ -29,16 +44,10 @@ function chargeProdGaleria(id, param) {
                 alert(errMsg);
             }
         });
-    });
 }
 $(window).load(function () {
     var param = {}, categoria = getParameter('cat'),palabra=getParameter('palabra');
     param.categoria = categoria;
     param.palabraClave=palabra;
-    var data=chargeProdGaleria('#localgrid',param);
-    $(function () {
-        
-    });
-    
-
+    chargeProdGaleria('#localgrid',param);
 });
