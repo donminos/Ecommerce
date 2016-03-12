@@ -20,6 +20,15 @@
     }
 }
 @media screen and (max-width: 640px){
+    li.carro-compra{
+        float:none;
+    }
+    div.name-login{
+        display: none;
+    }
+    .buscador{
+        display: none;
+    }
     .foot {
         display: table;
         height: 40px;

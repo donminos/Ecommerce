@@ -134,7 +134,7 @@ function chargeCatMenu() {
             }
             constr += '</ul></li>';
         }
-        constr += '<li style="float:right"><a href="carroCompra.html">Carrito</a></li>';
+        constr += '<li class="carro-compra"><a href="carroCompra.html">Carrito</a></li>';
         $('#menuCat').html(constr);
         chargeMenu();
     });
@@ -142,7 +142,7 @@ function chargeCatMenu() {
 function sesion() {
     var jqxhr = $.getJSON("/shop/private/user/name.do");
     jqxhr.done(function (data) {
-        $('.panel-login').html('Bienvenido ' + data.datosUsuario.nombre + " " + data.datosUsuario.apellidoPaterno + " " + data.datosUsuario.apellidoMaterno + "<button onclick=$.get('/shop/private/user/logout.do');location.reload();>salir</button>");
+        $('.panel-login').html('<div class="name-login">Bienvenido ' + data.datosUsuario.nombre + " " + data.datosUsuario.apellidoPaterno + " " + data.datosUsuario.apellidoMaterno + "</div><button onclick=$.get('/shop/private/user/logout.do',function(){location.reload();});>salir</button>");
     });
     jqxhr.fail(function (data) {
         console.log('Error sesion no iniciada');

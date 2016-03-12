@@ -115,6 +115,11 @@ span.lb-login{
     float: right;
 }
 /*Header*/
+/*Memu*/
+li.carro-compra{
+    float:right;
+}
+/*Menu*/
 /*footer*/
 .foot {
     height: 40px;
