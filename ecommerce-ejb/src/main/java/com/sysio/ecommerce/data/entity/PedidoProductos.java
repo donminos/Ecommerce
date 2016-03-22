@@ -39,6 +39,8 @@ public class PedidoProductos implements Serializable {
     @NotNull
     @Column(name = "Cantidad")
     private float cantidad;
+    @Column(name = "CostoTotal")
+    private float costoTotal;
     @JoinColumn(name = "idProducto", referencedColumnName = "idProducto", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Productos productos;
@@ -93,6 +95,14 @@ public class PedidoProductos implements Serializable {
     public void setPedidos(Pedidos pedidos) {
         this.pedidos = pedidos;
     }
+
+    public float getCostoTotal() {
+        return costoTotal;
+    }
+
+    public void setCostoTotal(float costoTotal) {
+        this.costoTotal = costoTotal;
+    }    
 
     @Override
     public int hashCode() {

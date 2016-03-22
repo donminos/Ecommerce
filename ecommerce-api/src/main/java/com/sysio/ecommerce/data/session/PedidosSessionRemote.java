@@ -34,4 +34,6 @@ public interface PedidosSessionRemote {
     
     public List<Pedidos> findAllFetch();
     
+    public Integer crear(Pedidos pedido);
+    
 }

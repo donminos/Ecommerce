@@ -29,6 +29,4 @@ public class CarroCompra implements Serializable{
         this.cantidad = cantidad;
     }
     
-    
-    
 }

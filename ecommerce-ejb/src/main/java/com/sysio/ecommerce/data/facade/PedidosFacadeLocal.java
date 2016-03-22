@@ -34,4 +34,6 @@ public interface PedidosFacadeLocal {
     
     List<Pedidos> findAllFetch();
     
+    Integer crear(Pedidos pedido);
+    
 }

@@ -34,6 +34,13 @@ public class PedidosFacade extends AbstractFacade<Pedidos> implements PedidosFac
     public PedidosFacade() {
         super(Pedidos.class);
     }
+    
+    @Override
+    public Integer crear(Pedidos pedido){
+        em.persist(pedido);
+        em.flush();
+        return pedido.getIdPedido();
+    }
 
     @Override
     public List<Pedidos> findAllStatus(Integer status) {

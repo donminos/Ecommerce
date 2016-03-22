@@ -92,13 +92,13 @@
         <remote>com.sysio.ecommerce.data.session.UsuarioRolSessionRemote</remote>
     </ejb-ref>
     <ejb-ref>
-        <ejb-ref-name>UsuarioRolSession1</ejb-ref-name>
+        <ejb-ref-name>PedidosSession</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <remote>com.sysio.ecommerce.data.session.UsuarioRolSessionRemote</remote>
+        <remote>com.sysio.ecommerce.data.session.PedidosSessionRemote</remote>
     </ejb-ref>
     <ejb-ref>
-        <ejb-ref-name>UsuariosSession1</ejb-ref-name>
+        <ejb-ref-name>PedidosProductosSession</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <remote>com.sysio.ecommerce.data.session.UsuariosSessionRemote</remote>
+        <remote>com.sysio.ecommerce.data.session.PedidosProductisSessionRemote</remote>
     </ejb-ref>
 </web-app>

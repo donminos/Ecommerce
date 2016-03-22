@@ -61,4 +61,9 @@ public class PedidosSession implements PedidosSessionRemote {
         return pedidosFacade.findAllFetch();
     }
 
+    @Override
+    public Integer crear(Pedidos pedido) {
+        return pedidosFacade.crear(pedido);
+    }
+
 }
