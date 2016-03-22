@@ -1,5 +1,4 @@
-function chargeFancybox() {
-    $.getScript("resources/js/libs/jquery.fancybox.js");
+function chargeLibs() {
     var cssId = 'jquery.fancybox';  // you could encode the css path itself to generate id..
     if (!document.getElementById(cssId)) {
         var head = document.getElementsByTagName('head')[0];
@@ -11,10 +10,31 @@ function chargeFancybox() {
         link.media = 'all';
         head.appendChild(link);
     }
+    cssId = 'puzzleCAPTCHA';  // you could encode the css path itself to generate id..
+    if (!document.getElementById(cssId)) {
+        var head = document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+        link.id = cssId;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'resources/css/puzzleCAPTCHA.css';
+        link.media = 'all';
+        head.appendChild(link);
+    }    
+    $.getScript("resources/js/libs/puzzleCAPTCHA.js");
+    $.getScript("resources/js/libs/jquery.fancybox.js", function () {
+        if (getParameter('errorLogin')) {
+            $.fancybox('El usuario y contraseña introducidos son incorrectos');
+        }
+    });
     $('#login-bt').click(function () {
         $.get('/shop/j_security_check?j_username=' + $('#user').val() + '&j_password=' + $('#pass').val(), function () {
             $.post('/shop/public/user/login.do', function (data) {
-                window.location.href = data;
+                if (data.response.success) {
+                    window.location.href = 'index.html';
+                } else {
+                    window.location.href = 'index.html?errorLogin=true';
+                }
             });
         });
 
@@ -31,6 +51,14 @@ function chargeFancybox() {
     });
     $('.login').click(function () {
         $.fancybox($('#login'));
+        $("#PuzzleCaptcha").html('');
+        $("#PuzzleCaptcha").PuzzleCAPTCHA({
+            //width: "250px",
+            rows: 3,
+            targetInput: '.validationValue',
+            targetVal: 'Validated!!',
+            targetButton: '.btnSubmit'
+        });
     });
 }
 function getParameter(sParam) {
@@ -142,7 +170,8 @@ function chargeCatMenu() {
 function sesion() {
     var jqxhr = $.getJSON("/shop/private/user/name.do");
     jqxhr.done(function (data) {
-        $('.panel-login').html('<div class="name-login">Bienvenido ' + data.datosUsuario.nombre + " " + data.datosUsuario.apellidoPaterno + " " + data.datosUsuario.apellidoMaterno + "</div><button onclick=$.get('/shop/private/user/logout.do',function(){location.reload();});>salir</button>");
+        $('.panel-login').html('<div class="name-login">Bienvenido ' + data.datosUsuario.nombre + " " + data.datosUsuario.apellidoPaterno + " " + data.datosUsuario.apellidoMaterno + "</div>\n\
+        <button class='boton' onclick=$.get('/shop/private/user/logout.do',function(){location.reload();});>salir</button>");
     });
     jqxhr.fail(function (data) {
         console.log('Error sesion no iniciada');
@@ -169,7 +198,7 @@ function chargeProd(id, items, param) {
     });
 }
 function initHeader() {
-    chargeFancybox();
+    chargeLibs();
     chargeCatMenu();
     sesion();
     $('#search').keydown(function (e) {

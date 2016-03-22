@@ -47,25 +47,32 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     }
 
     @Override
+    public List<Productos> findAllProductosFetch() {
+        Query query = em.createQuery("SELECT distinct p FROM Productos p LEFT OUTER JOIN FETCH p.idMarca LEFT OUTER JOIN FETCH p.categoriasList LEFT OUTER JOIN FETCH p.productosList", Productos.class);
+        List<Productos> productos = query.getResultList();
+        return productos;
+    }
+
+    @Override
     public List<Productos> findAllFetch(Filtros filtro) {
-        String sql = "SELECT distinct p FROM Productos p JOIN FETCH p.idMarca m JOIN FETCH p.categoriasList c LEFT JOIN FETCH c.categoriasList c1 LEFT JOIN FETCH c1.categoriasList c2 LEFT JOIN FETCH p.productosList p1 WHERE p.activo=1";
+        String sql = "SELECT distinct p FROM Productos p JOIN FETCH p.idMarca m JOIN FETCH p.categoriasList c LEFT JOIN FETCH c.categoriasList c1 LEFT JOIN FETCH c1.categoriasList c2 LEFT JOIN FETCH p.productosList p1 WHERE p.activo=1 ";
         if (filtro != null) {
-            if (filtro.getCategoria()!=null) {
-                sql += " AND c.idCategoria=:cat OR c1.idCategoria=:cat OR c2.idCategoria=:cat";
-            } else if (filtro.getMarca()!=null) {
+            if (filtro.getCategoria() != null) {
+                sql += " AND ( c.idCategoria=:cat OR c1.idCategoria=:cat OR c2.idCategoria=:cat )";
+            } else if (filtro.getMarca() != null) {
                 sql += " AND m.idMarca=:mar";
-            } else if (filtro.getPalabraClave()!=null) {
-                sql += " AND p.nombre LIKE :pro OR UPPER(p.descripcion) LIKE :pro OR p.detalle LIKE :pro";
+            } else if (filtro.getPalabraClave() != null) {
+                sql += " AND (p.nombre LIKE :pro OR UPPER(p.descripcion) LIKE :pro OR p.detalle LIKE :pro)";
             }
         }
         Query query = em.createQuery(sql, Productos.class);
         if (filtro != null) {
-            if (filtro.getCategoria()!=null) {
+            if (filtro.getCategoria() != null) {
                 query.setParameter("cat", filtro.getCategoria());
-            } else if (filtro.getMarca()!=null) {
+            } else if (filtro.getMarca() != null) {
                 query.setParameter("mar", filtro.getMarca());
-            } else if (filtro.getPalabraClave()!=null) {
-                query.setParameter("pro", "%"+filtro.getPalabraClave()+"%");
+            } else if (filtro.getPalabraClave() != null) {
+                query.setParameter("pro", "%" + filtro.getPalabraClave() + "%");
             }
         }
         List<Productos> productos = query.getResultList();
@@ -76,7 +83,7 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
     public List<Productos> findAllSubFetch(Productos producto) {
         List<Productos> prods = new ArrayList();
         try {
-            Query query = em.createQuery("SELECT distinct p FROM Productos p " +/*JOIN FETCH p.productosList1*/ " WHERE p.idProducto = :prod", Productos.class);
+            Query query = em.createQuery("SELECT distinct p FROM Productos p " +/*JOIN FETCH p.productosList1*/ " WHERE p.idProducto = :prod AND p.activo=1", Productos.class);
             query.setParameter("prod", producto.getIdProducto());
             Productos productos = (Productos) query.getSingleResult();
 

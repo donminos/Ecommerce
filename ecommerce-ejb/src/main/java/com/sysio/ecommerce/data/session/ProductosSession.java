@@ -91,5 +91,9 @@ public class ProductosSession implements ProductosSessionRemote {
     public List<Productos> findAllFetch() {
         return productosFacade.findAllFetch();
     }
-    
+
+    @Override
+    public List<Productos> findAllProductosFetch() {
+        return productosFacade.findAllProductosFetch();
+    }    
 }

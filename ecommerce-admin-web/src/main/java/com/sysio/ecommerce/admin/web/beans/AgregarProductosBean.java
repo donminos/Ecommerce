@@ -63,7 +63,7 @@ public class AgregarProductosBean {
     }
     
     public List<Productos> getLstProductos(){
-        return productosSession.findAllFetch();
+        return productosSession.findAllProductosFetch();
     }
 
     public void createProducto() {

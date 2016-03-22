@@ -17,11 +17,11 @@ $(window).load(function () {
         $('#producto').html(list(data));
         zoomImage();
         $('.descProd').html('<h3>' + data.responseJSON.nombre + '</h3><p>' + data.responseJSON.descripcion + '</p><p>' + data.responseJSON.detalle + '</p>');
-        $('.precios').html('<p>$' + data.responseJSON.costo + '</p><p>Cantidad:<input id="cantidad" type="number" min="1" max="' + data.responseJSON.cantidad + '" placeholder=""/></p><p><input type="button" class="boton" value="Agregar al carrito"/></p>');
-        $('.boton').click(function () {
-            var param={};
-            param.idproducto=idprod;
-            param.cantidad=$('#cantidad').val();
+        $('.precios').html('<p>$' + data.responseJSON.costo + '</p><p>Cantidad:<input id="cantidad" type="number" min="1" max="' + data.responseJSON.cantidad + '" placeholder=""/></p><p><input type="button" class="boton agregar" value="Agregar al carrito"/></p>');
+        $('.agregar').click(function () {
+            var param = {};
+            param.idproducto = idprod;
+            param.cantidad = $('#cantidad').val();
             $.ajax({
                 type: "POST",
                 url: "/shop/private/compras/agregarCarro.do",
@@ -29,8 +29,12 @@ $(window).load(function () {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
-                    $.fancybox('<p>Se ha agregado al carro de compras</p>');
-                },error: function(){
+                    if (data.response.success) {
+                        $.fancybox('<p>Se ha agregado al carro de compras</p>');
+                    }else{
+                        $.fancybox('<p>Debes colocar una cantidad</p>');
+                    }
+                }, error: function () {
                     $.fancybox('<p>No se puede agregar productos al carro de compra hasta que inicie sesión</p>');
                 }
             });

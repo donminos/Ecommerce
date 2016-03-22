@@ -3,6 +3,7 @@ package com.sysio.ecommerce.shop.web.controller;
 import com.sysio.ecommerce.data.entity.Imagenes;
 import com.sysio.ecommerce.data.entity.Productos;
 import com.sysio.ecommerce.data.entity.altern.CarroCompra;
+import com.sysio.ecommerce.data.entity.altern.JsonResponseView;
 import com.sysio.ecommerce.data.entity.altern.ProductosCantidad;
 import com.sysio.ecommerce.data.session.ImagenesSessionRemote;
 import com.sysio.ecommerce.data.session.ProductosSessionRemote;
@@ -34,20 +35,26 @@ public class CarroCompraController {
     }
 
     @RequestMapping(value = "/private/compras/agregarCarro.do", method = RequestMethod.POST, produces = "application/json")
-    public CarroCompra agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro) throws Exception {
+    public JsonResponseView agregarCarro(HttpServletRequest request, @RequestBody(required = true) CarroCompra carro) {
         Principal user = request.getUserPrincipal();
+        JsonResponseView json = new JsonResponseView();
         List<CarroCompra> car;
         car = (List<CarroCompra>) request.getSession().getAttribute("productos");
-        if (car == null) {
-            car = new ArrayList();
+        try {
+            if (car == null) {
+                car = new ArrayList();
+            }
+            if (carro.getCantidad() != null && carro.getIdproducto() != null) {
+                car.add(carro);
+                request.getSession().setAttribute("productos", car);
+                json.getResponse().put("carro", car);
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception ex) {
+            json.getResponse().put("success", false);
         }
-        if (carro.getCantidad() != null && carro.getIdproducto() != null) {
-            car.add(carro);
-            request.getSession().setAttribute("productos", car);
-        } else {
-            throw new Exception();
-        }
-        return carro;
+        return json;
     }
 
     @RequestMapping(value = "/public/compras/verCarro.do", method = RequestMethod.POST, produces = "application/json")

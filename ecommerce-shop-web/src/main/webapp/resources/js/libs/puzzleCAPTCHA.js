@@ -15,7 +15,11 @@
 
 					var tmpObj=this;
 					tmpObj.addClass("puzzleCAPTCHA");
-					tmpObj.append('<div class="pcBox"><div class="pcBoxBG"><img src="'+sets.imageURL+'" style="width:'+sets.width+';height:'+sets.height+';"></div></div> <div class="pcAnswer"></div>');
+                                        if($( window ).width()>'480'){
+                                            tmpObj.append('<div class="pcBox"><div class="pcBoxBG"><img src="'+sets.imageURL+'" style="width:'+sets.width+';height:'+sets.height+';"></div></div> <div class="pcAnswer"></div>');
+                                        }else if($( window ).width()<'480'){
+                                            tmpObj.append('<div class="pcBox"><div class="pcBoxBG"><img src="'+sets.imageURL+'" style="width:250px;height:'+sets.height+';"></div></div> <div class="pcAnswer"></div>');    
+                                        }
 
 					tmpObj.find(".pcBoxBG img").load(function(){
 						tmpImg=$(this);

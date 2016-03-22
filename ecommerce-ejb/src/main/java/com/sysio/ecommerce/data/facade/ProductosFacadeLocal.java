@@ -44,4 +44,6 @@ public interface ProductosFacadeLocal {
     void AgregarSubProducto(Productos productoprim, List<Productos> productosec);
     
     void EditarProducto(Productos producto);
+    
+    List<Productos> findAllProductosFetch();
 }
