@@ -15,10 +15,14 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.portlet.ModelAndView;
 
 /**
  *
@@ -31,9 +35,9 @@ public class UsuariosController {
 
     UsuarioRolSessionRemote usuarioRolSession = lookupUsuarioRolSessionRemote();
 
-    @RequestMapping(value = "/private/user/name.do", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/private/user/name.do", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuarios findName(Principal principal, HttpServletRequest request) throws Exception {
-        if(!request.isUserInRole("Cliente")){
+        if (!request.isUserInRole("Cliente")) {
             request.getSession().invalidate();
         }
         Usuarios user = usuariosSession.findUserForEmail(principal.getName());
@@ -45,12 +49,12 @@ public class UsuariosController {
         return user;
     }
 
-    @RequestMapping(value = "/private/user/logout.do", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/private/user/logout.do", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void logout(Principal principal, HttpServletRequest request) throws Exception {
         request.getSession().invalidate();
     }
 
-    @RequestMapping(value = "/public/user/agregarUsuario.do", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/public/user/agregarUsuario.do", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuarios agregarCarro(HttpServletRequest request, @RequestBody(required = true) UsuariosDatosJsonView datos) {
         UsuarioRol userrol = new UsuarioRol();
         DatosUsuario data = new DataToDatosUsuariosTransfer().transferData(datos);
@@ -63,15 +67,29 @@ public class UsuariosController {
         return usuario;
     }
 
-    @RequestMapping(value = "/public/user/login.do", method = RequestMethod.POST)
-    public JsonResponseView login(HttpServletRequest request,Principal principal) {
-        JsonResponseView json=new JsonResponseView();
-        if(request.isUserInRole("Cliente") && principal.getName()!=null){
+    @RequestMapping(value = "/public/user/login.do", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public JsonResponseView login(HttpServletRequest request, Principal principal) {
+        JsonResponseView json = new JsonResponseView();
+        if (request.isUserInRole("Cliente") && principal.getName() != null && usuariosSession.findUserForEmail(principal.getName()).getActivo()) {
             return json;
-        }else{
+        } else {
             json.getResponse().put("success", false);
             return json;
         }
+    }
+
+    @RequestMapping(value = "/public/user/activar.do", method = RequestMethod.GET)
+    public void login(HttpServletResponse response, @RequestParam(required = true) String email) {
+        try {
+            Usuarios user = usuariosSession.findUserForEmail(email);
+            user.setActivo(true);
+            usuariosSession.edit(user);
+        } catch (Exception ex) {
+            response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+            response.setHeader("Location", "/shop/index.html?activate=false");
+        }
+        response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+        response.setHeader("Location", "/shop/index.html?activate=true");
     }
 
     private UsuarioRolSessionRemote lookupUsuarioRolSessionRemote() {

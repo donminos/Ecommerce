@@ -5,6 +5,7 @@ import com.google.common.base.Charsets;
 import com.sysio.ecommerce.data.entity.UsuarioRol;
 import com.google.common.hash.Hashing;
 import com.sysio.ecommerce.data.facade.UsuarioRolFacadeLocal;
+import com.sysio.ecommerce.data.libs.SendMail;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
@@ -16,6 +17,10 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class UsuarioRolSession implements UsuarioRolSessionRemote {
+
+    @EJB
+    private SendMail sendMail;
+    
     @EJB
     private UsuarioRolFacadeLocal usuarioRolFacade;
 
@@ -56,8 +61,10 @@ public class UsuarioRolSession implements UsuarioRolSessionRemote {
 
     @Override
     public BigInteger createUserCliente(UsuarioRol user) {
-        user.getUsuarios().setContrasena((Hashing.sha256().hashString(user.getUsuarios().getContrasena(), Charsets.UTF_8).toString()));        
-        return usuarioRolFacade.createUserCliente(user);
+        user.getUsuarios().setContrasena((Hashing.sha256().hashString(user.getUsuarios().getContrasena(), Charsets.UTF_8).toString()));
+        BigInteger id=usuarioRolFacade.createUserCliente(user);
+        sendMail.sendActivateUser(user);
+        return id;
     }
 
 }

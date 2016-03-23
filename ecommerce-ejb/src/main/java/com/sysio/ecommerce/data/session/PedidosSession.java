@@ -2,9 +2,12 @@ package com.sysio.ecommerce.data.session;
 
 import com.sysio.ecommerce.data.entity.Pedidos;
 import com.sysio.ecommerce.data.facade.PedidosFacadeLocal;
+import com.sysio.ecommerce.data.libs.SendMail;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.Session;
 
 /**
  *
@@ -12,7 +15,8 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class PedidosSession implements PedidosSessionRemote {
-
+    @EJB
+    private SendMail sendMail;
     @EJB
     private PedidosFacadeLocal pedidosFacade;
 
@@ -23,6 +27,7 @@ public class PedidosSession implements PedidosSessionRemote {
 
     @Override
     public void edit(Pedidos pedidos) {
+        sendMail.sendStatusProducto(pedidos);
         pedidosFacade.edit(pedidos);
     }
 

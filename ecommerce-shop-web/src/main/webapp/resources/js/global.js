@@ -20,11 +20,15 @@ function chargeLibs() {
         link.href = 'resources/css/puzzleCAPTCHA.css';
         link.media = 'all';
         head.appendChild(link);
-    }    
+    }
     $.getScript("resources/js/libs/puzzleCAPTCHA.js");
     $.getScript("resources/js/libs/jquery.fancybox.js", function () {
         if (getParameter('errorLogin')) {
             $.fancybox('El usuario y contraseña introducidos son incorrectos');
+        }else if (getParameter('activate')==='true') {
+            $.fancybox('Se ha activado tu usuario');
+        }else if (getParameter('activate')==='false'){
+            $.fancybox('Hubo un problema al activar tu usario porfavor contactate con el administrador del sistema');
         }
     });
     $('#login-bt').click(function () {

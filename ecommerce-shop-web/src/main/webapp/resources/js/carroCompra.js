@@ -8,7 +8,6 @@ $(document).ready(function () {
             success: function (data) {
                 var arrayParam=new Array();
                 data.forEach(function(index){
-                debugger;
                     var param={};
                     param.idproducto=index.producto.idProducto;
                     param.cantidad=index.cantidad;
@@ -21,7 +20,12 @@ $(document).ready(function () {
                     dataType: "json",
                     data: JSON.stringify(arrayParam),
                     success: function (data) {
-                        debugger;
+                        if(data.response.success){
+                            $.getJSON('/shop/private/compras/limpiarCarro.do');
+                            $('#descripcion').val('N° de pedido:'+data.response.idpedido);
+                            $('#pedido').val(data.response.idpedido);
+                            $('#form-compra').submit();
+                        }
                     },
                     failure: function (errMsg) {
                         alert(errMsg);

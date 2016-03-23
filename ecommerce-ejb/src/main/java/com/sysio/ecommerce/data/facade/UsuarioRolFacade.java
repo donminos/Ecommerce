@@ -33,6 +33,7 @@ public class UsuarioRolFacade extends AbstractFacade<UsuarioRol> implements Usua
 
     @Override
     public BigInteger createUserCliente(UsuarioRol user) {
+        user.getUsuarios().setActivo(false);
         Query query = em.createNativeQuery("INSERT INTO Usuarios (Usuario, Contrasena) VALUES (?, ?)");
         query.setParameter(1, user.getUsuarios().getUsuario());
         query.setParameter(2, user.getUsuarios().getContrasena());

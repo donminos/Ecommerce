@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PedidoProductos.findAll", query = "SELECT p FROM PedidoProductos p"),
     @NamedQuery(name = "PedidoProductos.findByIdProducto", query = "SELECT p FROM PedidoProductos p WHERE p.pedidoProductosPK.idProducto = :idProducto"),
     @NamedQuery(name = "PedidoProductos.findByIdPedido", query = "SELECT p FROM PedidoProductos p WHERE p.pedidoProductosPK.idPedido = :idPedido"),
-    @NamedQuery(name = "PedidoProductos.findByCantidad", query = "SELECT p FROM PedidoProductos p WHERE p.cantidad = :cantidad")})
+    @NamedQuery(name = "PedidoProductos.findByCantidad", query = "SELECT p FROM PedidoProductos p WHERE p.cantidad = :cantidad"),
+    @NamedQuery(name = "PedidoProductos.findByCosto", query = "SELECT p FROM PedidoProductos p WHERE p.costo = :costo")})
 public class PedidoProductos implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,8 +40,10 @@ public class PedidoProductos implements Serializable {
     @NotNull
     @Column(name = "Cantidad")
     private float cantidad;
-    @Column(name = "CostoTotal")
-    private float costoTotal;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Costo")
+    private float costo;
     @JoinColumn(name = "idProducto", referencedColumnName = "idProducto", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Productos productos;
@@ -55,9 +58,10 @@ public class PedidoProductos implements Serializable {
         this.pedidoProductosPK = pedidoProductosPK;
     }
 
-    public PedidoProductos(PedidoProductosPK pedidoProductosPK, float cantidad) {
+    public PedidoProductos(PedidoProductosPK pedidoProductosPK, float cantidad, float costo) {
         this.pedidoProductosPK = pedidoProductosPK;
         this.cantidad = cantidad;
+        this.costo = costo;
     }
 
     public PedidoProductos(int idProducto, int idPedido) {
@@ -80,6 +84,14 @@ public class PedidoProductos implements Serializable {
         this.cantidad = cantidad;
     }
 
+    public float getCosto() {
+        return costo;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
+    }
+
     public Productos getProductos() {
         return productos;
     }
@@ -95,14 +107,6 @@ public class PedidoProductos implements Serializable {
     public void setPedidos(Pedidos pedidos) {
         this.pedidos = pedidos;
     }
-
-    public float getCostoTotal() {
-        return costoTotal;
-    }
-
-    public void setCostoTotal(float costoTotal) {
-        this.costoTotal = costoTotal;
-    }    
 
     @Override
     public int hashCode() {

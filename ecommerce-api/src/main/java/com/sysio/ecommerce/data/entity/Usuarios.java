@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
     @NamedQuery(name = "Usuarios.findByIdUsuario", query = "SELECT u FROM Usuarios u WHERE u.idUsuario = :idUsuario"),
     @NamedQuery(name = "Usuarios.findByUsuario", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario"),
-    @NamedQuery(name = "Usuarios.findByContrasena", query = "SELECT u FROM Usuarios u WHERE u.contrasena = :contrasena")})
+    @NamedQuery(name = "Usuarios.findByContrasena", query = "SELECT u FROM Usuarios u WHERE u.contrasena = :contrasena"),
+    @NamedQuery(name = "Usuarios.findByActivo", query = "SELECT u FROM Usuarios u WHERE u.activo = :activo")})
 public class Usuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,6 +55,10 @@ public class Usuarios implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "Contrasena")
     private String contrasena;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Activo")
+    private boolean activo;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private UsuarioRol usuarioRol;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
@@ -68,10 +73,11 @@ public class Usuarios implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuarios(Integer idUsuario, String usuario, String contrasena) {
+    public Usuarios(Integer idUsuario, String usuario, String contrasena, boolean activo) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.contrasena = contrasena;
+        this.activo = activo;
     }
 
     public Integer getIdUsuario() {
@@ -96,6 +102,14 @@ public class Usuarios implements Serializable {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public UsuarioRol getUsuarioRol() {

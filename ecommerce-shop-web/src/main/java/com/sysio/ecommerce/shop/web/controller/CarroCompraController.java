@@ -57,6 +57,14 @@ public class CarroCompraController {
         return json;
     }
 
+    @RequestMapping(value = "/private/compras/limpiarCarro.do", method = RequestMethod.GET, produces = "application/json")
+    public JsonResponseView limpiarCarro(HttpServletRequest request) {
+        JsonResponseView json = new JsonResponseView();
+        List<CarroCompra> car=new ArrayList();
+        request.getSession().setAttribute("productos", car);
+        return json;
+    }
+
     @RequestMapping(value = "/public/compras/verCarro.do", method = RequestMethod.POST, produces = "application/json")
     public List<ProductosCantidad> verCarro(HttpServletRequest request) {
         List<CarroCompra> car = (List<CarroCompra>) request.getSession().getAttribute("productos");

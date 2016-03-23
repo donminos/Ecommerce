@@ -51,6 +51,7 @@ public class ControlPedidosBean {
         pedidosSession.edit(pedido);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Completo",  "El pedido ha pasado a "+pedido.getIdStatus().getEstatus()));
+        this.status=1;
     }
     
 }

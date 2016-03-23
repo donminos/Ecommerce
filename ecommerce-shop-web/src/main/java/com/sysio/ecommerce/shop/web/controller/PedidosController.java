@@ -6,6 +6,7 @@ import com.sysio.ecommerce.data.entity.PedidoProductosPK;
 import com.sysio.ecommerce.data.entity.Pedidos;
 import com.sysio.ecommerce.data.entity.Productos;
 import com.sysio.ecommerce.data.entity.altern.CarroCompra;
+import com.sysio.ecommerce.data.entity.altern.JsonResponseView;
 import com.sysio.ecommerce.data.session.PedidosProductisSessionRemote;
 import com.sysio.ecommerce.data.session.PedidosSessionRemote;
 import com.sysio.ecommerce.data.session.ProductosSessionRemote;
@@ -41,32 +42,36 @@ public class PedidosController {
     UsuariosSessionRemote usuariosSession = lookupUsuariosSessionRemote();
 
     PedidosSessionRemote pedidosSession = lookupPedidosSessionRemote();
-    
-    
 
     @RequestMapping(value = "/create.do", method = RequestMethod.POST, produces = "application/json")
-    public Integer crearPedido(Principal principal,@RequestBody(required = true) List<CarroCompra> carro) {
+    public JsonResponseView crearPedido(Principal principal, @RequestBody(required = true) List<CarroCompra> carro) {
+        JsonResponseView json=new JsonResponseView();
         Pedidos pedido = new Pedidos();
         pedido.setFechaPedido(new Date());
         pedido.setIdStatus(new Estatus(1));
         pedido.setIdUsuario(usuariosSession.findUserForEmail(principal.getName()));
-        Integer id=pedidosSession.crear(pedido);
-        pedido.setIdPedido(id);
-        
-        for (CarroCompra unidad : carro) {
-            Productos articulo=productosSession.find(unidad.getIdproducto());
-            PedidoProductosPK pk=new PedidoProductosPK();
-            pk.setIdProducto(unidad.getIdproducto());
-            pk.setIdPedido(id);
-            PedidoProductos producto = new PedidoProductos();
-            producto.setProductos(articulo);
-            producto.setPedidos(pedido);
-            producto.setCantidad(unidad.getCantidad());
-            producto.setCostoTotal(articulo.getCosto()*unidad.getCantidad());
-            producto.setPedidoProductosPK(pk);
-            pedidosProductosSession.create(producto);
+        try {
+            Integer id = pedidosSession.crear(pedido);
+            pedido.setIdPedido(id);
+            for (CarroCompra unidad : carro) {
+                Productos articulo = productosSession.find(unidad.getIdproducto());
+                PedidoProductosPK pk = new PedidoProductosPK();
+                pk.setIdProducto(unidad.getIdproducto());
+                pk.setIdPedido(id);
+                PedidoProductos producto = new PedidoProductos();
+                producto.setProductos(articulo);
+                producto.setPedidos(pedido);
+                producto.setCantidad(unidad.getCantidad());
+                producto.setCosto(articulo.getCosto() * unidad.getCantidad());
+                producto.setPedidoProductosPK(pk);
+                pedidosProductosSession.create(producto);
+            }
+            json.getResponse().put("idpedido", pedido.getIdPedido());
+        } catch (Exception ex) {
+            pedidosSession.remove(pedido);
+            json.getResponse().put("success",false);
         }
-        return 1;
+        return json;
     }
 
     private PedidosSessionRemote lookupPedidosSessionRemote() {
