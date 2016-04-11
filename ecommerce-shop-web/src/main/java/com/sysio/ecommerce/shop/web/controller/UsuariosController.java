@@ -36,17 +36,13 @@ public class UsuariosController {
     UsuarioRolSessionRemote usuarioRolSession = lookupUsuarioRolSessionRemote();
 
     @RequestMapping(value = "/private/user/name.do", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Usuarios findName(Principal principal, HttpServletRequest request) throws Exception {
+    public JsonResponseView findName(Principal principal, HttpServletRequest request) {
+        JsonResponseView json=new JsonResponseView();
         if (!request.isUserInRole("Cliente")) {
             request.getSession().invalidate();
         }
-        Usuarios user = usuariosSession.findUserForEmail(principal.getName());
-        user.getDatosUsuario().setUsuarios(null);
-        user.getUsuarioRol().setUsuarios(null);
-        user.setContrasena(null);
-        user.getUsuarioRol().getIdRol().setUsuarioRolList(null);
-        user.setPedidosList(null);
-        return user;
+        json.getResponse().put("Nombre", request.getSession().getAttribute("Nombre"));
+        return json;
     }
 
     @RequestMapping(value = "/private/user/logout.do", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,9 +66,12 @@ public class UsuariosController {
     @RequestMapping(value = "/public/user/login.do", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public JsonResponseView login(HttpServletRequest request, Principal principal) {
         JsonResponseView json = new JsonResponseView();
-        if (request.isUserInRole("Cliente") && principal.getName() != null && usuariosSession.findUserForEmail(principal.getName()).getActivo()) {
+        Usuarios user=usuariosSession.findUserForEmail(principal.getName());
+        if (request.isUserInRole("Cliente") && principal.getName() != null && user.getActivo()) {
+            request.getSession().setAttribute("Nombre", user.getDatosUsuario().getNombre()+" "+user.getDatosUsuario().getApellidoPaterno()+" "+user.getDatosUsuario().getApellidoMaterno());
             return json;
         } else {
+            request.getSession().invalidate();
             json.getResponse().put("success", false);
             return json;
         }

@@ -173,8 +173,8 @@ function chargeCatMenu() {
 }
 function sesion() {
     var jqxhr = $.getJSON("/shop/private/user/name.do");
-    jqxhr.done(function (data) {
-        $('.panel-login').html('<div class="name-login">Bienvenido ' + data.datosUsuario.nombre + " " + data.datosUsuario.apellidoPaterno + " " + data.datosUsuario.apellidoMaterno + "</div>\n\
+    jqxhr.success(function (data) {
+        $('.panel-login').html('<div class="name-login">Bienvenido ' + data.response.Nombre + "</div>\n\
         <button class='boton' onclick=$.get('/shop/private/user/logout.do',function(){location.reload();});>salir</button>");
     });
     jqxhr.fail(function (data) {
