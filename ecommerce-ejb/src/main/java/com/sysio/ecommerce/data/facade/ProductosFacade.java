@@ -92,7 +92,6 @@ public class ProductosFacade extends AbstractFacade<Productos> implements Produc
             }
 
         } catch (Exception ex) {
-            log.severe(ex.getMessage());
         }
         return prods;
     }

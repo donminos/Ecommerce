@@ -74,7 +74,6 @@ public class ImageServlet extends HttpServlet {
             ImageIO.write(bi, "jpg", out);
             out.close();
         } catch (Exception ex) {
-            log.log(Level.SEVERE, ex.getMessage());
         }
     }
 

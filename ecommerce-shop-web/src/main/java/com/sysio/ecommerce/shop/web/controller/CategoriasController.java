@@ -58,7 +58,6 @@ public class CategoriasController {
             Context c = new InitialContext();
             return (CategoriasSessionRemote) c.lookup("java:global/ecommerce-ejb/CategoriasSession!com.sysio.ecommerce.data.session.CategoriasSessionRemote");
         } catch (NamingException ne) {
-            log.log(Level.SEVERE, ne.getMessage());
             throw new RuntimeException(ne);
         }
     }

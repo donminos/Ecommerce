@@ -38,7 +38,6 @@ public class ImagesController {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
         } catch (IOException ex) {
-            log.log(Level.SEVERE, ex.getMessage());
         }
     }
 

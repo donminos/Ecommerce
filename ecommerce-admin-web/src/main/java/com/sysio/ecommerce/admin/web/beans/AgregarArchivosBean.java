@@ -100,7 +100,6 @@ public class AgregarArchivosBean implements Serializable {
             FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (Exception ex) {
-            log.severe(ex.getLocalizedMessage());
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed", ex.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
         }

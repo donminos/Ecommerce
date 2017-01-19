@@ -50,7 +50,6 @@ public class PedidosFacade extends AbstractFacade<Pedidos> implements PedidosFac
             query.setParameter("status", status);
             pedidos=query.getResultList();
         } catch (Exception ex) {
-            log.log(Level.SEVERE,ex.getMessage());
         }
         return pedidos;
     }

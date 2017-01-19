@@ -52,7 +52,6 @@ public class EditarSubProductosBean implements Serializable{
         }
         productosSession.AgregarSubProducto(new Productos(idproducto), lstprodu);
         }catch(javax.ejb.EJBTransactionRolledbackException ex){
-            log.log(Level.SEVERE, ex.getMessage());
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pueden repetir sub-productos");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
