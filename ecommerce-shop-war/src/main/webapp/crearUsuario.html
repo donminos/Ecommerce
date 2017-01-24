@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Paper Show</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+    </head>
+    <body>
+        <header>
+        </header>
+        <nav class="flex-list">
+        </nav>
+        <section>
+            <article id="form">
+                <h2>Registrate</h2>
+                <input id="correo" type="text" placeholder="Correo electronico *" class="required email">
+                
+                <input id="name" type="text" placeholder="Nombre *" class="required">
+                
+                <input id="ap" type="text" placeholder="Apellido Paterno *" class="required">
+                
+                <input id="am" type="text" placeholder="Apellido Materno">
+                
+                <input id="cp" type="text" placeholder="Codigo Postal *" maxlength="5" class="required numerico">
+                
+                <input id="estado" type="text" placeholder="Estado *" class="required">
+                
+                <input id="ciudad" type="text" placeholder="Ciudad">
+                
+                <input id="del" type="text" placeholder="Municipio *" class="required">
+                
+                <div id="more"><input id="colonia" type="text" placeholder="Colonia *" class="required"></div>
+                
+                <input id="calle" type="text" placeholder="Calle *" class="required">
+                
+                <input id="numext" type="text" placeholder="Num Ext *" class="required">
+                
+                <input id="numint" type="text" placeholder="Num Int">
+                
+                <input id="rfc" type="text" placeholder="RFC *" class="required rfc"  maxlength="13">
+                
+                <input id="cel" type="text" placeholder="Telefono Celular *" maxlength="10" class="required" onKeypress="return validaNum(event)">
+                                
+                <input id="otro" type="text" placeholder="Telefono Fijo" maxlength="10" onKeypress="return validaNum(event)">
+                
+                <input id="pass1" type="password" placeholder="Contraseña" class="secret">
+                
+                <input id="pass2" type="password" placeholder="Confirmar Contraseña" class="secret">
+                
+                <input id="send" type="button" value="Registrarme">
+            </article>
+        </section>
+        <footer>
+        </footer>
+        <div id="scripts">
+            <link rel="stylesheet" type="text/css" href="resources/css/style.css" media="screen"/>
+            <link rel="stylesheet" type="text/css" href="resources/css/style_responsive.css" media="screen"/>
+            <link rel="stylesheet" href="resources/css/style_menu.css" type="text/css" media="screen">
+            <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+            <script src="resources/js/libs/handlebars-v4.0.5.js"></script>
+            <script src="resources/js/global.js"></script>
+            <script src="resources/js/crearUsuario.js"></script>
+        </div>
+    </body>
+</html>

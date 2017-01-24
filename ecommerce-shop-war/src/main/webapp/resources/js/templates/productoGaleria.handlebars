@@ -1,0 +1,8 @@
+<img id="img_01" class="img-mediana" src="public/images/getimage?image={{responseJSON.imagenesList.0.path}}" data-zoom-image="public/images/getimage?image={{responseJSON.imagenesList.0.path}}"/>
+<div id="gal1">
+{{#each responseJSON.imagenesList}}
+  <a href="#" data-image="public/images/getimage?image={{path}}" data-zoom-image="public/images/getimage?image={{path}}">
+    <img id="img_01" class="img-chica" src="public/images/getimage?image={{path}}" />
+  </a>
+{{/each}}
+</div>

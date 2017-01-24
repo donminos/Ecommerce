@@ -1,0 +1,9 @@
+{{#each responseJSON}}
+    <li class="menuCat"><a id="cat_{{{idCategoria}}}" href="#">{{{nombre}}}</a>
+        <ul class="sub-menu">
+    {{#each categoriasList1}}
+        <li class="menuCat"><a id="cat_{{{idCategoria}}}" href="#">{{{nombre}}}</a></li>
+    {{/each}}
+    </li>
+</ul>
+{{/each}}

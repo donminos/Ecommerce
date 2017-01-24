@@ -1,4 +1,4 @@
-package com.sysio.ecommerce.shop.web.controller;
+package com.sysio.shop.controller;
 
 import com.sysio.ecommerce.data.entity.DatosUsuario;
 import com.sysio.ecommerce.data.entity.UsuarioRol;
@@ -40,7 +40,11 @@ public class UsuariosController {
         if (!request.isUserInRole("Cliente")) {
             request.getSession().invalidate();
         }
-        json.getResponse().put("Nombre", request.getSession().getAttribute("Nombre"));
+        if(request.getSession().getAttribute("Nombre")==null){
+            json.getResponse().put("Nombre", "Anonimo");
+        }else{
+            json.getResponse().put("Nombre", request.getSession().getAttribute("Nombre"));
+        }
         return json;
     }
 
@@ -93,7 +97,7 @@ public class UsuariosController {
     private UsuarioRolSessionRemote lookupUsuarioRolSessionRemote() {
         try {
             Context c = new InitialContext();
-            return (UsuarioRolSessionRemote) c.lookup("java:global/ecommerce-ejb/UsuarioRolSession!com.sysio.ecommerce.data.session.UsuarioRolSessionRemote");
+            return (UsuarioRolSessionRemote) c.lookup("java:global/ecommerce-ejb-1.0/UsuarioRolSession!com.sysio.ecommerce.data.session.UsuarioRolSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -103,7 +107,7 @@ public class UsuariosController {
     private UsuariosSessionRemote lookupUsuariosSessionRemote() {
         try {
             Context c = new InitialContext();
-            return (UsuariosSessionRemote) c.lookup("java:global/ecommerce-ejb/UsuariosSession!com.sysio.ecommerce.data.session.UsuariosSessionRemote");
+            return (UsuariosSessionRemote) c.lookup("java:global/ecommerce-ejb-1.0/UsuariosSession!com.sysio.ecommerce.data.session.UsuariosSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
