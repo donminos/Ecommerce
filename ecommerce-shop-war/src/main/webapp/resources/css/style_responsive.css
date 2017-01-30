@@ -1,0 +1,54 @@
+/* 
+    Created on : 17/02/2016, 11:35:54 PM
+    Author     : Carlos Cesar Rosas<face_less@hotmail.com>
+*/
+@media screen and (max-width:1300px){
+    .sectionProd.galeria{
+        margin-left: 0%;
+        width: 33%;
+    }
+}
+@media screen and (max-width:920px){
+    .sectionProd{
+        float:none;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 767px){
+    #menuCat{
+        display: none;
+    }
+}
+@media screen and (max-width: 640px){
+    li.carro-compra{
+        float:none;
+    }
+    div.name-login{
+        display: none;
+    }
+    .buscador{
+        display: none;
+    }
+    .foot {
+        display: table;
+        height: 40px;
+        text-align: center;
+        width: 100%;
+    }
+    .fist-item-footer{
+        padding-left: 0px !important;
+    }    
+    .foot > li {
+        padding-bottom: 5px;
+        padding-top: 5px;
+        display: list-item;
+    }    
+    hr.separatorFooter {
+        height: 2px;
+        margin-top: 0;
+    }
+    hr {
+        height: 5px;
+        margin-top: 0;
+    }
+}
