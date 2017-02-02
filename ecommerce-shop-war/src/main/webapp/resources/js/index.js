@@ -30,6 +30,9 @@ function chargeProd(id, items, param) {
         data: JSON.stringify(param),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        headers:{
+            "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+        },
         success: function (data) {
             var postulantsList = prodStruct(data.response.Productos);
             $(id).html(postulantsList);

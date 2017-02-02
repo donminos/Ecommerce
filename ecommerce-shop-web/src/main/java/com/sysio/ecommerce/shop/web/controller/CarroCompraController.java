@@ -3,7 +3,6 @@ package com.sysio.ecommerce.shop.web.controller;
 import com.sysio.ecommerce.data.entity.Imagenes;
 import com.sysio.ecommerce.data.entity.Productos;
 import com.sysio.ecommerce.data.entity.altern.CarroCompra;
-import com.sysio.ecommerce.data.entity.altern.JsonResponseView;
 import com.sysio.ecommerce.data.entity.altern.ProductosCantidad;
 import com.sysio.ecommerce.data.session.ImagenesSessionRemote;
 import com.sysio.ecommerce.data.session.ProductosSessionRemote;
@@ -96,7 +95,7 @@ public class CarroCompraController {
     private ProductosSessionRemote lookupProductosSessionRemote() {
         try {
             Context c = new InitialContext();
-            return (ProductosSessionRemote) c.lookup("java:global/ecommerce-ejb/ProductosSession!com.sysio.ecommerce.data.session.ProductosSessionRemote");
+            return (ProductosSessionRemote) c.lookup("java:global/ecommerce-ejb-1.0/ProductosSession!com.sysio.ecommerce.data.session.ProductosSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -106,7 +105,7 @@ public class CarroCompraController {
     private ImagenesSessionRemote lookupImagenesSessionRemote() {
         try {
             Context c = new InitialContext();
-            return (ImagenesSessionRemote) c.lookup("java:global/ecommerce-ejb/ImagenesSession!com.sysio.ecommerce.data.session.ImagenesSessionRemote");
+            return (ImagenesSessionRemote) c.lookup("java:global/ecommerce-ejb-1.0/ImagenesSession!com.sysio.ecommerce.data.session.ImagenesSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

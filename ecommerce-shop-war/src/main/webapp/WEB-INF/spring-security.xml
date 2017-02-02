@@ -21,7 +21,7 @@
     -->
      
     <security:http realm="Application Realm" auto-config="true" use-expressions="false">
-        <security:csrf disabled="true"/>
+        <security:csrf disabled="false"/>
         <security:intercept-url pattern="/user/**" access="ROLE_USER"/>
         <security:form-login login-page="/index.jsp" default-target-url="/private/"
                              authentication-failure-url="/error.html" />

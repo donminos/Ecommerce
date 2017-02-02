@@ -3,7 +3,6 @@ package com.sysio.ecommerce.shop.web.controller;
 import com.sysio.ecommerce.data.entity.DatosUsuario;
 import com.sysio.ecommerce.data.entity.UsuarioRol;
 import com.sysio.ecommerce.data.entity.Usuarios;
-import com.sysio.ecommerce.data.entity.altern.JsonResponseView;
 import com.sysio.ecommerce.data.entity.altern.UsuariosDatosJsonView;
 import com.sysio.ecommerce.data.session.UsuarioRolSessionRemote;
 import com.sysio.ecommerce.data.session.UsuariosSessionRemote;
@@ -94,7 +93,7 @@ public class UsuariosController {
     private UsuarioRolSessionRemote lookupUsuarioRolSessionRemote() {
         try {
             Context c = new InitialContext();
-            return (UsuarioRolSessionRemote) c.lookup("java:global/ecommerce-ejb/UsuarioRolSession!com.sysio.ecommerce.data.session.UsuarioRolSessionRemote");
+            return (UsuarioRolSessionRemote) c.lookup("java:global/ecommerce-ejb-1.0/UsuarioRolSession!com.sysio.ecommerce.data.session.UsuarioRolSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -104,7 +103,7 @@ public class UsuariosController {
     private UsuariosSessionRemote lookupUsuariosSessionRemote() {
         try {
             Context c = new InitialContext();
-            return (UsuariosSessionRemote) c.lookup("java:global/ecommerce-ejb/UsuariosSession!com.sysio.ecommerce.data.session.UsuariosSessionRemote");
+            return (UsuariosSessionRemote) c.lookup("java:global/ecommerce-ejb-1.0/UsuariosSession!com.sysio.ecommerce.data.session.UsuariosSessionRemote");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

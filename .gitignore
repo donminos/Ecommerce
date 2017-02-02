@@ -1,0 +1,6 @@
+/ecommerce-ejb-hibernate/target/
+/ecommerce-ejb/target/
+/ecommerce-api/target/*
+/ecommerce-admin-web/target/
+/ecommerce-shop-war/target/
+/ecommerce-shop-web/target/
